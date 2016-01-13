@@ -1,0 +1,1 @@
+A simple path tracer implementation using C++11. Uses GLM for math.
