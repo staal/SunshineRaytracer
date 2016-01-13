@@ -4,7 +4,6 @@
 #include <math.h>
 #include "glm/glm.hpp"
 
-
 namespace staal {
 
 #define PI 3.14159265f
@@ -12,6 +11,7 @@ namespace staal {
 class Ray {
 public:
     Ray(glm::vec3 &o, glm::vec3 &d)
+        : sign{}
     {
         origin = o;
         direction = d;

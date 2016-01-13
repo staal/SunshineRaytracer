@@ -45,7 +45,6 @@ void ObjFile::processMTLLib(std::string filename)
 
     while (input.good() && getline(input, line)) {
 
-
         if (line.find("#") == 0) //First char is a comment symbol
         {
             continue; //Comment
@@ -60,7 +59,7 @@ void ObjFile::processMTLLib(std::string filename)
             mMaterials.push_back(std::move(mat));
         }
 
-        else if (line.find("Ka") == 0) {
+        else if (line.find("Ka") == 0 && currentGenMat) {
             std::stringstream ss(line);
             vec3 color;
             char c;
@@ -68,7 +67,7 @@ void ObjFile::processMTLLib(std::string filename)
             currentGenMat->Ka = color;
         }
 
-        else if (line.find("Kd") == 0) {
+        else if (line.find("Kd") == 0 && currentGenMat) {
             std::stringstream ss(line);
             vec3 color;
             char c;
@@ -76,15 +75,15 @@ void ObjFile::processMTLLib(std::string filename)
             currentGenMat->Kd = color;
         }
 
-        else if (line.find("Ks") == 0) {
+        else if (line.find("Ks") == 0 && currentGenMat) {
             std::stringstream ss(line);
             vec3 color;
             char c;
             ss >> c >> c >> color.r >> color.g >> color.b;
             currentGenMat->Ks = color;
-        }
+       } 
 
-        else if (line.find("Ns") == 0) {
+        else if (line.find("Ns") == 0 && currentGenMat) {
             std::stringstream ss(line);
             char c;
             ss >> c >> c >> currentGenMat->Ns;
@@ -114,44 +113,37 @@ void ObjFile::load(std::string objFileName)
 
         else if (line.size() > 0 && line.at(0) == 'o') {
 
-        }
-        else if (line.find("vn") == 0) {
+        } else if (line.find("vn") == 0) {
             //Vertex normal
             std::stringstream ss(line);
             vec3 n;
             char c;
             ss >> c >> c >> n.x >> n.y >> n.z;
             normals.push_back(n);
-        }
-        else if (line.find("vt") == 0) {
+        } else if (line.find("vt") == 0) {
             //vertex texture
-        }
-        else if (line.find("v") == 0) {
+        } else if (line.find("v") == 0) {
             //Vertex    
             std::stringstream ss(line);
             vec3 v;
             char c;
             ss >> c >> v.x >> v.y >> v.z;
             vertices.push_back(v);
-        }
-        else if (line.find("f") == 0) {
+        } else if (line.find("f") == 0) {
             //Face
             mSurfaces.push_back(std::move(processFace(line, vertices, normals)));
-        }
-        else if (line.find("mtllib") == 0) {
+        } else if (line.find("mtllib") == 0) {
             std::string mtlName = line.substr(7); //After "mtllib " (7)
 
             processMTLLib(mtlName);
-        }
-        else if (line.find("usemtl") == 0) {
+        } else if (line.find("usemtl") == 0) {
             std::string mtlName = line.substr(7); //After "usemtl " (7)
 
             std::map<std::string, Material*>::iterator it;
             it = mMatDict.find(mtlName);
             if (it == mMatDict.end()) {
                 throw "Error - Material not found";
-            }
-            else {
+            } else {
                 currentMaterial = it->second;
             }
         }

@@ -28,9 +28,8 @@ void LightSource::generatePoint(HitRecord& rec, float* pdf, RNG* rng)
 {
     float r = rng->GetRandom01();
 
-    float u, v;
-    u = rng->GetRandom01();
-    v = rng->GetRandom01();
+    float u = rng->GetRandom01(); 
+    float v = rng->GetRandom01();
 
     if (u + v >= 1.0f) {
         u = 1.0f - u;
