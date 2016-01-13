@@ -1,9 +1,5 @@
 project (SPTracer)
 
-include_directories(${GLM_INCLUDE_DIRS})
-link_directories(${GLM_LIBRARY_DIRS})
-add_definitions(${GLM_DEFINITIONS})
-
 set(SOURCES
         io/tgafile.h
         io/tgafile.cpp
@@ -33,7 +29,10 @@ set(SOURCES
         rng.h
         rng.cpp
         main.cpp)
-  
-
+        
+       
 add_executable(SPTracer ${SOURCES})
+message("${PROJECT_NAME}")
+target_include_directories(SPTracer PUBLIC  ${GLM_INCLUDE_DIRS})
+
 create_vs_folders()
