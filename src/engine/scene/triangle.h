@@ -3,7 +3,7 @@
 
 #include "surface.h"
 
-namespace staal {
+namespace sunshine {
 
 struct Vertex {
     glm::vec3 v;
@@ -21,5 +21,5 @@ public:
 };
 
 
-} // namespace staal
+} // namespace sunshine
 #endif // !TRIANGLE_H_

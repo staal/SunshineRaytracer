@@ -1,6 +1,6 @@
 #include "Triangle.h"
 
-namespace staal {
+namespace sunshine {
 
 Triangle::Triangle(Vertex v1, Vertex v2, Vertex v3, Material* mat)
 {
@@ -98,4 +98,4 @@ Box Triangle::boundingBox()
 }
 
 
-} // namespace staal
+} // namespace sunshine

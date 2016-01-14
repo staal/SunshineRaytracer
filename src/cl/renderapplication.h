@@ -5,7 +5,7 @@
 #include "engine/scene.h"
 #include "engine/scenegraph.h"
 
-namespace staal {
+namespace sunshine {
 
 class RenderApplication {
 public:
@@ -24,5 +24,5 @@ private:
 };
 
 
-} // namespace staal
+} // namespace sunshine
 #endif // !RENDER_APPLICATION_H_

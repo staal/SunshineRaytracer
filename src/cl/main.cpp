@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     std::string configFileName = argv[1];
 
 
-    staal::RenderApplication app;
+    sunshine::RenderApplication app;
     std::cout << "Loading scene: " << configFileName << std::endl;
     app.loadScene(configFileName);
 
@@ -32,9 +32,7 @@ int main(int argc, char *argv[])
 
     std::cout << "Render complete, time spent: " << elapsedTime.count() << "s" << std::endl;
     std::cout << "Render complete, time spent: " << elapsedTimeMS.count() << "micro seconds" << std::endl;
-    //std::cout << "Rays used : " << app.rays() << std::endl;
-    //std::cout << "Rays pr sec: " << app.rays()  * 1000000.0f / elapsedTimeMS.count() << std::endl;
-
+    
     //Store image
     app.saveImage();
     

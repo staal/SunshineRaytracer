@@ -7,7 +7,7 @@
 #include "surface.h"
 #include "triangle.h"
 
-namespace staal {
+namespace sunshine {
 
 class LightSource {
 public:
@@ -21,6 +21,6 @@ private:
 };
 
 
-} // namespace staal
+} // namespace sunshine
 #endif // !LIGHT_SOURCE_H_
 

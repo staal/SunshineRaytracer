@@ -4,7 +4,7 @@
 #include <math.h>
 #include <iostream>
 
-namespace staal {
+namespace sunshine {
 
 #define DEBUG 1
 #define NUM_SHADOW_RAYS 1
@@ -254,4 +254,4 @@ vec3 PathTracer::Phong_BRDF(vec3 x, vec3 Nx, vec3 outDir, vec3 inDir, Material* 
 }
 
 
-} // namespace staal
+} // namespace sunshine

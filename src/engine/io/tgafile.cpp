@@ -3,7 +3,7 @@
 #include <fstream>
 #include "tgafile.h"
 
-namespace staal {
+namespace sunshine {
 
 /*
 Official Targa File header, should be 18 bytes long
@@ -225,4 +225,4 @@ bool TgaFile::save(std::string filename, const Image & image)
     return true;
 }
 
-} // namespace staal
+} // namespace sunshine

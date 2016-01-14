@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-namespace staal {
+namespace sunshine {
 
 using namespace glm;
 
@@ -60,4 +60,4 @@ Ray Camera::getRay(float x, float y)
     return Ray(org, dir);
 }
 
-} // namespace staal
+} // namespace sunshine

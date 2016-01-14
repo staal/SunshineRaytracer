@@ -1,6 +1,6 @@
 #include "LightSource.h"
 
-namespace staal {
+namespace sunshine {
 
 LightSource::LightSource(Triangle* t1, Triangle* t2)
 {
@@ -51,4 +51,4 @@ void LightSource::generatePoint(HitRecord& rec, float* pdf, RNG* rng)
     *pdf = mPdf[index];
 }
 
-} // namespace staal
+} // namespace sunshine

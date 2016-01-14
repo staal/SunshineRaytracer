@@ -4,7 +4,7 @@
 #include <math.h>
 #include "glm/glm.hpp"
 
-namespace staal {
+namespace sunshine {
 
 #define PI 3.14159265f
 
@@ -36,5 +36,5 @@ public:
 };
 
 
-} // namespace staal
+} // namespace sunshine
 #endif // !RAY_UTIL_H_

@@ -2,7 +2,7 @@
 #include "bvh.h"
 #include "triangle.h"
 
-namespace staal {
+namespace sunshine {
 
 Box Bvh::boundingBox()
 {
@@ -147,4 +147,4 @@ bool Bvh::hit(const Ray& r, float t0, float t1, HitRecord& rec)
     return false;
 }
 
-} // namespace staal
+} // namespace sunshine

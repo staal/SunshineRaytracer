@@ -3,7 +3,7 @@
 #include <iostream>
 #include <iterator>
 
-namespace staal {
+namespace sunshine {
 
 using namespace glm;
 
@@ -86,4 +86,4 @@ void SceneGraph::clear()
 }
 
 
-} // namespace staal
+} // namespace sunshine

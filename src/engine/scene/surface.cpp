@@ -1,7 +1,7 @@
 #include "surface.h"
 
 
-namespace staal {
+namespace sunshine {
 
 Surface::Surface()
 {}
@@ -49,4 +49,4 @@ bool Box::hit(const Ray& r, float t0, float t1)
     return ((tmin < t1) && (tmax > t0));
 }
 
-} // namespace staal
+} // namespace sunshine

@@ -2,7 +2,7 @@
 #include <fstream>
 #include "scene.h"
 
-namespace staal {
+namespace sunshine {
 
 Scene::Scene()
     : seed(0), recursionDepth(0), samplesPerPixel(0), width(800), height(800), absorbtion(1.0f),
@@ -65,4 +65,4 @@ void Scene::loadScene(std::string sceneFile)
         else throw "File parse exception";
     }
 }
-} // namespace staal
+} // namespace sunshine

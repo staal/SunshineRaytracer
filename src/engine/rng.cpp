@@ -2,7 +2,7 @@
 #include <random>
 #include "rng.h"
 
-namespace staal {
+namespace sunshine {
 
 RNG::RNG(unsigned int seed) : generator(seed)
 {}
@@ -21,4 +21,4 @@ float RNG::GetRandom01()
     return distribution(generator);
 }
 
-} // namespace staal
+} // namespace sunshine

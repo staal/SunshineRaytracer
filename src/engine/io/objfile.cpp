@@ -2,7 +2,7 @@
 #include <sstream>
 #include "objfile.h"
 
-namespace staal {
+namespace sunshine {
 
 using namespace glm;
 

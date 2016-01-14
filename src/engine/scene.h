@@ -4,7 +4,7 @@
 #include <string>
 #include "glm/glm.hpp"
 
-namespace staal {
+namespace sunshine {
 
 class Scene
 {
@@ -35,5 +35,5 @@ public:
 };
 
 
-} // namespace staal
+} // namespace sunshine
 #endif // !SCENE_H_

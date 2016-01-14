@@ -4,7 +4,7 @@
 #include <vector>
 #include "glm/glm.hpp"
 
-namespace staal {
+namespace sunshine {
 
 using RGBA = glm::vec4;
 using RGB = glm::vec3;
@@ -37,5 +37,5 @@ private:
 };
 
 
-} // namespace staal
+} // namespace sunshine
 #endif // !IMAGE_H_

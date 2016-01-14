@@ -7,7 +7,7 @@
 #include "scenegraph.h"
 #include "rng.h"
 
-namespace staal {
+namespace sunshine {
 
 class PathTracer {
 public:
@@ -32,5 +32,5 @@ private:
 };
 
 
-} // namespace staal
+} // namespace sunshine
 #endif // !PATH_TRACER_H_

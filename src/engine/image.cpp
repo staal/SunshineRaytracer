@@ -1,6 +1,6 @@
 #include "image.h"
 
-namespace staal {
+namespace sunshine {
 
 Image::Image(unsigned width, unsigned height, bool alpha)
     : data(std::vector<RGBA>(width*height)), mWidth(width), mHeight(height), mAlpha(alpha)
@@ -98,4 +98,4 @@ bool Image::hasAlpha() const
 }
 
 
-} // namespace staal
+} // namespace sunshine

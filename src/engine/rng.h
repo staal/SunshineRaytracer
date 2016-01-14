@@ -3,7 +3,7 @@
 
 #include <random>
 
-namespace staal {
+namespace sunshine {
 
 class RNG {
 public:
@@ -19,6 +19,6 @@ private:
 };
 
 
-} // namespace staal
+} // namespace sunshine
 #endif // !RNG_H_
 

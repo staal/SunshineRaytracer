@@ -7,7 +7,7 @@
 #include "engine/pathtracer.h"
 #include "renderapplication.h"
 
-namespace staal {
+namespace sunshine {
 
 using namespace glm;
 
@@ -49,4 +49,4 @@ void RenderApplication::saveImage()
 }
 
 
-} // namespace staal
+} // namespace sunshine

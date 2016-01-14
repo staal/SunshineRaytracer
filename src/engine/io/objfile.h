@@ -7,7 +7,7 @@
 #include "../scene/surface.h"
 #include "../scene/triangle.h"
 
-namespace staal {
+namespace sunshine {
 
 class ObjFile {
 public:
@@ -31,5 +31,5 @@ private:
 };
 
 
-} // namespace staal
+} // namespace sunshine
 #endif // !OBJ_FILE_H_

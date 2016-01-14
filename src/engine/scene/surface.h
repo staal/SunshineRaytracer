@@ -6,7 +6,7 @@
 #include "glm/glm.hpp"
 #include "../rayutil.h"
 
-namespace staal {
+namespace sunshine {
 
 
 class Material {
@@ -60,5 +60,5 @@ public:
 using Surfaces = std::vector<std::unique_ptr<Surface>>;
 using Materials = std::vector<std::unique_ptr<Material>>;
 
-} // namespace staal
+} // namespace sunshine
 #endif // !SURFACE_H_

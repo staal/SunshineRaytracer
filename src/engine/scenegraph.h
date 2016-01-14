@@ -5,7 +5,7 @@
 #include "scene/lightsource.h"
 #include "scene/surface.h"
 
-namespace staal {
+namespace sunshine {
 
 class SceneGraph {
 public:
@@ -31,5 +31,5 @@ private:
 };
 
 
-} // namespace staal
+} // namespace sunshine
 #endif // !SCENE_GRAPH_H_

@@ -4,7 +4,7 @@
 #include <memory>
 #include "surface.h"
 
-namespace staal {
+namespace sunshine {
 
 enum class Axis {
     X, Y, Z
@@ -26,5 +26,5 @@ private:
 };
 
 
-} // namespace staal
+} // namespace sunshine
 #endif // !BVH_NODE_H_

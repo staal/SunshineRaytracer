@@ -5,7 +5,7 @@
 #include <string>
 #include "../image.h"
 
-namespace staal {
+namespace sunshine {
 
 class TgaFile {
 public:
@@ -21,5 +21,5 @@ private:
 };
 
 
-} // namespace staal
+} // namespace sunshine
 #endif // !TGA_FILE_H_

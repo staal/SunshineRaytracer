@@ -3,7 +3,7 @@
 
 #include "../rayutil.h"
 
-namespace staal {
+namespace sunshine {
 
 class Camera {
 public:
@@ -21,5 +21,5 @@ private:
 };
 
 
-} // namespace staal
+} // namespace sunshine
 #endif // !CAMERA_H_
