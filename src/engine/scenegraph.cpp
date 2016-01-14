@@ -1,5 +1,4 @@
 #include "scenegraph.h"
-#include "renderapplication.h"
 
 #include <iostream>
 #include <iterator>

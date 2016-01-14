@@ -1,9 +1,9 @@
 #ifndef RENDER_APPLICATION_H_
 #define RENDER_APPLICATION_H_
 
-#include "image.h"
-#include "scene.h"
-#include "scenegraph.h"
+#include "engine/image.h"
+#include "engine/scene.h"
+#include "engine/scenegraph.h"
 
 namespace staal {
 

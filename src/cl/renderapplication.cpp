@@ -1,11 +1,11 @@
 #include <math.h>
 #include <iostream>
 
-#include "io/tgafile.h"
-#include "io/objfile.h"
+#include "engine/io/tgafile.h"
+#include "engine/io/objfile.h"
+#include "engine/scenegraph.h"
+#include "engine/pathtracer.h"
 #include "renderapplication.h"
-#include "scenegraph.h"
-#include "pathtracer.h"
 
 namespace staal {
 
