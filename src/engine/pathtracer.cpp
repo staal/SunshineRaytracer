@@ -3,6 +3,7 @@
 
 #include <math.h>
 #include <iostream>
+#include "engineversion.h"
 
 namespace sunshine {
 
@@ -46,6 +47,11 @@ void PathTracer::render()
             mImage->setPixel(x, y, color);
         }
     }
+}
+
+const std::string PathTracer::getVersion()
+{
+    return engineVersion;
 }
 
 /*

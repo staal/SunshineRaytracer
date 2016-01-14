@@ -1,0 +1,16 @@
+// CMAKE configurations
+// Read only, the variables are set through CMAKE in clconfig.h.in.
+#ifndef CL_CONFIG_H_
+#define CL_CONFIG_H_
+
+#include <string>
+
+namespace sunshine {
+
+const std::string clVersion = "@PROJECT_VERSION@";
+const unsigned clVersionMajor = @PROJECT_VERSION_MAJOR@;
+const unsigned clVersionMinor = @PROJECT_VERSION_MINOR@;
+const unsigned clVersionPatch = @PROJECT_VERSION_PATCH@;
+
+} // namespace sunshine
+#endif // !CL_CONFIG_H_

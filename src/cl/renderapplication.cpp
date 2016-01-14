@@ -38,7 +38,7 @@ void RenderApplication::loadScene(std::string sceneFile)
 void RenderApplication::renderScene()
 {
     PathTracer renderer(mImage, &mSceneGraph, &mScene);
-
+    std::cout << "Using Sunshine Ray Tracer(SRT) engine version " << renderer.getVersion() << std::endl;
     renderer.render();
 }
 
