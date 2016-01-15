@@ -5,6 +5,8 @@
 
 namespace sunshine {
 
+
+// *****************************************************************************
 /*
 Official Targa File header, should be 18 bytes long
 */
@@ -29,13 +31,19 @@ struct TgaHeader {
     uint8_t  imageDescriptor;
 };
 
+
+// *****************************************************************************
 TgaFile::TgaFile()
     : mImage(nullptr)
 {}
 
+
+// *****************************************************************************
 TgaFile::~TgaFile()
 {}
 
+
+// *****************************************************************************
 bool TgaFile::load(std::string filename)
 {
     TgaHeader header;
@@ -118,11 +126,15 @@ bool TgaFile::load(std::string filename)
     return true;
 }
 
+
+// *****************************************************************************
 std::unique_ptr<Image> TgaFile::getImage()
 {
     return std::move(mImage);
 }
 
+
+// *****************************************************************************
 bool TgaFile::save(std::string filename, const Image & image)
 {
     TgaHeader header;
@@ -149,7 +161,8 @@ bool TgaFile::save(std::string filename, const Image & image)
     header.imageDescriptor = 0;
 
 
-    std::ofstream output(filename, std::ofstream::binary | std::ofstream::trunc);
+    std::ofstream output(filename, 
+        std::ofstream::binary | std::ofstream::trunc);
 
     if (!output.good()) {
         return false;

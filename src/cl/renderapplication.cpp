@@ -11,14 +11,20 @@ namespace sunshine {
 
 using namespace glm;
 
+// ***********************************
 RenderApplication::RenderApplication()
+// ***********************************
     : mScene()
 {}
 
+// ************************************
 RenderApplication::~RenderApplication()
+// ************************************
 {}
 
+// *****************************************************
 void RenderApplication::loadScene(std::string sceneFile)
+// *****************************************************
 {
     mScene.loadScene(sceneFile);
 
@@ -35,7 +41,9 @@ void RenderApplication::loadScene(std::string sceneFile)
     mSceneGraph.addMesh(std::move(surfaces), std::move(mats));
 }
 
+// **********************************
 void RenderApplication::renderScene()
+// **********************************
 {
     PathTracer renderer(mImage, &mSceneGraph, &mScene);
     std::cout << "Using Sunshine Ray Tracer(SRT) engine version " << renderer.getVersion() << std::endl;

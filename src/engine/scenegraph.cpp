@@ -7,25 +7,33 @@ namespace sunshine {
 
 using namespace glm;
 
+
+// *****************************************************************************
 SceneGraph::SceneGraph()
     : mEpsilon(0.0f), numNodes(0), mRoot(nullptr), mLight(nullptr)
 {}
 
 
+// *****************************************************************************
 SceneGraph::~SceneGraph()
 {}
 
+
+// *****************************************************************************
 void SceneGraph::setEpsilon(float epsilon)
 {
     this->mEpsilon = epsilon;
 }
 
 
+// *****************************************************************************
 LightSource* SceneGraph::getLight()
 {
     return mLight.get();
 }
 
+
+// *****************************************************************************
 bool SceneGraph::visible(HitRecord &recX, HitRecord &recY)
 {
     HitRecord rec;
@@ -35,6 +43,8 @@ bool SceneGraph::visible(HitRecord &recX, HitRecord &recY)
     return !hit(ray, this->mEpsilon, length(dir) - this->mEpsilon, rec);
 }
 
+
+// *****************************************************************************
 bool SceneGraph::hit(const Ray& r, const float t0, const float t1, HitRecord &rec)
 {
     if (mRoot)
@@ -42,6 +52,8 @@ bool SceneGraph::hit(const Ray& r, const float t0, const float t1, HitRecord &re
     return false;
 }
 
+
+// *****************************************************************************
 void SceneGraph::addMesh(Surfaces surfaces, Materials mats)
 {
     std::move(surfaces.begin(), surfaces.end(), std::back_inserter(mSurfaces));

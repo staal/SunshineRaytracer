@@ -2,6 +2,8 @@
 
 namespace sunshine {
 
+
+// *****************************************************************************
 LightSource::LightSource(Triangle* t1, Triangle* t2)
 {
     int numTriangles = 2; //Support for more than 2 later :-)
@@ -20,10 +22,12 @@ LightSource::LightSource(Triangle* t1, Triangle* t2)
 }
 
 
+// *****************************************************************************
 LightSource::~LightSource()
 {}
 
 
+// *****************************************************************************
 void LightSource::generatePoint(HitRecord& rec, float* pdf, RNG* rng)
 {
     float r = rng->GetRandom01();

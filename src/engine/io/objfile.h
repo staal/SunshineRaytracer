@@ -9,6 +9,10 @@
 
 namespace sunshine {
 
+//! A Wavefront OBJ file class. 
+/*!
+  A more elaborate class description.
+*/
 class ObjFile {
 public:
     ObjFile();

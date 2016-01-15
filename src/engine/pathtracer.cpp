@@ -13,17 +13,24 @@ namespace sunshine {
 
 using namespace glm;
 
-PathTracer::PathTracer(std::shared_ptr<Image> image, SceneGraph* sceneGraph, Scene* scene)
-    : mImage(image), mScene(scene), mSceneGraph(sceneGraph), mRng(0),
-    mCamera(Camera(scene->cameraPosition, scene->cameraViewDirection, scene->cameraUp, scene->cameraFov, scene->width, scene->height))
+
+// *****************************************************************************
+PathTracer::PathTracer(std::shared_ptr<Image> image, SceneGraph* sceneGraph,
+    Scene* scene) :
+    mImage(image), mScene(scene), mSceneGraph(sceneGraph), mRng(0),
+    mCamera(Camera(scene->cameraPosition, scene->cameraViewDirection,
+    scene->cameraUp, scene->cameraFov, scene->width, scene->height))
 {
     mRng.seed(scene->seed);
 }
 
-PathTracer::~PathTracer(void)
+
+// *****************************************************************************
+PathTracer::~PathTracer()
 {}
 
 
+// *****************************************************************************
 /*
 Compute the entire image,
 samples : Number of samples per pixel
@@ -49,11 +56,15 @@ void PathTracer::render()
     }
 }
 
+
+// *****************************************************************************
 const std::string PathTracer::getVersion()
 {
     return engineVersion;
 }
 
+
+// *****************************************************************************
 /*
 Computes the flux for a given pixel
 x, y : pixel coordinate on the image plane
@@ -78,6 +89,7 @@ vec3 PathTracer::pixelColor(float x, float y, int samples)
 }
 
 
+// *****************************************************************************
 vec3 PathTracer::rad(const Ray &r, float t0, float t1)
 {
     HitRecord rec;
@@ -94,6 +106,7 @@ vec3 PathTracer::rad(const Ray &r, float t0, float t1)
 }
 
 
+// *****************************************************************************
 /*
 Compute radiance in direction @theta at point @recX
 */
@@ -106,6 +119,8 @@ vec3 PathTracer::computeRadiance(HitRecord &recX, vec3 theta, int bounces)
     return dir + ind;
 }
 
+
+// *****************************************************************************
 vec3 PathTracer::directIllumination(HitRecord &recX, vec3 theta)
 {
     vec3 estimatedRadiance(0.0f);
@@ -137,6 +152,8 @@ vec3 PathTracer::directIllumination(HitRecord &recX, vec3 theta)
     return estimatedRadiance * invRaySum;
 }
 
+
+// *****************************************************************************
 vec3 generateHemisphereDirection(vec3 &normal, float* pdf, RNG* rng)
 {
     //sample hemisphere
@@ -176,6 +193,8 @@ vec3 generateHemisphereDirection(vec3 &normal, float* pdf, RNG* rng)
     return psi;
 }
 
+
+// *****************************************************************************
 vec3 PathTracer::indirectIllumination(HitRecord &recX, vec3 theta, int bounces)
 {
     vec3 estimatedRadiance(0.0f);
@@ -208,8 +227,7 @@ vec3 PathTracer::indirectIllumination(HitRecord &recX, vec3 theta, int bounces)
             vec3 radiance;
             if (mSceneGraph->hit(r, mScene->epsilon, std::numeric_limits<float>::infinity(), recY)) {
                 radiance = computeRadiance(recY, -psi, ++bounces);
-            }
-            else {
+            } else {
                 radiance = recX.surface->material->Ka;
             }
 
@@ -224,6 +242,7 @@ vec3 PathTracer::indirectIllumination(HitRecord &recX, vec3 theta, int bounces)
 }
 
 
+// *****************************************************************************
 /*
 Compute the radiance transfer G(x,y)V(x,y)
 */
@@ -244,6 +263,7 @@ float PathTracer::radianceTransfer(HitRecord &recX, HitRecord &recY)
 }
 
 
+// *****************************************************************************
 vec3 PathTracer::Phong_BRDF(vec3 x, vec3 Nx, vec3 outDir, vec3 inDir, Material* surfaceMat)
 {
     //Modified blinn phong (p 39 AGI)

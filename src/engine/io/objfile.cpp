@@ -6,13 +6,18 @@ namespace sunshine {
 
 using namespace glm;
 
+
+// *****************************************************************************
 ObjFile::ObjFile()
 {}
 
 
+// *****************************************************************************
 ObjFile::~ObjFile()
 {}
 
+
+// *****************************************************************************
 std::unique_ptr<Triangle> ObjFile::processFace(std::string line,
     const std::vector<glm::vec3> vertices, const std::vector<glm::vec3> normals)
 {
@@ -37,6 +42,8 @@ std::unique_ptr<Triangle> ObjFile::processFace(std::string line,
     return std::make_unique<Triangle>(v1, v2, v3, currentMaterial);
 }
 
+
+// *****************************************************************************
 void ObjFile::processMTLLib(std::string filename)
 {
     std::ifstream input(filename);
@@ -81,7 +88,7 @@ void ObjFile::processMTLLib(std::string filename)
             char c;
             ss >> c >> c >> color.r >> color.g >> color.b;
             currentGenMat->Ks = color;
-       } 
+        }
 
         else if (line.find("Ns") == 0 && currentGenMat) {
             std::stringstream ss(line);
@@ -92,6 +99,7 @@ void ObjFile::processMTLLib(std::string filename)
 }
 
 
+// *****************************************************************************
 void ObjFile::load(std::string objFileName)
 {
     mSurfaces.clear();
@@ -131,7 +139,9 @@ void ObjFile::load(std::string objFileName)
             vertices.push_back(v);
         } else if (line.find("f") == 0) {
             //Face
-            mSurfaces.push_back(std::move(processFace(line, vertices, normals)));
+            mSurfaces.emplace_back(
+                std::move(processFace(line, vertices, normals))
+                );
         } else if (line.find("mtllib") == 0) {
             std::string mtlName = line.substr(7); //After "mtllib " (7)
 

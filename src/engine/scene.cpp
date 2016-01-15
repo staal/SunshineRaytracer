@@ -4,6 +4,8 @@
 
 namespace sunshine {
 
+
+// *****************************************************************************
 Scene::Scene()
     : seed(0), recursionDepth(0), samplesPerPixel(0), width(800), height(800), absorbtion(1.0f),
     epsilon(0.0005f), outFile(""), objFile(""), cameraViewDirection(glm::vec3(0.0)),
@@ -11,9 +13,12 @@ Scene::Scene()
 {}
 
 
+// *****************************************************************************
 Scene::~Scene()
 {}
 
+
+// *****************************************************************************
 void Scene::loadScene(std::string sceneFile)
 {
     //Simple file parser

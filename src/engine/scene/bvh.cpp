@@ -4,11 +4,15 @@
 
 namespace sunshine {
 
+
+// *****************************************************************************
 Box Bvh::boundingBox()
 {
     return mBoundingBox;
 }
 
+
+// *****************************************************************************
 Box Bvh::combine(Box b1, Box b2)
 {
     float minx = (b1.bounds[0].x < b2.bounds[0].x) ? b1.bounds[0].x : b2.bounds[0].x;
@@ -22,6 +26,8 @@ Box Bvh::combine(Box b1, Box b2)
     return Box(glm::vec3(minx, miny, minz), glm::vec3(maxx, maxy, maxz));
 }
 
+
+// *****************************************************************************
 class CenterSortFunctor {
 private:
     Axis axis;
@@ -48,6 +54,8 @@ public:
     }
 };
 
+
+// *****************************************************************************
 Bvh::Bvh(Surfaces::iterator start, Surfaces::iterator end, Axis axis)
     : mLeft(nullptr), mRight(nullptr)
 {
@@ -104,13 +112,15 @@ Bvh::Bvh(Surfaces::iterator start, Surfaces::iterator end, Axis axis)
 }
 
 
+// *****************************************************************************
 bool Bvh::hit(const Ray& r, float t0, float t1, HitRecord& rec)
 {
     if (mBoundingBox.hit(r, t0, t1)) {
 
         HitRecord lrec, rrec;
-        bool leftHit = mLeft->hit(r, t0, t1, lrec); //(mLeft != NULL) &&    -- Left is never null by construction
-        bool rightHit = (mRight != nullptr) && mRight->hit(r, t0, t1, rrec); // (mRight != NULL) && 
+        //Left is never null by construction
+        bool leftHit = mLeft->hit(r, t0, t1, lrec); 
+        bool rightHit = (mRight != nullptr) && mRight->hit(r, t0, t1, rrec);
 
         if (leftHit && rightHit) {
             if (lrec.t < rrec.t) {

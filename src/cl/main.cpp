@@ -5,9 +5,12 @@
 #include "renderapplication.h"
 #include "clversion.h"
 
+
+// *****************************************************************************
 int main(int argc, char *argv[])
 {
-    std::cout << "Sunshine Ray Tracer(SRT) commandline, version: " << sunshine::clVersion << std::endl;
+    std::cout << "Sunshine Ray Tracer(SRT) commandline, version: "
+        << sunshine::clVersion << std::endl;
 
     if (argc < 2) {
         std::cout << "Please supply a .scene file" << std::endl;
@@ -35,9 +38,9 @@ int main(int argc, char *argv[])
 
     std::cout << "Render complete, time spent: " << elapsedTime.count() << "s" << std::endl;
     std::cout << "Render complete, time spent: " << elapsedTimeMS.count() << "ms" << std::endl;
-    
+
     //Store image
     app.saveImage();
-    
+
     return 0;
 }
