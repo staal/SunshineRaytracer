@@ -1,0 +1,30 @@
+# Doxyfile 1.8.11
+
+#---------------------------------------------------------------------------
+# Project related configuration options
+#---------------------------------------------------------------------------
+
+DOXYFILE_ENCODING      = UTF-8
+PROJECT_NAME           = Sunshine Raytracer
+
+PROJECT_NUMBER         = @PROJECT_VERSION@
+
+PROJECT_BRIEF          = "A raytracing render engine"
+
+OUTPUT_LANGUAGE        = English
+
+#---------------------------------------------------------------------------
+# DOT related configuration options
+#---------------------------------------------------------------------------
+DOT_PATH               = @DOXYGEN_DOT_EXECUTABLE@
+HAVE_DOT               = @DOXYGEN_DOT_FOUND@
+EXTRACT_ALL            = YES
+UML_LOOK               = YES
+
+#---------------------------------------------------------------------------
+# Source file related configuration options
+#---------------------------------------------------------------------------
+INPUT                  = @PROJECT_SOURCE_DIR@/src
+RECURSIVE              = YES
+FULL_PATH_NAMES        = YES
+STRIP_FROM_PATH        = @PROJECT_SOURCE_DIR@/src

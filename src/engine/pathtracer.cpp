@@ -1,8 +1,7 @@
-#include "pathtracer.h"
-
-
 #include <math.h>
 #include <iostream>
+
+#include "pathtracer.h"
 #include "engineversion.h"
 
 namespace sunshine {

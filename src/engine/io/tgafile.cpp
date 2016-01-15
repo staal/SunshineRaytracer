@@ -1,6 +1,6 @@
-
 #include <cstdint>
 #include <fstream>
+
 #include "tgafile.h"
 
 namespace sunshine {
