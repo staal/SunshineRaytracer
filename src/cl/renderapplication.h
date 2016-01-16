@@ -1,3 +1,7 @@
+/*!
+    The command line application using the sunshine render engine.
+*/
+
 #ifndef RENDER_APPLICATION_H_
 #define RENDER_APPLICATION_H_
 
@@ -12,14 +16,24 @@ public:
     RenderApplication();
     ~RenderApplication();
 
+    /*!
+        Load @param sceneFile, construction the scene to be rendered.
+    */
     void loadScene(std::string sceneFile);
+    
+    /*!
+        Render the loaded scene.
+    */
     void renderScene();
     void saveImage();
 private:
-    //current image
+    //!< The image being rendered.
     std::shared_ptr<Image> mImage;
 
+    //!< The current loaded scene. Populate through @loadScene .
     Scene mScene;
+
+    //!< The current scenegraph, containing the geometry and materials.
     SceneGraph mSceneGraph;
 };
 
