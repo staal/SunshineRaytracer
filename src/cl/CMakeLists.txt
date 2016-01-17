@@ -1,5 +1,8 @@
 project (ssrt_cl VERSION 0.1.0)
 
+#Use boost for command line arguments
+find_package(Boost REQUIRED COMPONENTS program_options )
+
 # configure a header file to pass some of the CMake settings to the source code
 configure_file (
   "clversion.h.in"
