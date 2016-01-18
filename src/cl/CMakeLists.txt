@@ -1,6 +1,9 @@
 project (ssrt_cl VERSION 0.1.0)
 
 #Use boost for command line arguments
+#Default to use static linking to Boost
+set(Boost_NO_BOOST_CMAKE ON)
+set(Boost_USE_STATIC_LIBS ON)
 find_package(Boost REQUIRED COMPONENTS program_options )
 
 # configure a header file to pass some of the CMake settings to the source code
@@ -22,10 +25,12 @@ add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} "${PROJECT_BINARY_DIR}/clversi
 target_include_directories(${PROJECT_NAME} 
     PUBLIC ${GLM_INCLUDE_DIRS} ${SSRT_ENGINE_INCLUDE_DIRS}
     PRIVATE ${PROJECT_BINARY_DIR} #So version header can be located
+    PRIVATE ${Boost_INCLUDE_DIRS}
     )
     
 target_link_libraries(${PROJECT_NAME} 
     PRIVATE ssrt::engine
+    PRIVATE ${Boost_LIBRARIES}
     )
     
 create_vs_folders("${PROJECT_SOURCES}")
