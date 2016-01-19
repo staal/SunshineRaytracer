@@ -15,6 +15,8 @@ configure_file (
 set(PROJECT_SOURCES
         renderapplication.h
         renderapplication.cpp
+        commandlinehandler.h
+        commandlinehandler.cpp
         main.cpp)
        
 message(STATUS "Creating Executable ${PROJECT_NAME}")

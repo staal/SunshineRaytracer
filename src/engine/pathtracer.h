@@ -14,7 +14,7 @@ public:
     PathTracer(std::shared_ptr<Image> image, SceneGraph* sceneGraph, Scene* scene);
     ~PathTracer();
     void render();
-    const std::string getVersion();
+    static const std::string getVersion();
 
 private:
     glm::vec3 pixelColor(float x, float y, int samples);
