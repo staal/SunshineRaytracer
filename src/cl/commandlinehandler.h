@@ -30,6 +30,7 @@ protected:
 private:
     boost::program_options::variables_map mVariables;
     const bool mEmptyCommandline;
+    std::string mProgramName;
 };
 
 

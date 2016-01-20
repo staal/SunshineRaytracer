@@ -1,10 +1,11 @@
-project (ssrt_cl VERSION 0.1.0)
+project (ssrt_cl VERSION 0.1.1)
 
 #Use boost for command line arguments
 #Default to use static linking to Boost
 set(Boost_NO_BOOST_CMAKE ON)
 set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost REQUIRED COMPONENTS program_options )
+set(Boost_USE_STATIC_RUNTIME OFF)
+find_package(Boost REQUIRED COMPONENTS program_options filesystem system )
 
 # configure a header file to pass some of the CMake settings to the source code
 configure_file (

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <boost/filesystem/path.hpp>
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/parsers.hpp>
 
@@ -33,7 +34,8 @@ boost::program_options::options_description CommandlineHandler::getDescription()
 
 // *****************************************************************************
 CommandlineHandler::CommandlineHandler(int argc, char * argv[])
-    : mEmptyCommandline(argc <= 1), mVariables(variables_map())
+    : mEmptyCommandline(argc <= 1), mVariables(variables_map()),
+    mProgramName(argv[0])
 {
     positional_options_description positionalDesc;
     positionalDesc.add(inputArgument, 1);
@@ -56,7 +58,15 @@ CommandlineHandler::~CommandlineHandler()
 bool CommandlineHandler::process(int & error)
 {
     if (mVariables.count("help") || mEmptyCommandline) {
-        std::cout << getDescription();
+        namespace bf = boost::filesystem;
+
+        bf::path p(mProgramName);      
+        std::cout << "Usage: \""
+            << p.filename().string()
+            << " [options] input.scene\""
+            << std::endl;
+
+            std::cout << getDescription();
         error = 1;
         return false;
     }
@@ -84,7 +94,7 @@ std::string CommandlineHandler::getScene()
     if (mVariables.count(inputArgument)) {
         return mVariables[inputArgument].as<std::string>();
     }
-    throw std::runtime_error("Could not find option " 
+    throw std::runtime_error("Could not find option "
         + std::string(inputArgument));
 }
 
