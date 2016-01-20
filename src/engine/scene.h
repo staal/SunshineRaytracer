@@ -1,10 +1,11 @@
-#ifndef SCENE_H_
-#define SCENE_H_
+#ifndef SUNSHINE_ENGINE_SCENE_H_
+#define SUNSHINE_ENGINE_SCENE_H_
 
 #include <string>
 #include "glm/glm.hpp"
 
 namespace sunshine {
+namespace engine{
 
 class Scene
 {
@@ -35,5 +36,6 @@ public:
 };
 
 
+} // namespace engine
 } // namespace sunshine
-#endif // !SCENE_H_
+#endif // !SUNSHINE_ENGINE_SCENE_H_

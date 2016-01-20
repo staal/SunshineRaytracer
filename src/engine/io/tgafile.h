@@ -1,11 +1,12 @@
-#ifndef TGA_FILE_H_
-#define TGA_FILE_H_
+#ifndef SUNSHINE_ENGINE_TGA_FILE_H_
+#define SUNSHINE_ENGINE_TGA_FILE_H_
 
 #include <memory>
 #include <string>
 #include "../image.h"
 
 namespace sunshine {
+namespace engine{
 
 class TgaFile {
 public:
@@ -21,5 +22,6 @@ private:
 };
 
 
+} // namespace engine
 } // namespace sunshine
-#endif // !TGA_FILE_H_
+#endif // !SUNSHINE_ENGINE_TGA_FILE_H_

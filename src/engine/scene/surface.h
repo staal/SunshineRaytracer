@@ -1,5 +1,5 @@
-#ifndef SURFACE_H_
-#define SURFACE_H_
+#ifndef SUNSHINE_ENGINE_SURFACE_H_
+#define SUNSHINE_ENGINE_SURFACE_H_
 
 #include <memory>
 #include <vector>
@@ -7,6 +7,7 @@
 #include "../rayutil.h"
 
 namespace sunshine {
+namespace engine{
 
 
 class Material {
@@ -60,5 +61,6 @@ public:
 using Surfaces = std::vector<std::unique_ptr<Surface>>;
 using Materials = std::vector<std::unique_ptr<Material>>;
 
+} // namespace engine
 } // namespace sunshine
-#endif // !SURFACE_H_
+#endif // !SUNSHINE_ENGINE_SURFACE_H_

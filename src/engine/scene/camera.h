@@ -1,9 +1,10 @@
-#ifndef CAMERA_H_
-#define CAMERA_H_
+#ifndef SUNSHINE_ENGINE_CAMERA_H_
+#define SUNSHINE_ENGINE_CAMERA_H_
 
 #include "../rayutil.h"
 
 namespace sunshine {
+namespace engine{
 
 class Camera {
 public:
@@ -21,5 +22,6 @@ private:
 };
 
 
+} // namespace engine
 } // namespace sunshine
-#endif // !CAMERA_H_
+#endif // !SUNSHINE_ENGINE_CAMERA_H_

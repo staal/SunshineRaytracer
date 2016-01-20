@@ -1,6 +1,7 @@
 #include "Camera.h"
 
 namespace sunshine {
+namespace engine{
 
 using namespace glm;
 
@@ -70,4 +71,5 @@ Ray Camera::getRay(float x, float y)
     return Ray(org, dir);
 }
 
+} // namespace engine
 } // namespace sunshine

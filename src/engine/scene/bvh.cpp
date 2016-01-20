@@ -3,6 +3,7 @@
 #include "triangle.h"
 
 namespace sunshine {
+namespace engine{
 
 
 // *****************************************************************************
@@ -157,4 +158,5 @@ bool Bvh::hit(const Ray& r, float t0, float t1, HitRecord& rec)
     return false;
 }
 
+} // namespace engine
 } // namespace sunshine

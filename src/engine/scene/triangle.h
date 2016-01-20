@@ -1,9 +1,10 @@
-#ifndef TRIANGLE_H_
-#define TRIANGLE_H_
+#ifndef SUNSHINE_ENGINE_TRIANGLE_H_
+#define SUNSHINE_ENGINE_TRIANGLE_H_
 
 #include "surface.h"
 
 namespace sunshine {
+namespace engine{
 
 struct Vertex {
     glm::vec3 v;
@@ -21,5 +22,6 @@ public:
 };
 
 
+} // namespace engine
 } // namespace sunshine
-#endif // !TRIANGLE_H_
+#endif // !SUNSHINE_ENGINE_TRIANGLE_H_

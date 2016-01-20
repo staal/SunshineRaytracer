@@ -1,6 +1,7 @@
 #include "image.h"
 
 namespace sunshine {
+namespace engine{
 
 
 // *****************************************************************************
@@ -126,4 +127,5 @@ bool Image::hasAlpha() const
 }
 
 
+} // namespace engine
 } // namespace sunshine

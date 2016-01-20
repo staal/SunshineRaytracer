@@ -4,6 +4,7 @@
 #include "objfile.h"
 
 namespace sunshine {
+namespace engine {
 
 using namespace glm;
 
@@ -161,4 +162,5 @@ void ObjFile::load(std::string objFileName)
     }
 }
 
-}
+} // namespace engine
+} // namespace sunshine

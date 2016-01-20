@@ -3,6 +3,7 @@
 #include "scene.h"
 
 namespace sunshine {
+namespace engine{
 
 
 // *****************************************************************************
@@ -70,4 +71,5 @@ void Scene::loadScene(std::string sceneFile)
         else throw "File parse exception";
     }
 }
+} // namespace engine
 } // namespace sunshine

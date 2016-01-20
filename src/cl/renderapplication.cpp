@@ -9,15 +9,16 @@
 #include "renderapplication.h"
 #include "commandlinehandler.h"
 
+
 namespace sunshine {
+namespace cl {
 
-
+using namespace sunshine::engine;
 
 // *****************************************************************************
 RenderApplication::RenderApplication(int argc, char * argv[])
-    : mCommandlineHandler(argc,argv)
-{
-}
+    : mCommandlineHandler(argc, argv)
+{}
 
 // *****************************************************************************
 RenderApplication::~RenderApplication()
@@ -25,23 +26,33 @@ RenderApplication::~RenderApplication()
 
 
 // *****************************************************************************
-int sunshine::RenderApplication::run()
+int RenderApplication::run()
 {
-    int error = 0;
-    if (!mCommandlineHandler.process(error)) {
-        return error;
+    int errorCode = 0;
+    if (!mCommandlineHandler.validate(errorCode)) {
+        return errorCode;
+    }
+
+    //Print the version number and exit 0.
+    if (mCommandlineHandler.printVersion()) {
+        std::cout << "Version: " << PathTracer::getVersion() << std::endl;
+        return 0;
     }
 
     //Get commandline arguments
     std::string configFileName = mCommandlineHandler.getScene();
     std::cout << "Input: " << configFileName << std::endl;
-    
+
     std::string outFile = mCommandlineHandler.getOutputFile();
     if (!outFile.empty()) {
         std::cout << "Output: " << outFile << std::endl;
     } else {
         std::cout << "Output: " << "unspecified, using out.tga" << std::endl;
     }
+
+
+
+
 
     //Load Scene
     std::cout << "Loading scene: " << configFileName << std::endl;
@@ -103,4 +114,5 @@ void RenderApplication::saveImage()
 }
 
 
+} // namespace cl
 } // namespace sunshine

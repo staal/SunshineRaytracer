@@ -3,6 +3,7 @@
 #include "rng.h"
 
 namespace sunshine {
+namespace engine{
 
 
 // *****************************************************************************
@@ -27,4 +28,5 @@ float RNG::GetRandom01()
     return distribution(generator);
 }
 
+} // namespace engine
 } // namespace sunshine

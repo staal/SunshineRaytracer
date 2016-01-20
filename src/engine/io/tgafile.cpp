@@ -4,6 +4,7 @@
 #include "tgafile.h"
 
 namespace sunshine {
+namespace engine{
 
 
 // *****************************************************************************
@@ -238,4 +239,5 @@ bool TgaFile::save(std::string filename, const Image & image)
     return true;
 }
 
+} // namespace engine
 } // namespace sunshine

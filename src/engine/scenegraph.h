@@ -1,11 +1,12 @@
-#ifndef SCENE_GRAPH_H_
-#define SCENE_GRAPH_H_
+#ifndef SUNSHINE_ENGINE_SCENE_GRAPH_H_
+#define SUNSHINE_ENGINE_SCENE_GRAPH_H_
 
 #include "scene/bvh.h"
 #include "scene/lightsource.h"
 #include "scene/surface.h"
 
 namespace sunshine {
+namespace engine{
 
 class SceneGraph {
 public:
@@ -31,5 +32,6 @@ private:
 };
 
 
+} // namespace engine
 } // namespace sunshine
-#endif // !SCENE_GRAPH_H_
+#endif // !SUNSHINE_ENGINE_SCENE_GRAPH_H_

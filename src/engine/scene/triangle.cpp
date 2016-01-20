@@ -1,6 +1,7 @@
 #include "Triangle.h"
 
 namespace sunshine {
+namespace engine{
 
 
 // *****************************************************************************
@@ -108,4 +109,5 @@ Box Triangle::boundingBox()
 }
 
 
+} // namespace engine
 } // namespace sunshine

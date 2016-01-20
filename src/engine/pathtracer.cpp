@@ -5,6 +5,7 @@
 #include "engineversion.h"
 
 namespace sunshine {
+namespace engine{
 
 #define DEBUG 1
 #define NUM_SHADOW_RAYS 1
@@ -279,4 +280,5 @@ vec3 PathTracer::Phong_BRDF(vec3 x, vec3 Nx, vec3 outDir, vec3 inDir, Material* 
 }
 
 
+} // namespace engine
 } // namespace sunshine

@@ -1,9 +1,5 @@
-/*!
-    The command line application using the sunshine render engine.
-*/
-
-#ifndef RENDER_APPLICATION_H_
-#define RENDER_APPLICATION_H_
+#ifndef SUNSHINE_CL_RENDER_APPLICATION_H_
+#define SUNSHINE_CL_RENDER_APPLICATION_H_
 
 #include "engine/image.h"
 #include "engine/scene.h"
@@ -12,7 +8,9 @@
 #include "commandlinehandler.h"
 
 namespace sunshine {
+namespace cl {
 
+//! The command line application using the sunshine render engine.
 class RenderApplication {
 public:
     RenderApplication(int argc, char *argv[]);
@@ -30,7 +28,7 @@ protected:
         Load @param sceneFile, construction the scene to be rendered.
     */
     void loadScene(std::string sceneFile);
-    
+
     /*!
         Render the loaded scene.
     */
@@ -45,17 +43,18 @@ protected:
 private:
     //!< Processes command line, including malformed formats
     CommandlineHandler mCommandlineHandler;
-    
+
     //!< The image being rendered.
-    std::shared_ptr<Image> mImage;
+    std::shared_ptr<sunshine::engine::Image> mImage;
 
     //!< The current loaded scene. Populate through @loadScene .
-    Scene mScene;
+    sunshine::engine::Scene mScene;
 
     //!< The current scenegraph, containing the geometry and materials.
-    SceneGraph mSceneGraph;
+    sunshine::engine::SceneGraph mSceneGraph;
 };
 
 
+} // namespace cl
 } // namespace sunshine
-#endif // !RENDER_APPLICATION_H_
+#endif // !SUNSHINE_CL_RENDER_APPLICATION_H_

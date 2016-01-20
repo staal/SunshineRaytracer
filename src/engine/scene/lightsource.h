@@ -1,5 +1,5 @@
-#ifndef LIGHT_SOURCE_H_
-#define LIGHT_SOURCE_H_
+#ifndef SUNSHINE_ENGINE_LIGHT_SOURCE_H_
+#define SUNSHINE_ENGINE_LIGHT_SOURCE_H_
 
 #include <memory>
 #include "../rayutil.h"
@@ -8,6 +8,7 @@
 #include "triangle.h"
 
 namespace sunshine {
+namespace engine{
 
 class LightSource {
 public:
@@ -21,6 +22,7 @@ private:
 };
 
 
+} // namespace engine
 } // namespace sunshine
-#endif // !LIGHT_SOURCE_H_
+#endif // !SUNSHINE_ENGINE_LIGHT_SOURCE_H_
 

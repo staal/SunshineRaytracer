@@ -1,10 +1,11 @@
-#ifndef IMAGE_H_
-#define IMAGE_H_
+#ifndef SUNSHINE_ENGINE_IMAGE_H_
+#define SUNSHINE_ENGINE_IMAGE_H_
 
 #include <vector>
 #include "glm/glm.hpp"
 
 namespace sunshine {
+namespace engine{
 
 using RGBA = glm::vec4;
 using RGB = glm::vec3;
@@ -37,5 +38,6 @@ private:
 };
 
 
+} // namespace engine
 } // namespace sunshine
-#endif // !IMAGE_H_
+#endif // !SUNSHINE_ENGINE_IMAGE_H_

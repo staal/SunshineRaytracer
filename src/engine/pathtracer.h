@@ -1,5 +1,5 @@
-#ifndef PATH_TRACER_H_
-#define PATH_TRACER_H_
+#ifndef SUNSHINE_ENGINE_PATH_TRACER_H_
+#define SUNSHINE_ENGINE_PATH_TRACER_H_
 
 #include "image.h"
 #include "scene/camera.h"
@@ -8,6 +8,7 @@
 #include "rng.h"
 
 namespace sunshine {
+namespace engine{
 
 class PathTracer {
 public:
@@ -33,5 +34,6 @@ private:
 };
 
 
+} // namespace engine
 } // namespace sunshine
-#endif // !PATH_TRACER_H_
+#endif // !SUNSHINE_ENGINE_PATH_TRACER_H_

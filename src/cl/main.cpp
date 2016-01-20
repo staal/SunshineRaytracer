@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     
     try {
         //Create the application
-        sunshine::RenderApplication app(argc, argv);
+        sunshine::cl::RenderApplication app(argc, argv);
 
         //Pass control to the application
         return app.run();

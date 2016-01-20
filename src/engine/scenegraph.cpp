@@ -4,6 +4,7 @@
 #include <iterator>
 
 namespace sunshine {
+namespace engine{
 
 using namespace glm;
 
@@ -98,4 +99,5 @@ void SceneGraph::clear()
 }
 
 
+} // namespace engine
 } // namespace sunshine

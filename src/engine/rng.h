@@ -1,9 +1,10 @@
-#ifndef RNG_H_
-#define RNG_H_
+#ifndef SUNSHINE_ENGINE_RNG_H_
+#define SUNSHINE_ENGINE_RNG_H_
 
 #include <random>
 
 namespace sunshine {
+namespace engine{
 
 class RNG {
 public:
@@ -19,6 +20,7 @@ private:
 };
 
 
+} // namespace engine
 } // namespace sunshine
-#endif // !RNG_H_
+#endif // !SUNSHINE_ENGINE_RNG_H_
 

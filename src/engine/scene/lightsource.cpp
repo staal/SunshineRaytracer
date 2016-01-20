@@ -1,6 +1,7 @@
 #include "LightSource.h"
 
 namespace sunshine {
+namespace engine{
 
 
 // *****************************************************************************
@@ -55,4 +56,5 @@ void LightSource::generatePoint(HitRecord& rec, float* pdf, RNG* rng)
     *pdf = mPdf[index];
 }
 
+} // namespace engine
 } // namespace sunshine

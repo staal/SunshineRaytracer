@@ -1,10 +1,11 @@
-#ifndef BVH_NODE_H_
-#define BVH_NODE_H_
+#ifndef SUNSHINE_ENGINE_BVH_NODE_H_
+#define SUNSHINE_ENGINE_BVH_NODE_H_
 
 #include <memory>
 #include "surface.h"
 
 namespace sunshine {
+namespace engine{
 
 enum class Axis {
     X, Y, Z
@@ -26,5 +27,6 @@ private:
 };
 
 
+} // namespace engine
 } // namespace sunshine
-#endif // !BVH_NODE_H_
+#endif // !SUNSHINE_ENGINE_BVH_NODE_H_

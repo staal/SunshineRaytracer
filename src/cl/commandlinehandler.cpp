@@ -1,25 +1,30 @@
 #include <iostream>
+
 #include <boost/filesystem/path.hpp>
-#include <boost/program_options/options_description.hpp>
 #include <boost/program_options/parsers.hpp>
 
 #include "commandlinehandler.h"
-#include "engine/pathtracer.h"
 
 
 namespace sunshine {
+namespace cl {
+
 
 using namespace boost::program_options;
 
+//Constants
 const char* inputArgument = "input-scene";
 const char* outputArgument = "output-scene";
+
 
 // *****************************************************************************
 boost::program_options::options_description CommandlineHandler::getDescription()
 {
+    //Add shorthand value to the arguments
     std::string input = std::string(inputArgument) + std::string(",i");
     std::string output = std::string(outputArgument) + std::string(",o");
 
+    //Construct the commandline description
     options_description desc("Allowed options");
     desc.add_options()
         ("help,h", "Show this help message.")
@@ -37,6 +42,8 @@ CommandlineHandler::CommandlineHandler(int argc, char * argv[])
     : mEmptyCommandline(argc <= 1), mVariables(variables_map()),
     mProgramName(argv[0])
 {
+    //Create positional argument for inputArgument, meaning you don't need
+    //to pass it as -i foo, but simply foo.
     positional_options_description positionalDesc;
     positionalDesc.add(inputArgument, 1);
 
@@ -55,35 +62,35 @@ CommandlineHandler::~CommandlineHandler()
 
 
 // *****************************************************************************
-bool CommandlineHandler::process(int & error)
+bool CommandlineHandler::validate(int & errorCode)
 {
     if (mVariables.count("help") || mEmptyCommandline) {
         namespace bf = boost::filesystem;
 
-        bf::path p(mProgramName);      
+        //Output help message
+        bf::path p(mProgramName);
         std::cout << "Usage: \""
             << p.filename().string()
             << " [options] input.scene\""
             << std::endl;
+        std::cout << getDescription();
 
-            std::cout << getDescription();
-        error = 1;
-        return false;
-    }
-
-    if (mVariables.count("version")) {
-        std::cout << "Version: " << PathTracer::getVersion() << std::endl;
-        error = 0;
+        //It's an error if the commandline is empty. But a successful program
+        //if the help command was requested.
+        if (mEmptyCommandline) {
+            errorCode = 1;
+        } else {
+            errorCode = 0;
+        }
         return false;
     }
 
     if (mVariables.count(inputArgument) == 0) {
         std::cout << "Please supply a .scene file" << std::endl;
-        error = 1;
+        errorCode = 1;
         return false;
     }
 
-    error = 0;
     return true;
 }
 
@@ -108,4 +115,12 @@ std::string CommandlineHandler::getOutputFile()
     return std::string("");
 }
 
+
+// *****************************************************************************
+bool CommandlineHandler::printVersion()
+{
+    return mVariables.count("version") > 0;
+}
+
+} // namespace cl
 } // namespace sunshine
