@@ -39,7 +39,8 @@ bool SceneGraph::visible(HitRecord &recX, HitRecord &recY)
 {
     HitRecord rec;
     vec3 dir = recY.point - recX.point;
-    Ray ray(recX.point, normalize(dir));
+    vec3 normalizedDir = normalize(dir);
+    Ray ray(recX.point, normalizedDir);
 
     return !hit(ray, this->mEpsilon, length(dir) - this->mEpsilon, rec);
 }

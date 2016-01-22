@@ -1,8 +1,8 @@
 ##########
 # Find GLM
 ##########
-find_package(GLM REQUIRED)
+find_package(glm REQUIRED)
 
-message(STATUS "GLM FOUND ${GLM_FOUND}")
+message(STATUS "glm FOUND ${glm_FOUND}")
 add_subdirectory(engine)
 add_subdirectory(cl)
