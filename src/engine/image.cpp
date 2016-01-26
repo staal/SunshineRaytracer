@@ -56,17 +56,6 @@ bool Image::setPixel(unsigned x, unsigned y, const RGBA & rgba)
 
 
 // *****************************************************************************
-bool Image::setPixel(unsigned x, unsigned y, const RGB & rgb)
-{
-    if (x >= mWidth || y >= mHeight)
-        return false;
-
-    data[y * mWidth + x] = RGBA(rgb.r, rgb.g, rgb.b, 0.0f);
-    return true;
-}
-
-
-// *****************************************************************************
 bool Image::setPixel(unsigned i, 
     unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {

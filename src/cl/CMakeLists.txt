@@ -20,8 +20,8 @@ set(PROJECT_SOURCES
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
 target_include_directories(${PROJECT_NAME} 
-    PUBLIC ${GLM_INCLUDE_DIRS} ${SSRT_ENGINE_INCLUDE_DIRS}
-    PRIVATE ${PROJECT_BINARY_DIR} #So version header can be located
+    PUBLIC ${GLM_INCLUDE_DIRS}
+    PUBLIC ${SSRT_ENGINE_INCLUDE_DIRS}
     PRIVATE ${Boost_INCLUDE_DIRS}
     )
     
