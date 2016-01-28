@@ -1,7 +1,10 @@
+
+#include <stdexcept>
 #include <fstream>
 #include <sstream>
 
 #include "objfile.h"
+#include "mtlgrammar.hpp"
 
 namespace sunshine {
 namespace engine {
@@ -48,58 +51,42 @@ std::unique_ptr<Triangle> ObjFile::processFace(std::string line,
 // *****************************************************************************
 void ObjFile::processMTLLib(std::string filename)
 {
-    std::ifstream input(filename);
-    std::string line;
-    Material* currentGenMat = nullptr;
+    std::ifstream input(filename, std::ios_base::in);
 
-    while (input.good() && getline(input, line)) {
+    if (!input) {
+        throw std::runtime_error("Could not open mtl file: " + filename);
+    }
 
-        if (line.find("#") == 0) //First char is a comment symbol
-        {
-            continue; //Comment
-        }
+    std::string mtlText;
+    input.unsetf(std::ios::skipws); // Preserve all whitespaces
+    std::copy(
+        std::istream_iterator<char>(input),
+        std::istream_iterator<char>(), //No args is an EOF iterator.
+        std::back_inserter(mtlText));
 
-        else if (line.find("newmtl") == 0) {
-            std::string mtlName = line.substr(7); //After "newmtl " (7)
-            auto mat = std::make_unique<Material>();
+    using Iterator = std::string::const_iterator;
+    MTLGrammar<Iterator> grammar;
 
-            currentGenMat = mat.get();
-            mMatDict[mtlName] = currentGenMat;
+
+    std::map<std::string, Material> parsed;
+    Iterator iter = mtlText.begin();
+    Iterator end = mtlText.end();
+    bool ok = phrase_parse(iter, end, grammar, grammar.skipper, parsed);
+
+    if (ok && iter == end) {
+        //TODO Dont create a new map from scratch
+        for (auto& kv : parsed) {
+            auto mat = std::make_unique<Material>(kv.second);
+            mMatDict[kv.first] = mat.get();
             mMaterials.push_back(std::move(mat));
         }
+    } else {
+        std::string rest(iter, end);
+        throw std::runtime_error(
+            "Parsing MTL file failed, failed at: " + rest.substr(0, 50));
 
-        else if (line.find("Ka") == 0 && currentGenMat) {
-            std::stringstream ss(line);
-            vec3 color;
-            char c;
-            ss >> c >> c >> color.r >> color.g >> color.b;
-            currentGenMat->Ka = color;
-        }
-
-        else if (line.find("Kd") == 0 && currentGenMat) {
-            std::stringstream ss(line);
-            vec3 color;
-            char c;
-            ss >> c >> c >> color.r >> color.g >> color.b;
-            currentGenMat->Kd = color;
-        }
-
-        else if (line.find("Ks") == 0 && currentGenMat) {
-            std::stringstream ss(line);
-            vec3 color;
-            char c;
-            ss >> c >> c >> color.r >> color.g >> color.b;
-            currentGenMat->Ks = color;
-        }
-
-        else if (line.find("Ns") == 0 && currentGenMat) {
-            std::stringstream ss(line);
-            char c;
-            ss >> c >> c >> currentGenMat->Ns;
-        }
     }
 }
-
 
 // *****************************************************************************
 void ObjFile::load(std::string objFileName)

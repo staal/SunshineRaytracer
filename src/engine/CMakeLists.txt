@@ -6,7 +6,7 @@ message(STATUS "Creating library ${PROJECT_NAME}")
 set(Boost_NO_BOOST_CMAKE ON)
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost REQUIRED )
+find_package(Boost REQUIRED COMPONENTS filesystem system)
   
  
 # configure a header file to pass some of the CMake settings to the source code
@@ -19,6 +19,8 @@ configure_file (
 set(PROJECT_SOURCES
         io/tgafile.h
         io/tgafile.cpp
+        io/mtlgrammar.hpp
+        io/objgrammar.hpp
         io/objfile.h
         io/objfile.cpp
         scene/bvh.h

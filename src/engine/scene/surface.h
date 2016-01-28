@@ -10,8 +10,7 @@ namespace sunshine {
 namespace engine{
 
 
-class Material {
-public:
+struct Material {
     Material()
     {
         Ns = 0.0f;
