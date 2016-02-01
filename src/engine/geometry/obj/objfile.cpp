@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <fstream>
 #include <sstream>
+#include <boost/filesystem.hpp>
 
 #include "objfile.h"
 #include "objgrammar.hpp"
@@ -13,7 +14,7 @@ using namespace glm;
 
 
 // *****************************************************************************
-ObjFile::ObjFile()
+ObjFile::ObjFile(std::string filename) : mFilename(filename)
 {}
 
 
@@ -23,14 +24,26 @@ ObjFile::~ObjFile()
 
 
 // *****************************************************************************
-void ObjFile::load(std::string objFileName)
+void ObjFile::load()
 {
-    mObjData = ObjData(); //reset objdata
+    using namespace boost::filesystem;
+    path objPath(mFilename);
 
-    std::ifstream input(objFileName, std::ios_base::in);
+    if (is_directory(objPath) || !exists(objPath)) {
+        throw std::runtime_error(mFilename + " is not an obj file");
+    }
+
+    //Parent of canonical path is the place to load from if mtl libs are located
+    //relative.
+    auto objDir = canonical(objPath).parent_path().string();
+
+    mObjData.clear(); //reset objdata
+    mObjData.setParentDir(objDir);
+
+    std::ifstream input(mFilename, std::ios_base::in);
 
     if (!input) {
-        throw std::runtime_error("Could not open obj file: " + objFileName);
+        throw std::runtime_error("Could not open obj file: " + mFilename);
     }
 
     std::string objData;
@@ -53,7 +66,6 @@ void ObjFile::load(std::string objFileName)
         std::string rest(iter, end);
         throw std::runtime_error(
             "Parsing MTL file failed, failed at: " + rest.substr(0, 50));
-
     }
 }
 

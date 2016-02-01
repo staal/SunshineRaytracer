@@ -16,14 +16,15 @@ namespace engine {
 */
 class ObjFile {
 public:
-    ObjFile();
+    ObjFile(std::string filename);
     ~ObjFile();
-    void load(std::string objFileName);
+    void load();
     Surfaces getSurfaces();
     Materials getMaterials();
 
 private:
     ObjData mObjData;
+    const std::string mFilename;
 };
 
 

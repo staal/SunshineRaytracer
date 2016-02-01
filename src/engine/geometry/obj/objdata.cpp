@@ -1,4 +1,5 @@
 
+#include <boost/filesystem.hpp>
 #include "mtlfile.h"
 #include "objdata.h"
 
@@ -6,14 +7,34 @@ namespace sunshine {
 namespace engine {
 
 // *****************************************************************************
-ObjData::ObjData() : currentMaterial(nullptr)
+ObjData::ObjData() : currentMaterial(nullptr), mParentDir("")
 {}
 
+
+void ObjData::clear()
+{
+    mParentDir = "";
+    vertices.clear();
+    normals.clear();
+    materials.clear();
+    faces.clear();
+    currentMaterial = nullptr;
+}
 
 // *****************************************************************************
 void ObjData::loadMtlLib(const std::string& filename)
 {
-    MtlFile mtlFile(filename);
+    using namespace boost::filesystem;
+    
+    path mtlPath(filename);
+
+    std::string absoluteFilename = filename;
+    if (mtlPath.is_relative() && mParentDir != "") {
+        auto finalPath = path(mParentDir).append(filename);
+        absoluteFilename = canonical(finalPath).string();
+    }
+
+    MtlFile mtlFile(absoluteFilename);
 
     std::map<std::string, Material> mats = mtlFile.load();
 
@@ -95,7 +116,7 @@ void ObjData::addFace(std::vector<ObjFaceIndices> faceIndices)
     }
 
 
-    faces.push_back(std::make_unique<Triangle>(vs.at(0), vs.at(1), vs.at(2), 
+    faces.push_back(std::make_unique<Triangle>(vs.at(0), vs.at(1), vs.at(2),
         currentMaterial));
 }
 

@@ -28,6 +28,12 @@ class ObjData {
 public:
     ObjData();
 
+    void clear();
+    void setParentDir(std::string parentDir)
+    {
+        mParentDir = parentDir;
+    };
+
     /*Functions to work with the grammar*/
     void addVertice(const glm::vec3& v);
     void addNormal(const glm::vec3& n);
@@ -46,6 +52,7 @@ private:
     Materials materials;
     Surfaces faces;
     Material *currentMaterial;
+    std::string mParentDir;
 };
 
 

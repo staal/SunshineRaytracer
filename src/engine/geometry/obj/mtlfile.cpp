@@ -1,4 +1,5 @@
 
+#include <boost/filesystem.hpp>
 #include <fstream>
 
 #include "mtlfile.h"
@@ -15,6 +16,13 @@ MtlFile::MtlFile(std::string filename) : filename(filename)
 // *****************************************************************************
 std::map<std::string, Material> MtlFile::load()
 {
+    using namespace boost::filesystem;
+
+    path mtlPath(filename);
+    if (is_directory(mtlPath) || !exists(mtlPath)) {
+        throw std::runtime_error(filename + " is not an mtl file");
+    }
+
     std::ifstream input(filename, std::ios_base::in);
 
     if (!input) {

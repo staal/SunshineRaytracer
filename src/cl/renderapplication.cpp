@@ -86,8 +86,8 @@ void RenderApplication::loadScene(std::string sceneFile)
     mImage = std::make_shared<Image>(mScene.width, mScene.height, false);
 
     //Load scene
-    ObjFile objFile;
-    objFile.load(mScene.objFile);
+    ObjFile objFile(mScene.objFile);
+    objFile.load();
 
     auto surfaces = objFile.getSurfaces();
     auto mats = objFile.getMaterials();
