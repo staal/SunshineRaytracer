@@ -1,4 +1,4 @@
-#include "LightSource.h"
+#include "lightsource.h"
 
 namespace sunshine {
 namespace engine{

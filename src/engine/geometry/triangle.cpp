@@ -1,4 +1,4 @@
-#include "Triangle.h"
+#include "triangle.h"
 
 namespace sunshine {
 namespace engine{
