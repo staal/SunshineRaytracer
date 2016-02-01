@@ -1,0 +1,16 @@
+// CMAKE configurations
+// Read only, the variables are set through CMAKE in sunshineconfig.h.in.
+#ifndef SUNSHINE_CONFIG_H_
+#define SUNSHINE_CONFIG_H_
+
+#include <string>
+
+namespace sunshine {
+
+const std::string sunshineVersion = "@PROJECT_VERSION@";
+const unsigned sunshineVersionMajor = @PROJECT_VERSION_MAJOR@;
+const unsigned sunshineVersionMinor = @PROJECT_VERSION_MINOR@;
+const unsigned sunshineVersionPatch = @PROJECT_VERSION_PATCH@;
+
+} // namespace sunshine
+#endif // !SUNSHINE_CONFIG_H_

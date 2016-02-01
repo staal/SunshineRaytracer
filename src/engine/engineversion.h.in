@@ -1,7 +1,7 @@
 // CMAKE configurations
-// Read only, the variables are set through CMAKE in clconfig.h.in.
-#ifndef SUNSHINE_ENGINE_ENGINE_CONFIG_H_
-#define SUNSHINE_ENGINE_ENGINE_CONFIG_H_
+// Read only, the variables are set through CMAKE in engineversion.h.in.
+#ifndef SUNSHINE_ENGINE_ENGINE_VERSION_H_
+#define SUNSHINE_ENGINE_ENGINE_VERSION_H_
 
 #include <string>
 
@@ -15,4 +15,4 @@ const unsigned engineVersionPatch = @PROJECT_VERSION_PATCH@;
 
 } // namespace engine
 } // namespace sunshine
-#endif // !SUNSHINE_ENGINE_ENGINE_CONFIG_H_
+#endif // !SUNSHINE_ENGINE_ENGINE_VERSION_H_

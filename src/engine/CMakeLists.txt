@@ -1,21 +1,42 @@
+##########################################
+# Engine project
+# Set version of engine here, is imported
+# into the library.
+##########################################
 project (ssrt_engine VERSION 0.1.1)
 message(STATUS "Creating library ${PROJECT_NAME}")
 
-#Use boost for command line arguments
-#Default to use static linking to Boost
+
+##########################################
+# Find Boost
+# Use boost for command line arguments
+# Default to use static linking to Boost
+##########################################
 set(Boost_NO_BOOST_CMAKE ON)
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 find_package(Boost REQUIRED COMPONENTS filesystem system)
-  
- 
-# configure a header file to pass some of the CMake settings to the source code
+
+
+##########################################
+# Find GLM
+##########################################
+find_package(glm REQUIRED)
+
+
+##########################################
+# Configure a header file to pass some of 
+# the CMake settings to the source code
+##########################################
 configure_file (
   "engineversion.h.in"
   "${PROJECT_BINARY_DIR}/engineversion.h"
   )
   
-#Source files for current project
+
+##########################################
+# Source files for current project
+##########################################
 set(PROJECT_SOURCES
         image/tgafile.h
         image/tgafile.cpp
@@ -52,7 +73,11 @@ set(PROJECT_SOURCES
         rng.cpp)
            
 
-#Adding clconfig.h here to avoid it getting indexed through create_vs_folders
+##########################################
+# Set up library linking, includes and
+# the target itself
+##########################################
+#Adding engineversion.h here to avoid it getting indexed through create_vs_folders
 add_library(${PROJECT_NAME} ${PROJECT_SOURCES} "${PROJECT_BINARY_DIR}/engineversion.h")
 add_library(ssrt::engine ALIAS ${PROJECT_NAME})
 
@@ -63,9 +88,13 @@ target_include_directories(${PROJECT_NAME}
     PRIVATE ${Boost_INCLUDE_DIRS}
     PRIVATE ${PROJECT_BINARY_DIR} #So version header can be located
     )    
-    
+
 target_link_libraries(${PROJECT_NAME} 
     PRIVATE ${Boost_LIBRARIES}
     )
 
+
+##########################################
+# Create folders for Visual studio project
+##########################################
 create_vs_folders("${PROJECT_SOURCES}")

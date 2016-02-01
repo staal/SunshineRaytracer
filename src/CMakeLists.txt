@@ -1,8 +1,6 @@
-##########
-# Find GLM
-##########
-find_package(glm REQUIRED)
-
-message(STATUS "glm FOUND ${glm_FOUND}")
+##########################################
+# Add all project subfolders
+##########################################
 add_subdirectory(engine)
 add_subdirectory(cl)
+add_subdirectory(sunshine)
