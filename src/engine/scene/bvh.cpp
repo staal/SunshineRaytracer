@@ -1,6 +1,5 @@
 #include <algorithm>
 #include "bvh.h"
-#include "triangle.h"
 
 namespace sunshine {
 namespace engine{

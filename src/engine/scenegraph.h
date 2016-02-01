@@ -3,7 +3,7 @@
 
 #include "scene/bvh.h"
 #include "scene/lightsource.h"
-#include "scene/surface.h"
+#include "geometry/surface.h"
 
 namespace sunshine {
 namespace engine{

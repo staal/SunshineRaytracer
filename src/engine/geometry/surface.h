@@ -3,29 +3,15 @@
 
 #include <memory>
 #include <vector>
+
 #include "glm/glm.hpp"
+
 #include "../rayutil.h"
+#include "material.h"
 
 namespace sunshine {
 namespace engine{
 
-
-struct Material {
-    Material()
-    {
-        Ns = 0.0f;
-        Ke = glm::vec3(0.0f);
-        Kd = glm::vec3(0.0f);
-        Ks = glm::vec3(0.0f);
-        Ka = glm::vec3(0.0f);
-    }
-    ~Material() {}
-    glm::vec3 Ka;
-    glm::vec3 Kd;
-    glm::vec3 Ks;
-    glm::vec3 Ke;
-    float Ns;
-};
 
 class Surface;
 
@@ -58,7 +44,6 @@ public:
 
 
 using Surfaces = std::vector<std::unique_ptr<Surface>>;
-using Materials = std::vector<std::unique_ptr<Material>>;
 
 } // namespace engine
 } // namespace sunshine

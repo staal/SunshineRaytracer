@@ -2,7 +2,7 @@
 #define SUNSHINE_ENGINE_BVH_NODE_H_
 
 #include <memory>
-#include "surface.h"
+#include "../geometry/surface.h"
 
 namespace sunshine {
 namespace engine{

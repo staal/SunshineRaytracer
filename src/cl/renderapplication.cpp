@@ -2,8 +2,8 @@
 #include <chrono>
 #include <iostream>
 
-#include "engine/io/tgafile.h"
-#include "engine/io/objfile.h"
+#include "engine/image/tgafile.h"
+#include "engine/geometry/obj/objfile.h"
 #include "engine/pathtracer.h"
 
 #include "renderapplication.h"

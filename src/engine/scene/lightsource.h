@@ -4,8 +4,8 @@
 #include <memory>
 #include "../rayutil.h"
 #include "../rng.h"
-#include "surface.h"
-#include "triangle.h"
+#include "../geometry/surface.h"
+#include "../geometry/triangle.h"
 
 namespace sunshine {
 namespace engine{

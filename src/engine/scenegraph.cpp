@@ -58,7 +58,12 @@ bool SceneGraph::hit(const Ray& r, const float t0, const float t1, HitRecord &re
 void SceneGraph::addMesh(Surfaces surfaces, Materials mats)
 {
     std::move(surfaces.begin(), surfaces.end(), std::back_inserter(mSurfaces));
-    std::move(mats.begin(), mats.end(), std::back_inserter(mMaterials));
+    //std::move(mats.begin(), mats.end(), std::back_inserter(mMaterials));
+
+    using it = std::map<std::string, std::unique_ptr<Material>>::iterator;
+    using mv = std::move_iterator <it>;
+
+    mMaterials.insert(mv(mats.begin()), mv(mats.end()));
 
     //mMaterials = std::move(mats);
     auto lightMat = std::make_unique<Material>();
@@ -87,7 +92,7 @@ void SceneGraph::addMesh(Surfaces surfaces, Materials mats)
 
     mSurfaces.emplace_back(std::move(t1));
     mSurfaces.emplace_back(std::move(t2));
-    mMaterials.emplace_back(std::move(lightMat));
+    mMaterials["light"] = std::move(lightMat);
     this->mRoot = std::make_unique<Bvh>(mSurfaces.begin(), mSurfaces.end());
 }
 

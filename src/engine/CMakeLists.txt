@@ -17,22 +17,28 @@ configure_file (
   
 #Source files for current project
 set(PROJECT_SOURCES
-        io/tgafile.h
-        io/tgafile.cpp
-        io/mtlgrammar.hpp
-        io/objgrammar.hpp
-        io/objfile.h
-        io/objfile.cpp
+        image/tgafile.h
+        image/tgafile.cpp
+        geometry/obj/mtlgrammar.hpp
+        geometry/obj/objgrammar.hpp
+        geometry/obj/objdata.h
+        geometry/obj/objdata.cpp
+        geometry/obj/objfile.h
+        geometry/obj/objfile.cpp
+        geometry/obj/mtlfile.h
+        geometry/obj/mtlfile.cpp
+        geometry/surface.h
+        geometry/surface.cpp
+        geometry/material.h
+        geometry/material.cpp
+        geometry/triangle.h
+        geometry/triangle.cpp
         scene/bvh.h
         scene/bvh.cpp
         scene/camera.h
         scene/camera.cpp
         scene/lightsource.h
         scene/lightsource.cpp
-        scene/surface.h
-        scene/surface.cpp
-        scene/triangle.h
-        scene/triangle.cpp
         image.h
         image.cpp
         pathtracer.h
