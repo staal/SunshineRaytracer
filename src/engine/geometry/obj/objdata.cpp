@@ -1,5 +1,6 @@
 
 #include <boost/filesystem.hpp>
+#include "../triangle.h"
 #include "mtlfile.h"
 #include "objdata.h"
 

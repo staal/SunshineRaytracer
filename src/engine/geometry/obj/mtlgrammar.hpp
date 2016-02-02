@@ -13,7 +13,6 @@
 #include "mtldata.h"
 
 
-
 namespace sunshine {
 namespace engine {
 

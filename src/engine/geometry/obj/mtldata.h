@@ -9,7 +9,7 @@
 #include "../material.h"
 
 namespace sunshine {
-namespace engine{
+namespace engine {
 
 /*!
     \brief The mtl class for data extracted from mtl lib files, associated with
@@ -55,7 +55,7 @@ using MtlMaterials = std::map<std::string, MtlData>;
 } // namespace sunshine
 
 
-  /*Adapt structure macros must be called on the global namespace*/
+/*Adapt structure macros must be called on the global namespace*/
 BOOST_FUSION_ADAPT_STRUCT(
     glm::vec3,
     (float, x)

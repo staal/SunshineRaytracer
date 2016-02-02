@@ -7,7 +7,6 @@
 #include <boost/fusion/include/adapt_struct.hpp>
 
 #include "../surface.h"
-#include "../triangle.h"
 
 namespace sunshine {
 namespace engine {
