@@ -20,11 +20,6 @@ public:
     CommandlineHandler(int argc, char *argv[]);
 
     /*!
-        Default destructor
-    */
-    ~CommandlineHandler() = default;
-
-    /*!
         Validates the commandline. If the function returns false
         \param errorCode is set to the exit code of the program.
     */

@@ -24,11 +24,6 @@ public:
     */
     RenderApplication(const CommandlineHandler& handler);
 
-    /*!
-        Default destructor
-    */
-    ~RenderApplication() = default;
-
 
     /*!
         Processes the commandline and handle the response, including rendering
