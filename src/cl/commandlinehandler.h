@@ -18,9 +18,9 @@ public:
     CommandlineHandler(int argc, char *argv[]);
 
     /*!
-        Destructor
+        Default destructor
     */
-    ~CommandlineHandler();
+    ~CommandlineHandler() = default;
 
     /*!
         Validates the commandline. If the function returns false
@@ -56,13 +56,13 @@ protected:
     boost::program_options::options_description getDescription();
 
 private:
-    /*!< False if no arguments is passed on the commandline. */
+    /*! False if no arguments is passed on the commandline. */
     const bool mEmptyCommandline;
 
-    /*!< The program name, argv[0] on the commandline. */
+    /*! The program name, argv[0] on the commandline. */
     const std::string mProgramName;
 
-    /*!< The parsed argumentline variables map. */
+    /*! The parsed argumentline variables map. */
     boost::program_options::variables_map mVariables;
 };
 

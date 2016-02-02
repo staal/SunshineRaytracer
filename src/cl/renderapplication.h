@@ -10,11 +10,21 @@
 namespace sunshine {
 namespace cl {
 
-//! The command line application using the sunshine render engine.
+//! The main application class.
+/*!
+    The command line application using the sunshine render engine.
+*/
 class RenderApplication {
 public:
-    RenderApplication(int argc, char *argv[]);
-    ~RenderApplication();
+    /*!
+        Accepts \param argc and \param argv to be handled later.
+    */
+    RenderApplication(const CommandlineHandler& handler);
+
+    /*!
+        Default destructor
+    */
+    ~RenderApplication() = default;
 
 
     /*!
@@ -41,16 +51,16 @@ protected:
 
 
 private:
-    //!< Processes command line, including malformed formats
+    //! Processes command line, including malformed formats
     CommandlineHandler mCommandlineHandler;
 
-    //!< The image being rendered.
+    //! The image being rendered.
     std::shared_ptr<sunshine::engine::Image> mImage;
 
-    //!< The current loaded scene. Populate through @loadScene .
+    //! The current loaded scene. Populate through @loadScene .
     sunshine::engine::Scene mScene;
 
-    //!< The current scenegraph, containing the geometry and materials.
+    //! The current scenegraph, containing the geometry and materials.
     sunshine::engine::SceneGraph mSceneGraph;
 };
 

@@ -12,9 +12,11 @@ namespace cl {
 
 using namespace boost::program_options;
 
-//Constants
+/*! The argument name for input files. */
 const char* inputArgument = "input-scene";
-const char* outputArgument = "output-scene";
+
+/*! The argument name for output image. */
+const char* outputArgument = "output";
 
 
 // *****************************************************************************
@@ -57,11 +59,6 @@ CommandlineHandler::CommandlineHandler(int argc, char * argv[])
 
 
 // *****************************************************************************
-CommandlineHandler::~CommandlineHandler()
-{}
-
-
-// *****************************************************************************
 bool CommandlineHandler::validate(int & errorCode)
 {
     if (mVariables.count("help") || mEmptyCommandline) {
@@ -85,12 +82,6 @@ bool CommandlineHandler::validate(int & errorCode)
         return false;
     }
 
-    if (mVariables.count(inputArgument) == 0) {
-        std::cout << "Please supply a .scene file" << std::endl;
-        errorCode = 1;
-        return false;
-    }
-
     return true;
 }
 
@@ -101,8 +92,7 @@ std::string CommandlineHandler::getScene()
     if (mVariables.count(inputArgument)) {
         return mVariables[inputArgument].as<std::string>();
     }
-    throw std::runtime_error("Could not find option "
-        + std::string(inputArgument));
+    return "";
 }
 
 

@@ -1,13 +1,12 @@
-
 #include <chrono>
 #include <iostream>
 
-#include "engine/image/tgafile.h"
 #include "engine/geometry/obj/objfile.h"
+#include "engine/image/tgafile.h"
 #include "engine/pathtracer.h"
 
-#include "renderapplication.h"
 #include "commandlinehandler.h"
+#include "renderapplication.h"
 
 
 namespace sunshine {
@@ -16,12 +15,8 @@ namespace cl {
 using namespace sunshine::engine;
 
 // *****************************************************************************
-RenderApplication::RenderApplication(int argc, char * argv[])
-    : mCommandlineHandler(argc, argv)
-{}
-
-// *****************************************************************************
-RenderApplication::~RenderApplication()
+RenderApplication::RenderApplication(const CommandlineHandler& handler)
+    : mCommandlineHandler(handler)
 {}
 
 
@@ -40,23 +35,22 @@ int RenderApplication::run()
     }
 
     //Get commandline arguments
-    std::string configFileName = mCommandlineHandler.getScene();
-    std::cout << "Input: " << configFileName << std::endl;
+    std::string sceneFilename = mCommandlineHandler.getScene();
+    if (sceneFilename.empty()) {
+        std::cout << "Please supply a .scene file" << std::endl;
+        return -1;
+    }
+    std::cout << "Input: " << sceneFilename << std::endl;
 
     std::string outFile = mCommandlineHandler.getOutputFile();
     if (!outFile.empty()) {
         std::cout << "Output: " << outFile << std::endl;
-    } else {
-        std::cout << "Output: " << "unspecified, using out.tga" << std::endl;
     }
 
 
-
-
-
     //Load Scene
-    std::cout << "Loading scene: " << configFileName << std::endl;
-    loadScene(configFileName);
+    std::cout << "Loading scene: " << sceneFilename << std::endl;
+    loadScene(sceneFilename);
 
     //Ray tracing part
     std::cout << "Rendering using SunshineRaytracer engine" << std::endl;
@@ -65,11 +59,18 @@ int RenderApplication::run()
     renderScene();
 
     auto end = std::chrono::high_resolution_clock::now();
-    auto elapsedTime = std::chrono::duration_cast<std::chrono::seconds>(end - start);
-    auto elapsedTimeMS = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 
-    std::cout << "Render complete, time spent: " << elapsedTime.count() << "s" << std::endl;
-    std::cout << "Render complete, time spent: " << elapsedTimeMS.count() << "ms" << std::endl;
+    auto elapsedTime = 
+        std::chrono::duration_cast<std::chrono::seconds>(end - start);
+
+    auto elapsedTimeMS = 
+        std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+    std::cout << "Render complete, time spent: " << 
+        elapsedTime.count() << "s" << std::endl;
+
+    std::cout << "Render complete, time spent: " << 
+        elapsedTimeMS.count() << "ms" << std::endl;
 
     //Store image
     saveImage();
@@ -101,7 +102,8 @@ void RenderApplication::loadScene(std::string sceneFile)
 void RenderApplication::renderScene()
 {
     PathTracer renderer(mImage, &mSceneGraph, &mScene);
-    std::cout << "Using Sunshine Ray Tracer(SRT) engine version " << renderer.getVersion() << std::endl;
+    std::cout << "Using Sunshine Ray Tracer(SRT) engine version " << 
+        renderer.getVersion() << std::endl;
     renderer.render();
 }
 

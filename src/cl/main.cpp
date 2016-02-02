@@ -9,8 +9,11 @@ int main(int argc, char *argv[])
     std::cout << "------------------------" << std::endl;
     
     try {
+        //Initialize the handler to parse the commandline
+        sunshine::cl::CommandlineHandler handler(argc, argv);
+
         //Create the application
-        sunshine::cl::RenderApplication app(argc, argv);
+        sunshine::cl::RenderApplication app(handler);
 
         //Pass control to the application
         return app.run();
