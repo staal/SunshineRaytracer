@@ -2,18 +2,18 @@
 #include "bvh.h"
 
 namespace sunshine {
-namespace engine{
+namespace engine {
 
 
 // *****************************************************************************
-Box Bvh::boundingBox()
+BoundingBox Bvh::boundingBox()
 {
     return mBoundingBox;
 }
 
 
 // *****************************************************************************
-Box Bvh::combine(Box b1, Box b2)
+BoundingBox Bvh::combine(const BoundingBox& b1, const BoundingBox& b2)
 {
     float minx = (b1.bounds[0].x < b2.bounds[0].x) ? b1.bounds[0].x : b2.bounds[0].x;
     float miny = (b1.bounds[0].y < b2.bounds[0].y) ? b1.bounds[0].y : b2.bounds[0].y;
@@ -23,7 +23,7 @@ Box Bvh::combine(Box b1, Box b2)
     float maxy = (b1.bounds[1].y > b2.bounds[1].y) ? b1.bounds[1].y : b2.bounds[1].y;
     float maxz = (b1.bounds[1].z > b2.bounds[1].z) ? b1.bounds[1].z : b2.bounds[1].z;
 
-    return Box(glm::vec3(minx, miny, minz), glm::vec3(maxx, maxy, maxz));
+    return BoundingBox(glm::vec3(minx, miny, minz), glm::vec3(maxx, maxy, maxz));
 }
 
 
@@ -33,21 +33,31 @@ private:
     Axis axis;
     float center;
 public:
-    CenterSortFunctor(Axis axis, float center) { this->axis = axis; this->center = center; }
+    CenterSortFunctor(Axis axis, float center)
+    {
+        this->axis = axis; this->center = center;
+    }
+
     bool operator() (const std::unique_ptr<Surface>& surface)
     {
         float triCenter = 0.0f;
         switch (axis) {
-        case Axis::X:
-            triCenter = (surface->boundingBox().bounds[0].x + surface->boundingBox().bounds[1].x) / 2;
-            break;
-        case Axis::Y:
-            triCenter = (surface->boundingBox().bounds[0].y + surface->boundingBox().bounds[1].y) / 2;
-            break;
-        case Axis::Z:
-        default:
-            triCenter = (surface->boundingBox().bounds[0].z + surface->boundingBox().bounds[1].z) / 2;
-            break;
+            case Axis::X:
+                triCenter = (
+                    surface->boundingBox().bounds[0].x +
+                    surface->boundingBox().bounds[1].x) / 2;
+                break;
+            case Axis::Y:
+                triCenter = (
+                    surface->boundingBox().bounds[0].y +
+                    surface->boundingBox().bounds[1].y) / 2;
+                break;
+            case Axis::Z:
+            default:
+                triCenter = (
+                    surface->boundingBox().bounds[0].z +
+                    surface->boundingBox().bounds[1].z) / 2;
+                break;
         }
 
         return triCenter < center;
@@ -63,15 +73,13 @@ Bvh::Bvh(Surfaces::iterator start, Surfaces::iterator end, Axis axis)
     if (range == 1) {
         mLeft = std::move(*start);
         mBoundingBox = mLeft->boundingBox();
-    }
-    else if (range == 2) {
+    } else if (range == 2) {
         mLeft = std::move(*start);
         mRight = std::move(*(start + 1));
 
         mBoundingBox = combine(mLeft->boundingBox(), mRight->boundingBox());
-    }
-    else {
-        Box bigbox = (*start)->boundingBox();
+    } else {
+        BoundingBox bigbox = (*start)->boundingBox();
         for (auto it = start; it != end; ++it) {
             bigbox = combine(bigbox, (*it)->boundingBox());
         }
@@ -80,18 +88,18 @@ Bvh::Bvh(Surfaces::iterator start, Surfaces::iterator end, Axis axis)
         Axis nextAxis = Axis::X;
         float center = 0.0f;
         switch (axis) {
-        case Axis::X:
-            center = (bigbox.bounds[1].x + bigbox.bounds[0].x) / 2;
-            nextAxis = Axis::Y;
-            break;
-        case Axis::Y:
-            center = (bigbox.bounds[1].y + bigbox.bounds[0].y) / 2;
-            nextAxis = Axis::Z;
-            break;
-        case Axis::Z:
-        default:
-            center = (bigbox.bounds[1].z + bigbox.bounds[0].z) / 2;
-            break;
+            case Axis::X:
+                center = (bigbox.bounds[1].x + bigbox.bounds[0].x) / 2;
+                nextAxis = Axis::Y;
+                break;
+            case Axis::Y:
+                center = (bigbox.bounds[1].y + bigbox.bounds[0].y) / 2;
+                nextAxis = Axis::Z;
+                break;
+            case Axis::Z:
+            default:
+                center = (bigbox.bounds[1].z + bigbox.bounds[0].z) / 2;
+                break;
         }
 
         //partition around center point on the current axis
@@ -119,7 +127,7 @@ bool Bvh::hit(const Ray& r, float t0, float t1, HitRecord& rec)
 
         HitRecord lrec, rrec;
         //Left is never null by construction
-        bool leftHit = mLeft->hit(r, t0, t1, lrec); 
+        bool leftHit = mLeft->hit(r, t0, t1, lrec);
         bool rightHit = (mRight != nullptr) && mRight->hit(r, t0, t1, rrec);
 
         if (leftHit && rightHit) {
@@ -129,23 +137,20 @@ bool Bvh::hit(const Ray& r, float t0, float t1, HitRecord& rec)
                 rec.surface = lrec.surface;
                 rec.t = lrec.t;
                 return true;
-            }
-            else {
+            } else {
                 rec.normal = rrec.normal;
                 rec.point = rrec.point;
                 rec.surface = rrec.surface;
                 rec.t = rrec.t;
                 return true;
             }
-        }
-        else if (leftHit) {
+        } else if (leftHit) {
             rec.normal = lrec.normal;
             rec.point = lrec.point;
             rec.surface = lrec.surface;
             rec.t = lrec.t;
             return true;
-        }
-        else if (rightHit) {
+        } else if (rightHit) {
             rec.normal = rrec.normal;
             rec.point = rrec.point;
             rec.surface = rrec.surface;

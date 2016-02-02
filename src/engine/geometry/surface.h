@@ -5,43 +5,69 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-#include "../rayutil.h"
+#include "../ray.h"
+#include "boundingbox.h"
 #include "material.h"
 
 namespace sunshine {
 namespace engine{
 
-
+//! Forward declaration, see \sa Surface.
 class Surface;
 
+/*!
+    \brief Hit record, used for returning data found in the scene.
+*/
 struct HitRecord {
+    /*! The distance of the ray traveled */
     float t;
-    Surface* surface;
-    glm::vec3 normal;
+
+    /*! World space point of the hit */
     glm::vec3 point;
-};
 
-class Box {
-public:
-    Box() { bounds[0] = glm::vec3(); bounds[1] = glm::vec3(); }
-    Box(const glm::vec3 min, const glm::vec3 max);
-    ~Box();
-    bool hit(const Ray& r, const float t0, const float t1);
+    /*! Non owning pointer to the surface hit. */
+    Surface* surface;
 
-    glm::vec3 bounds[2];
+    /*! Normal at the point hit */
+    glm::vec3 normal;
+
 };
 
 class Surface {
 public:
+    /*!
+        Default constructor.
+    */
     Surface();
-    ~Surface();
-    virtual bool hit(const Ray& r, const float t0, const float t1, HitRecord& rec) = 0;
-    virtual Box boundingBox() = 0;
 
+    /*!
+        Virtual destructor.
+    */
+    virtual ~Surface();
+    
+    /*!
+        Tests if ray r intersects with this Surface object. Populates 
+        HitRecord with details of hit point.
+    */
+    virtual bool hit(
+        const Ray& r, 
+        const float t0, 
+        const float t1, 
+        HitRecord& rec
+        ) = 0;
+
+    /*!
+        The bounding box of the surface.
+    */
+    virtual BoundingBox boundingBox() = 0;
+
+    /*!
+        The material associated with this surface. Non owning pointer.
+    */
     Material* material;
 };
 
-
+//! Default Surfaces type.
 using Surfaces = std::vector<std::unique_ptr<Surface>>;
 
 } // namespace engine

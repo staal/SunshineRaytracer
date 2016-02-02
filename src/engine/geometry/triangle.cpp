@@ -6,17 +6,10 @@ namespace engine{
 
 // *****************************************************************************
 Triangle::Triangle(Vertex v1, Vertex v2, Vertex v3, Material* mat)
+    : v1(v1),v2(v2),v3(v3)
 {
-    this->v1 = v1;
-    this->v2 = v2;
-    this->v3 = v3;
-    this->material = mat;
+    material = mat;
 }
-
-
-// *****************************************************************************
-Triangle::~Triangle()
-{}
 
 
 // *****************************************************************************
@@ -94,7 +87,7 @@ static float max(float a, float b, float c)
 
 
 // *****************************************************************************
-Box Triangle::boundingBox()
+BoundingBox Triangle::boundingBox()
 {
     float minx = min(v1.v.x, v2.v.x, v3.v.x);
     float maxx = max(v1.v.x, v2.v.x, v3.v.x);
@@ -105,7 +98,9 @@ Box Triangle::boundingBox()
     float minz = min(v1.v.z, v2.v.z, v3.v.z);
     float maxz = max(v1.v.z, v2.v.z, v3.v.z);
 
-    return Box(glm::vec3(minx, miny, minz), glm::vec3(maxx, maxy, maxz));
+    return BoundingBox(
+        glm::vec3(minx, miny, minz), 
+        glm::vec3(maxx, maxy, maxz));
 }
 
 

@@ -2,7 +2,6 @@
 #define SUNSHINE_ENGINE_LIGHT_SOURCE_H_
 
 #include <memory>
-#include "../rayutil.h"
 #include "../rng.h"
 #include "../geometry/triangle.h"
 

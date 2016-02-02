@@ -1,7 +1,7 @@
 #ifndef SUNSHINE_ENGINE_CAMERA_H_
 #define SUNSHINE_ENGINE_CAMERA_H_
 
-#include "../rayutil.h"
+#include "../ray.h"
 
 namespace sunshine {
 namespace engine{

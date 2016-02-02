@@ -159,7 +159,9 @@ vec3 generateHemisphereDirection(vec3 &normal, float* pdf, RNG* rng)
     //sample hemisphere
     //Based on http://people.cs.kuleuven.be/~philip.dutre/GI/TotalCompendium.pdf
 
-    float azimuth = 2 * PI * rng->GetRandom01();
+    const float pi = 3.14159265f;
+
+    float azimuth = 2 * pi * rng->GetRandom01();
 
     float r2 = rng->GetRandom01();
 
@@ -186,9 +188,8 @@ vec3 generateHemisphereDirection(vec3 &normal, float* pdf, RNG* rng)
     if (dotf < 0.0f)
         throw "critical";
 #endif
-
     //Cosine lobe pdf!
-    *pdf = sqrtf(r2) / PI; //cosf(acosf(srtq(r2)) / PI;
+    *pdf = sqrtf(r2) / pi; //cosf(acosf(srtq(r2)) / PI;
 
     return psi;
 }

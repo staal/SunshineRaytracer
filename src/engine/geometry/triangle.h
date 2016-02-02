@@ -14,9 +14,15 @@ struct Vertex {
 class Triangle : public Surface {
 public:
     Triangle(Vertex v1, Vertex v2, Vertex v3, Material* mat);
-    ~Triangle();
-    bool hit(const Ray &r, const float t0, const float t1, HitRecord& rec);
-    Box boundingBox();
+
+    bool hit(
+        const Ray &r, 
+        const float t0, 
+        const float t1, 
+        HitRecord& rec
+        )  override;
+
+    BoundingBox boundingBox() override;
 
     Vertex v1, v2, v3;
 };

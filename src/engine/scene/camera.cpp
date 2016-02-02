@@ -10,7 +10,9 @@ using namespace glm;
 Camera::Camera(vec3 position, vec3 viewDirection, vec3 up, float fov, 
     unsigned int width, unsigned int height)
 {
-    float radAngle = (fov / 2.0f)* PI / 180.0f; //degree to radian
+    const float pi = 3.14159265f;
+
+    float radAngle = (fov / 2.0f)* pi / 180.0f; //degree to radian
     this->mDistance = 1.0f / tan(radAngle);
     this->mOrigin = position;
     this->mBasisW = -normalize(viewDirection);

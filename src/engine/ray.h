@@ -1,5 +1,5 @@
-#ifndef SUNSHINE_ENGINE_RAY_UTIL_H_
-#define SUNSHINE_ENGINE_RAY_UTIL_H_
+#ifndef SUNSHINE_ENGINE_RAY_H_
+#define SUNSHINE_ENGINE_RAY_H_
 
 #include <math.h>
 #include <glm/glm.hpp>
@@ -7,7 +7,6 @@
 namespace sunshine {
 namespace engine{
 
-#define PI 3.14159265f
 
 class Ray {
 public:
@@ -39,4 +38,4 @@ public:
 
 } // namespace engine
 } // namespace sunshine
-#endif // !SUNSHINE_ENGINE_RAY_UTIL_H_
+#endif // !SUNSHINE_ENGINE_RAY_H_

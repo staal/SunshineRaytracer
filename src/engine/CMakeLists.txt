@@ -50,6 +50,8 @@ set(PROJECT_SOURCES
         geometry/obj/mtlfile.cpp
         geometry/objfile.h
         geometry/objfile.cpp
+        geometry/boundingbox.h
+        geometry/boundingbox.cpp
         geometry/surface.h
         geometry/surface.cpp
         geometry/material.h
@@ -66,7 +68,7 @@ set(PROJECT_SOURCES
         image.cpp
         pathtracer.h
         pathtracer.cpp
-        rayutil.h
+        ray.h
         scene.h
         scene.cpp
         scenegraph.h
