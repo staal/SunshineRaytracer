@@ -1,15 +1,18 @@
 #ifndef SUNSHINE_ENGINE_OBJ_GRAMMAR_H_
 #define SUNSHINE_ENGINE_OBJ_GRAMMAR_H_
 
+#pragma warning(push)
+#pragma warning(disable : 4348)
 //#define BOOST_SPIRIT_QI_DEBUG
-#define BOOST_SPIRIT_USE_PHOENIX_V3 1
+//Use Phoenix V3, defined before qi usage.
+#define BOOST_SPIRIT_USE_PHOENIX_V3 1 
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 #include <boost/spirit/include/phoenix_fusion.hpp>
 #include <boost/spirit/include/phoenix_bind.hpp>
+#pragma warning(pop)
 
-#include "../material.h"
 #include "objdata.h"
 
 
@@ -18,9 +21,9 @@ namespace engine {
 
 
 namespace qi = boost::spirit::qi;
-template <typename Iterator>
+template <typename Iterator, typename Skipper = qi::rule<Iterator>>
 struct OBJGrammar :
-    qi::grammar<Iterator, void(), qi::rule<Iterator>> {
+    qi::grammar<Iterator, void(), Skipper> {
 
     void useMtl(const std::string &s) {}
 
@@ -48,11 +51,14 @@ struct OBJGrammar :
 
         faceRule %= (
             //eps (empty parser) to set vt to 0
+            //Match x//y
             (int_[at_c<0>(_val) = qi::_1] >> "//" >> 
-            int_[at_c<2>(_val) = qi::_1] >> qi::eps[at_c<1>(_val) = 0]) | //Match x//y
+            int_[at_c<2>(_val) = qi::_1] >> qi::eps[at_c<1>(_val) = 0]) | 
+
+            //Match x -(/y) -(/z)
             (int_[at_c<0>(_val) = qi::_1] >>
             -("/" >> int_[at_c<1>(_val) = qi::_1]) >>
-            -("/" >> int_[at_c<2>(_val) = qi::_1])) //Match x -(/y) -(/z)
+            -("/" >> int_[at_c<2>(_val) = qi::_1])) 
             );
 
         multiFaceRule %= +faceRule;
@@ -66,13 +72,12 @@ struct OBJGrammar :
 
         BOOST_SPIRIT_DEBUG_NODES((stringRule)(startRule)(faceRule)(glmRule));
     };
-    qi::rule<Iterator, void(), qi::rule<Iterator>> startRule;
-    qi::rule<Iterator, ObjFaceIndices(), qi::rule<Iterator>> faceRule;
-    qi::rule<Iterator, std::vector<ObjFaceIndices>(), qi::rule<Iterator>>
-        multiFaceRule;
+    qi::rule<Iterator, void(), Skipper> startRule;
+    qi::rule<Iterator, ObjFaceIndices(), Skipper> faceRule;
+    qi::rule<Iterator, std::vector<ObjFaceIndices>(), Skipper> multiFaceRule;
 
-    qi::rule<Iterator, std::string(), qi::rule<Iterator>> stringRule;
-    qi::rule<Iterator, glm::vec3(), qi::rule<Iterator>> glmRule;
+    qi::rule<Iterator, std::string(), Skipper> stringRule;
+    qi::rule<Iterator, glm::vec3(), Skipper> glmRule;
 
     qi::rule<Iterator> skipper;
 

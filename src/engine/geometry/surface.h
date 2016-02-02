@@ -3,8 +3,7 @@
 
 #include <memory>
 #include <vector>
-
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 
 #include "../rayutil.h"
 #include "material.h"

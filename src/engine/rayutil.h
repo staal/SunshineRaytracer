@@ -2,7 +2,7 @@
 #define SUNSHINE_ENGINE_RAY_UTIL_H_
 
 #include <math.h>
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 
 namespace sunshine {
 namespace engine{

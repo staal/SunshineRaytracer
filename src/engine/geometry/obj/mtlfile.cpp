@@ -10,11 +10,6 @@ namespace engine {
 
 // *****************************************************************************
 MtlFile::MtlFile(std::string filename) : filename(filename)
-{}
-
-
-// *****************************************************************************
-std::map<std::string, Material> MtlFile::load()
 {
     using namespace boost::filesystem;
 
@@ -22,7 +17,12 @@ std::map<std::string, Material> MtlFile::load()
     if (is_directory(mtlPath) || !exists(mtlPath)) {
         throw std::runtime_error(filename + " is not an mtl file");
     }
+}
 
+
+// *****************************************************************************
+std::map<std::string, Material> MtlFile::load()
+{
     std::ifstream input(filename, std::ios_base::in);
 
     if (!input) {
@@ -40,18 +40,12 @@ std::map<std::string, Material> MtlFile::load()
     MTLGrammar<Iterator> grammar;
 
 
-    std::map<std::string, Material> parsed;
+    std::map<std::string, Material> mats;
     Iterator iter = mtlText.begin();
     Iterator end = mtlText.end();
-    bool ok = phrase_parse(iter, end, grammar, grammar.skipper, parsed);
+    bool ok = phrase_parse(iter, end, grammar, grammar.skipper, mats);
 
-    std::map<std::string, Material> mats;
-    if (ok && iter == end) {
-        //TODO Dont create a new map from scratch
-        for (auto& kv : parsed) {
-            mats[kv.first] = kv.second;
-        }
-    } else {
+    if (!ok || iter != end) {
         std::string rest(iter, end);
         throw std::runtime_error(
             "Parsing MTL file failed, failed at: " + rest.substr(0, 50));

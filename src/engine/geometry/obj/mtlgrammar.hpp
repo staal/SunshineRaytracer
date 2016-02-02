@@ -1,10 +1,14 @@
 #ifndef SUNSHINE_ENGINE_MTL_GRAMMAR_H_
 #define SUNSHINE_ENGINE_MTL_GRAMMAR_H_
 
+#include <map>
+
+#pragma warning(push)
+#pragma warning(disable : 4348)
 //#define BOOST_SPIRIT_QI_DEBUG
 #include <boost/spirit/include/qi.hpp>
 #include <boost/fusion/adapted/std_pair.hpp>
-#include <map>
+#pragma warning(pop)
 
 #include "../surface.h"
 #include "../material.h"
@@ -16,23 +20,37 @@ namespace engine {
 
 namespace qi = boost::spirit::qi;
 
-/*
-Format of Wavefront MTL files:
-newmtl ShortBox
-Ka  0.6 0.6 0.6
-Kd  0.5 0.5 0.5
-Ks  0 0 0
-d  1
-Ns  0
-illum 2
-# Comment
-...
+/*!
+    \brief The grammar for MTL files, material files associated with OBJ format.
+
+    Format of Wavefront MTL files:
+    \code
+    newmtl ShortBox
+    Ka  0.6 0.6 0.6
+    Kd  0.5 0.5 0.5
+    Ks  0 0 0
+    d  1
+    Ns  0
+    illum 2
+    # Comment
+    ...
+    \endcode
+
+    \param Iterator the iterator type for the grammar. 
+    Must be a forward iterator.
+
+    \param Skipper the skipper type, default type is compatible 
+    with rule skipper in this grammar.
 */
-template <typename Iterator>
+template <typename Iterator, typename Skipper = qi::rule<Iterator>>
 struct MTLGrammar :
-    qi::grammar<Iterator, std::map<std::string, Material>(), qi::rule<Iterator>> {
+    qi::grammar<Iterator, std::map<std::string, Material>(), Skipper> {
 
-
+    /*!
+        Constructor, which specifies all the grammar rules according to 
+        boost.spirit grammar specifications. The inherited grammar is passed
+        the entry rule for the grammar, startRule.
+    */
     MTLGrammar() : MTLGrammar::base_type(startRule)
     {
         using qi::char_;
@@ -47,8 +65,8 @@ struct MTLGrammar :
             *("newmtl" >> stringRule >> mtlDetailRule
             );
 
-        /*The ordering here must match the BOOST_FUSION_ADAPT_STRUCT macro above
-        for Material. Omit fields to be ignored. */
+        //The ordering here must match the BOOST_FUSION_ADAPT_STRUCT macro
+        //defined for Material (in its header). Omit fields to be ignored.
         mtlDetailRule %=
             (
             ("Ka" >> glmRule) ^
@@ -66,16 +84,27 @@ struct MTLGrammar :
         skipper = (('#' >> *(qi::char_ - qi::eol)) >> qi::eol) |
             ascii::space;
 
+        //TODO: Add error handling
+
         BOOST_SPIRIT_DEBUG_NODES((stringRule)(startRule));
     };
 
-    qi::rule<Iterator, std::map<std::string, Material>(), qi::rule<Iterator>> 
-        startRule;
-    qi::rule<Iterator, Material(), qi::rule<Iterator>> mtlDetailRule;
+    /*! 
+        Entry rule, specifies the attribute type of the grammar, a map of 
+        strings and associated Material.
+    */
+    qi::rule<Iterator, std::map<std::string, Material>(), Skipper> startRule;
 
-    qi::rule<Iterator, std::string(), qi::rule<Iterator>> stringRule;
-    qi::rule<Iterator, glm::vec3(), qi::rule<Iterator>> glmRule;
+    /*! Material rule, attribute is a complete Material. */
+    qi::rule<Iterator, Material(), Skipper> mtlDetailRule;
 
+    /*! Simple string match rule */
+    qi::rule<Iterator, std::string(), Skipper> stringRule;
+
+    /*! Simple glm::vec3 match rule */
+    qi::rule<Iterator, glm::vec3(), Skipper> glmRule;
+
+    /*! Grammar default skipper. */
     qi::rule<Iterator> skipper;
 };
 

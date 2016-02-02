@@ -3,7 +3,6 @@
 
 #include <memory>
 #include <map>
-
 #include <boost/fusion/include/adapt_struct.hpp>
 #include <glm/glm.hpp>
 

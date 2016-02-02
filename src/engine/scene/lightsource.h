@@ -4,7 +4,6 @@
 #include <memory>
 #include "../rayutil.h"
 #include "../rng.h"
-#include "../geometry/surface.h"
 #include "../geometry/triangle.h"
 
 namespace sunshine {

@@ -5,8 +5,6 @@
 #include <string>
 #include <vector>
 #include "objdata.h"
-#include "../surface.h"
-#include "../triangle.h"
 
 namespace sunshine {
 namespace engine {

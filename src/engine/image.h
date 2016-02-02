@@ -2,8 +2,7 @@
 #define SUNSHINE_ENGINE_IMAGE_H_
 
 #include <vector>
-
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 
 namespace sunshine {
 namespace engine {

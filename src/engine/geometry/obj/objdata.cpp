@@ -7,30 +7,33 @@ namespace sunshine {
 namespace engine {
 
 // *****************************************************************************
-ObjData::ObjData() : currentMaterial(nullptr), mParentDir("")
+ObjData::ObjData() : currentMaterial(nullptr), mWorkingDir("")
 {}
 
 
+// *****************************************************************************
 void ObjData::clear()
 {
-    mParentDir = "";
+    mWorkingDir = "";
     vertices.clear();
     normals.clear();
     materials.clear();
-    faces.clear();
+    surfaces.clear();
     currentMaterial = nullptr;
 }
+
 
 // *****************************************************************************
 void ObjData::loadMtlLib(const std::string& filename)
 {
     using namespace boost::filesystem;
     
+    //Find the final absolute filename from mWorkingDir and mtlPath.
     path mtlPath(filename);
 
     std::string absoluteFilename = filename;
-    if (mtlPath.is_relative() && mParentDir != "") {
-        auto finalPath = path(mParentDir).append(filename);
+    if (mtlPath.is_relative() && mWorkingDir != "") {
+        auto finalPath = path(mWorkingDir).append(filename);
         absoluteFilename = canonical(finalPath).string();
     }
 
@@ -116,7 +119,7 @@ void ObjData::addFace(std::vector<ObjFaceIndices> faceIndices)
     }
 
 
-    faces.push_back(std::make_unique<Triangle>(vs.at(0), vs.at(1), vs.at(2),
+    surfaces.push_back(std::make_unique<Triangle>(vs.at(0), vs.at(1), vs.at(2),
         currentMaterial));
 }
 
@@ -124,7 +127,7 @@ void ObjData::addFace(std::vector<ObjFaceIndices> faceIndices)
 // *****************************************************************************
 Surfaces ObjData::getSurfaces()
 {
-    return std::move(faces);
+    return std::move(surfaces);
 }
 
 
