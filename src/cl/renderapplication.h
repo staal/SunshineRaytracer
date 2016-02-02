@@ -10,14 +10,17 @@
 namespace sunshine {
 namespace cl {
 
-//! The main application class.
+
 /*!
+    \brief The main application class.
+
     The command line application using the sunshine render engine.
 */
 class RenderApplication {
 public:
     /*!
-        Accepts \param argc and \param argv to be handled later.
+        \param handler which is responsible for handling the
+        commandline itself.
     */
     RenderApplication(const CommandlineHandler& handler);
 
@@ -35,7 +38,7 @@ public:
 
 protected:
     /*!
-        Load @param sceneFile, construction the scene to be rendered.
+        @param sceneFile the scene to be rendered.
     */
     void loadScene(std::string sceneFile);
 

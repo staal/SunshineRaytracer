@@ -9,7 +9,9 @@
 namespace sunshine {
 namespace cl {
 
-//! The handler for commandline arguments
+/*!
+    \brief The handler for commandline arguments.
+*/
 class CommandlineHandler {
 public:
     /*!
