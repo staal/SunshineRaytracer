@@ -19,11 +19,6 @@ ObjFile::ObjFile(std::string filename) : mFilename(filename)
 
 
 // *****************************************************************************
-ObjFile::~ObjFile()
-{}
-
-
-// *****************************************************************************
 void ObjFile::load()
 {
     using namespace boost::filesystem;
@@ -46,21 +41,20 @@ void ObjFile::load()
         throw std::runtime_error("Could not open obj file: " + mFilename);
     }
 
-    std::string objData;
+    std::string objText;
     input.unsetf(std::ios::skipws); // Preserve all whitespaces
     std::copy(
         std::istream_iterator<char>(input),
         std::istream_iterator<char>(), //No args is an EOF iterator.
-        std::back_inserter(objData));
+        std::back_inserter(objText));
 
     using Iterator = std::string::const_iterator;
     OBJGrammar<Iterator> grammar(mObjData);
 
 
-    std::map<std::string, Material> parsed;
-    Iterator iter = objData.begin();
-    Iterator end = objData.end();
-    bool ok = phrase_parse(iter, end, grammar, grammar.skipper, parsed);
+    Iterator iter = objText.begin();
+    Iterator end = objText.end();
+    bool ok = phrase_parse(iter, end, grammar, grammar.skipper);
 
     if (!ok || iter != end) {
         std::string rest(iter, end);

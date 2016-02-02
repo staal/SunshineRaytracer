@@ -44,6 +44,8 @@ set(PROJECT_SOURCES
         geometry/obj/objgrammar.hpp
         geometry/obj/objdata.h
         geometry/obj/objdata.cpp
+        geometry/obj/mtldata.h
+        geometry/obj/mtldata.cpp
         geometry/obj/mtlfile.h
         geometry/obj/mtlfile.cpp
         geometry/objfile.h

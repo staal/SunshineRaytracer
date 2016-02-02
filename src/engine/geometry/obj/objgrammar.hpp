@@ -13,6 +13,7 @@
 #include <boost/spirit/include/phoenix_bind.hpp>
 #pragma warning(pop)
 
+#include "mtldata.h"
 #include "objdata.h"
 
 

@@ -13,9 +13,9 @@ namespace sunshine {
 namespace engine {
 
 /*!
-    \brief A single set of indices for a face. 
-    
-    Default values are 0, an unused index in obj format. 
+    \brief A single set of indices for a face.
+
+    Default values are 0, an unused index in obj format.
     Indices are 1 indexed and -1 means the latest added vertex/normal/texture.
 */
 struct ObjFaceIndices {
@@ -26,11 +26,11 @@ struct ObjFaceIndices {
 /*!
     \brief The data of a parsed Obj File.
 
-    This is used by ObjGrammar to parse an obj file and transform into 
+    This is used by ObjGrammar to parse an obj file and transform into
     usable data. The functions on this is called from different rules in the
     grammar.
 */
-class ObjData {    
+class ObjData {
 public:
     /*!
         Constructor.
@@ -43,7 +43,8 @@ public:
     void clear();
 
     /*!
-        \param workingDir The path o
+        \param workingDir Set the working dir for the obj file being parsed.
+        This is used for any mtl libraries specified using relative paths.
     */
     void setParentDir(std::string workingDir)
     {
@@ -67,8 +68,8 @@ public:
     void addNormal(const glm::vec3& n);
 
     /*!
-        Loads a mtl lib. Called from ObjGrammar parsing an obj file. The Mtl lib 
-        will be loaded immidately and the materials are thus avilable at later 
+        Loads a mtl lib. Called from ObjGrammar parsing an obj file. The Mtl lib
+        will be loaded immidately and the materials are thus avilable at later
         calls.
 
         \sa sunshine::engine::ObjGrammar
@@ -77,14 +78,14 @@ public:
     void loadMtlLib(const std::string& filename);
 
     /*!
-        Attempts to set current material to the mtlName param. If found, any 
+        Attempts to set current material to the mtlName param. If found, any
         face created will be associated with this material. If not found will
         throw a runtime_error.
 
-        TODO:Check if runtime_error perhaps should be an assignment to a 
+        TODO:Check if runtime_error perhaps should be an assignment to a
         standard material.
 
-        \param mtlName the material to use from this point. 
+        \param mtlName the material to use from this point.
 
         \sa sunshine::engine::ObjGrammar
         \sa loadMtlLib
@@ -92,13 +93,13 @@ public:
     void useMtl(const std::string& mtlName);
 
     /*!
-        Will create a new surface from the faceIndices. Will throw a 
-        runtime_error if faceIndices.size() is not exactly 3. Only supporting 
+        Will create a new surface from the faceIndices. Will throw a
+        runtime_error if faceIndices.size() is not exactly 3. Only supporting
         triangles for now.
 
         TODO: Specialized exception, obj_parse_exception(std::string what).
 
-        \param faceIndices the indices to use for creating the geometry. 
+        \param faceIndices the indices to use for creating the geometry.
     */
     void addFace(std::vector<ObjFaceIndices> faceIndices);
 
@@ -126,8 +127,12 @@ private:
     Surfaces surfaces;
 
     /*! The current material, set through "usemtl material". Will be applied
-        to all faces created from this point forward. */
+        to all faces created from this point forward. Not the owner, don't
+        delete this. */
     Material *currentMaterial;
+
+    /*! The working dir of the obj file. This is used for relative path mtl
+    files. */
     std::string mWorkingDir;
 };
 
@@ -136,7 +141,10 @@ private:
 } // namespace sunshine
 
 
-/* Call macro to allow ObjFaceIndices to be used in Boost.spirit parsers. */
+/*
+    Call macro to allow ObjFaceIndices to be used in Boost.spirit parsers.
+    Must be called in the global namespace.
+*/
 BOOST_FUSION_ADAPT_STRUCT(
     sunshine::engine::ObjFaceIndices,
     (int, v)

@@ -10,8 +10,7 @@
 #include <boost/fusion/adapted/std_pair.hpp>
 #pragma warning(pop)
 
-#include "../surface.h"
-#include "../material.h"
+#include "mtldata.h"
 
 
 
@@ -44,7 +43,7 @@ namespace qi = boost::spirit::qi;
 */
 template <typename Iterator, typename Skipper = qi::rule<Iterator>>
 struct MTLGrammar :
-    qi::grammar<Iterator, std::map<std::string, Material>(), Skipper> {
+    qi::grammar<Iterator, MtlMaterials(), Skipper> {
 
     /*!
         Constructor, which specifies all the grammar rules according to 
@@ -72,9 +71,10 @@ struct MTLGrammar :
             ("Ka" >> glmRule) ^
             ("Kd" >> glmRule) ^
             ("Ks" >> glmRule) ^
-            ("d" >> omit[float_]) ^
+            ("d" >> float_) ^
+            ("Tr" >> float_) ^
             ("Ns" >> float_) ^
-            ("illum" >> omit[int_])
+            ("illum" >> int_)
             );
 
         stringRule %= lexeme[+(char_ - qi::eol)];
@@ -93,10 +93,10 @@ struct MTLGrammar :
         Entry rule, specifies the attribute type of the grammar, a map of 
         strings and associated Material.
     */
-    qi::rule<Iterator, std::map<std::string, Material>(), Skipper> startRule;
+    qi::rule<Iterator, MtlMaterials(), Skipper> startRule;
 
     /*! Material rule, attribute is a complete Material. */
-    qi::rule<Iterator, Material(), Skipper> mtlDetailRule;
+    qi::rule<Iterator, MtlData(), Skipper> mtlDetailRule;
 
     /*! Simple string match rule */
     qi::rule<Iterator, std::string(), Skipper> stringRule;

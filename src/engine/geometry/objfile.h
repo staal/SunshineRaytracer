@@ -14,14 +14,35 @@ namespace engine {
 */
 class ObjFile {
 public:
+    /*!
+        Constructor.
+
+        \param filename the path of the OBJ file to parse.
+    */
     ObjFile(std::string filename);
-    ~ObjFile();
+
+    /*!
+        Do the actual loading of the OBJ file.
+    */
     void load();
+
+    /*!
+        Get the surfaces loaded from the OBJ file. Transfers ownership to 
+        caller.
+    */
     Surfaces getSurfaces();
+
+    /*!
+    Get the materials loaded from the OBJ file (and mtl files). 
+    Transfers ownership to caller.
+    */
     Materials getMaterials();
 
 private:
+    /*! The actual data of the OBJ file. */
     ObjData mObjData;
+
+    /*! The filename of the OBJ file to parse. */
     const std::string mFilename;
 };
 

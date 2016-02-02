@@ -2,6 +2,7 @@
 #include <boost/filesystem.hpp>
 #include <fstream>
 
+#include "mtldata.h"
 #include "mtlfile.h"
 #include "mtlgrammar.hpp"
 
@@ -40,7 +41,7 @@ std::map<std::string, Material> MtlFile::load()
     MTLGrammar<Iterator> grammar;
 
 
-    std::map<std::string, Material> mats;
+    MtlMaterials mats;
     Iterator iter = mtlText.begin();
     Iterator end = mtlText.end();
     bool ok = phrase_parse(iter, end, grammar, grammar.skipper, mats);
@@ -51,7 +52,12 @@ std::map<std::string, Material> MtlFile::load()
             "Parsing MTL file failed, failed at: " + rest.substr(0, 50));
 
     }
-    return mats;
+
+    std::map<std::string, Material> sunMaterials;
+    for (auto& kv : mats) {
+        sunMaterials[kv.first] = kv.second.toMaterial();
+    }
+    return sunMaterials;
 }
 
 
