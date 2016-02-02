@@ -4,13 +4,13 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "objdata.h"
+#include "obj/objdata.h"
 
 namespace sunshine {
 namespace engine {
 
 /*!
-    A Wavefront OBJ file class.
+    \brief A Wavefront OBJ file class.
 */
 class ObjFile {
 public:

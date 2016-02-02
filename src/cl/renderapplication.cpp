@@ -1,7 +1,7 @@
 #include <chrono>
 #include <iostream>
 
-#include "engine/geometry/obj/objfile.h"
+#include "engine/geometry/objfile.h"
 #include "engine/image/tgafile.h"
 #include "engine/pathtracer.h"
 

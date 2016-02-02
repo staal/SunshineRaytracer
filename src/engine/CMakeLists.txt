@@ -44,10 +44,10 @@ set(PROJECT_SOURCES
         geometry/obj/objgrammar.hpp
         geometry/obj/objdata.h
         geometry/obj/objdata.cpp
-        geometry/obj/objfile.h
-        geometry/obj/objfile.cpp
         geometry/obj/mtlfile.h
         geometry/obj/mtlfile.cpp
+        geometry/objfile.h
+        geometry/objfile.cpp
         geometry/surface.h
         geometry/surface.cpp
         geometry/material.h

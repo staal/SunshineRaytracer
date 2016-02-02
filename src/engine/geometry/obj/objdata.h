@@ -25,6 +25,10 @@ struct ObjFaceIndices {
 
 /*!
     \brief The data of a parsed Obj File.
+
+    This is used by ObjGrammar to parse an obj file and transform into 
+    usable data. The functions on this is called from different rules in the
+    grammar.
 */
 class ObjData {    
 public:
@@ -83,7 +87,6 @@ public:
         \param mtlName the material to use from this point. 
 
         \sa sunshine::engine::ObjGrammar
-        \sa currentMaterial
         \sa loadMtlLib
     */
     void useMtl(const std::string& mtlName);
@@ -110,10 +113,20 @@ public:
     Materials getMaterials();
 
 private:
+    /*! Vertices used to create faces/triangles. */
     std::vector<glm::vec3> vertices;
+
+    /*! Normals used to create faces/triangles. */
     std::vector<glm::vec3> normals;
+
+    /*! Map of materials parsed so far. */
     Materials materials;
+
+    /*! Map of surfaces parsed so far. */
     Surfaces surfaces;
+
+    /*! The current material, set through "usemtl material". Will be applied
+        to all faces created from this point forward. */
     Material *currentMaterial;
     std::string mWorkingDir;
 };
@@ -123,6 +136,7 @@ private:
 } // namespace sunshine
 
 
+/* Call macro to allow ObjFaceIndices to be used in Boost.spirit parsers. */
 BOOST_FUSION_ADAPT_STRUCT(
     sunshine::engine::ObjFaceIndices,
     (int, v)

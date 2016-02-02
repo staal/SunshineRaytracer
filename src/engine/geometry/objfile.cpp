@@ -5,7 +5,7 @@
 #include <boost/filesystem.hpp>
 
 #include "objfile.h"
-#include "objgrammar.hpp"
+#include "obj/objgrammar.hpp"
 
 namespace sunshine {
 namespace engine {
