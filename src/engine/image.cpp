@@ -12,11 +12,6 @@ Image::Image(unsigned width, unsigned height, bool alpha) :
 
 
 // *****************************************************************************
-Image::~Image()
-{}
-
-
-// *****************************************************************************
 bool Image::setPixel(unsigned x, unsigned y, 
     unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {

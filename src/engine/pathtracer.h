@@ -12,8 +12,9 @@ namespace engine{
 
 class PathTracer {
 public:
-    PathTracer(std::shared_ptr<Image> image, SceneGraph* sceneGraph, Scene* scene);
-    ~PathTracer();
+    PathTracer(std::shared_ptr<Image> image, 
+        SceneGraph* sceneGraph, Scene* scene);
+
     void render();
     static const std::string getVersion();
 

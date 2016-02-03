@@ -46,7 +46,6 @@ struct RGBA {
 class Image {
 public:
     Image(unsigned width, unsigned height, bool alpha);
-    ~Image();
 
     unsigned getWidth() const;
     unsigned getHeight() const;

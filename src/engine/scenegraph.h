@@ -11,7 +11,6 @@ namespace engine{
 class SceneGraph {
 public:
     SceneGraph();
-    ~SceneGraph();
 
     LightSource* getLight(); //Only single light for now
     void setEpsilon(float epsilon);

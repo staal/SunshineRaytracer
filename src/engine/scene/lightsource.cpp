@@ -14,18 +14,10 @@ LightSource::LightSource(Triangle* t1, Triangle* t2)
 
     //Generate uniform PDF's
     for (int i = 0; i < numTriangles; i++) {
-        glm::vec3 v1 = mTriangle[i]->v2.v - mTriangle[i]->v1.v;
-        glm::vec3 v2 = mTriangle[i]->v3.v - mTriangle[i]->v1.v;
-        float area = length(cross(v1, v2)) / 2.0f;
-
+        float area = mTriangle[i]->area();
         mPdf[i] = 1.0f / numTriangles * 1.0f / area;
     }
 }
-
-
-// *****************************************************************************
-LightSource::~LightSource()
-{}
 
 
 // *****************************************************************************

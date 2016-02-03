@@ -10,9 +10,6 @@ namespace engine{
 RNG::RNG(unsigned int seed) : generator(seed)
 {}
 
-RNG::~RNG()
-{}
-
 
 // *****************************************************************************
 void RNG::seed(unsigned int seed)

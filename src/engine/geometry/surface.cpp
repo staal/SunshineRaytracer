@@ -6,7 +6,7 @@ namespace engine{
 
 
 // *****************************************************************************
-Surface::Surface()
+Surface::Surface(Material* material) : material(material)
 {}
 
 

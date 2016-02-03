@@ -16,11 +16,6 @@ SceneGraph::SceneGraph()
 
 
 // *****************************************************************************
-SceneGraph::~SceneGraph()
-{}
-
-
-// *****************************************************************************
 void SceneGraph::setEpsilon(float epsilon)
 {
     this->mEpsilon = epsilon;

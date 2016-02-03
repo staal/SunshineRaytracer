@@ -30,7 +30,6 @@ public:
 
 
     Scene();
-	~Scene();
 
     void loadScene(std::string sceneFile);
 };

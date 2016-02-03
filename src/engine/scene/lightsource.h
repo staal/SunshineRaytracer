@@ -11,7 +11,6 @@ namespace engine{
 class LightSource {
 public:
     LightSource(Triangle* t1, Triangle* t2);
-    ~LightSource();
     void generatePoint(HitRecord& rec, float* pdf, RNG* rng);
 
 private:

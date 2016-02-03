@@ -33,8 +33,8 @@ public:
     Surfaces getSurfaces();
 
     /*!
-    Get the materials loaded from the OBJ file (and mtl files). 
-    Transfers ownership to caller.
+        Get the materials loaded from the OBJ file (and mtl files). 
+        Transfers ownership to caller.
     */
     Materials getMaterials();
 

@@ -9,7 +9,6 @@ namespace engine{
 class RNG {
 public:
     RNG(unsigned int seed);
-    ~RNG();
 
     void seed(unsigned int seed);
 

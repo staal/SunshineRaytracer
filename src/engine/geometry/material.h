@@ -33,6 +33,7 @@ struct Material {
     float Ns;
 };
 
+//! Default Materials type.
 using Materials = std::map<std::string,std::unique_ptr<Material>>;
 
 } // namespace engine

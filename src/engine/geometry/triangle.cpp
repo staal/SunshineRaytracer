@@ -1,15 +1,13 @@
 #include "triangle.h"
 
 namespace sunshine {
-namespace engine{
+namespace engine {
 
 
 // *****************************************************************************
 Triangle::Triangle(Vertex v1, Vertex v2, Vertex v3, Material* mat)
-    : v1(v1),v2(v2),v3(v3)
-{
-    material = mat;
-}
+    : Surface(mat), v1(v1), v2(v2), v3(v3)
+{}
 
 
 // *****************************************************************************
@@ -99,8 +97,19 @@ BoundingBox Triangle::boundingBox()
     float maxz = max(v1.v.z, v2.v.z, v3.v.z);
 
     return BoundingBox(
-        glm::vec3(minx, miny, minz), 
+        glm::vec3(minx, miny, minz),
         glm::vec3(maxx, maxy, maxz));
+}
+
+
+// *****************************************************************************
+float Triangle::area()
+{
+    glm::vec3 side1 = v2.v - v1.v;
+    glm::vec3 side2 = v3.v - v1.v;
+    float area = glm::length(glm::cross(side1, side2)) / 2.0f;
+
+    return area;
 }
 
 

@@ -26,11 +26,6 @@ PathTracer::PathTracer(std::shared_ptr<Image> image, SceneGraph* sceneGraph,
 
 
 // *****************************************************************************
-PathTracer::~PathTracer()
-{}
-
-
-// *****************************************************************************
 /*
 Compute the entire image,
 samples : Number of samples per pixel

@@ -38,7 +38,7 @@ public:
     /*!
         Default constructor.
     */
-    Surface();
+    Surface(Material* material = nullptr);
 
     /*!
         Virtual destructor.

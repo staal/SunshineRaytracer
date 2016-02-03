@@ -8,10 +8,12 @@
 namespace sunshine {
 namespace engine{
 
+/*!
+    \brief A TGA File handler.
+*/
 class TgaFile {
 public:
     TgaFile();
-    ~TgaFile();
 
     bool save(std::string filename, const Image& image);
     bool load(std::string filename);

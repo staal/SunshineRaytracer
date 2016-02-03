@@ -26,11 +26,6 @@ Camera::Camera(vec3 position, vec3 viewDirection, vec3 up, float fov,
 
 
 // *****************************************************************************
-Camera::~Camera()
-{}
-
-
-// *****************************************************************************
 void Camera::getOrtographicRay(int x, int y, Ray* ray)
 {
     float r = 10.0f;
