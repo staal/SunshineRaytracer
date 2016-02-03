@@ -1,16 +1,39 @@
+##########################################
+# Sunshine Raytracer Project
+##########################################
 cmake_minimum_required(VERSION 3.2)
 project(sunshine_raytracer VERSION 0.1.2)
 
+
+##########################################
 #CreateSourceFolders adds function create_vs_folders()
+##########################################
 include(cmake/CreateSourceFolders.cmake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-#Enforce c++14
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
+##########################################
+#Compiler flags
+##########################################
+if(MSVC)
+	#Set /MP which is multithreaded build
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+else(MSVC)
+    #Enforce c++14 on non msvc compilers
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+endif()
+
+
+##########################################
+# Projects are located in src
+##########################################
 add_subdirectory(src)
 
-# add a target to generate API documentation with Doxygen
+
+##########################################
+# Doxygen
+# Add a target to generate API documentation with Doxygen
+##########################################
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
     message(STATUS "Doxygen found: ${DOXYGEN_DOT_FOUND}")   
@@ -33,5 +56,3 @@ else(DOXYGEN_FOUND)
     message(STATUS "Doxygen not found, documentation target will not be "
     "created. Set DOXYGEN_EXECUTABLE to locate it.")    
 endif(DOXYGEN_FOUND)
-
-#install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html DESTINATION share/doc)
