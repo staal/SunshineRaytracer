@@ -20,6 +20,13 @@ add_subdirectory(src)
 
 
 ##########################################
+# Add test directory
+##########################################
+enable_testing()
+add_subdirectory(test)
+
+
+##########################################
 # Doxygen
 # Add a target to generate API documentation with Doxygen
 ##########################################
