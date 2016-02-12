@@ -1,12 +1,14 @@
 #include <QApplication>
 #include <QTextEdit>
 
+#include "mainscenewidget.h"
+
 int main(int argv, char **args)
 {
     QApplication app(argv, args);
     
-    QTextEdit textEdit;
-    textEdit.show();
+    sunshine::MainSceneWidget m;
+
     
     return app.exec();
 }

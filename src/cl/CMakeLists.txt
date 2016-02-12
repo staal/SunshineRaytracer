@@ -31,17 +31,46 @@ set(PROJECT_SOURCES
 # Set up library linking, includes and
 # the target itself
 ##########################################
-add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
+add_library(${PROJECT_NAME}_lib ${PROJECT_SOURCES})
+add_library(ssrt::cl::lib ALIAS ${PROJECT_NAME}_lib)
 
-target_include_directories(${PROJECT_NAME} 
-    PRIVATE ${SSRT_ENGINE_INCLUDE_DIRS}
-    PRIVATE ${Boost_INCLUDE_DIRS}
+target_include_directories(${PROJECT_NAME}_lib 
+    PUBLIC ${SSRT_ENGINE_INCLUDE_DIRS}
+    PUBLIC ${Boost_INCLUDE_DIRS}
     )
     
-target_link_libraries(${PROJECT_NAME} 
-    PRIVATE ssrt::engine
+target_link_libraries(${PROJECT_NAME}_lib
+    PUBLIC ssrt::engine
     PRIVATE ${Boost_LIBRARIES}
     )
+    
+
+##########################################
+# Create the main application itself
+##########################################
+add_executable(${PROJECT_NAME} main.cpp)
+      
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE ssrt::cl::lib
+    )
+
+
+##########################################
+# Compiler flags for application
+##########################################
+if(MSVC)
+	#Set /MP which is multithreaded build
+    target_compile_options(${PROJECT_NAME}
+        PUBLIC /MP)
+    target_compile_options(${PROJECT_NAME}_lib
+        PUBLIC /MP)        
+else(MSVC)
+    #Enforce c++14 on non msvc compilers
+    target_compile_options(${PROJECT_NAME}
+        PUBLIC -std=c++14)
+    target_compile_options(${PROJECT_NAME}_lib
+        PUBLIC -std=c++14)        
+endif()    
 
 
 ##########################################

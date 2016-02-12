@@ -12,17 +12,6 @@ include(cmake/CreateSourceFolders.cmake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 
-##########################################
-#Compiler flags
-##########################################
-if(MSVC)
-	#Set /MP which is multithreaded build
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
-else(MSVC)
-    #Enforce c++14 on non msvc compilers
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-endif()
-
 
 ##########################################
 # Projects are located in src

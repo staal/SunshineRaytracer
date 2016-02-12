@@ -88,14 +88,29 @@ add_library(ssrt::engine ALIAS ${PROJECT_NAME})
 #Include directory "${CMAKE_CURRENT_SOURCE_DIR}/.." is so headers are located at
 #"engine/foo.h" instead of simply "foo.h"
 target_include_directories(${PROJECT_NAME} 
-    PUBLIC  ${GLM_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/..
+    PUBLIC  ${GLM_INCLUDE_DIRS}
     PRIVATE ${Boost_INCLUDE_DIRS}
     PRIVATE ${PROJECT_BINARY_DIR} #So version header can be located
+    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/..
     )    
 
 target_link_libraries(${PROJECT_NAME} 
     PRIVATE ${Boost_LIBRARIES}
     )
+
+
+##########################################
+#Compiler flags
+##########################################
+if(MSVC)
+	#Set /MP which is multithreaded build
+    target_compile_options(${PROJECT_NAME}
+        PUBLIC /MP)
+else(MSVC)
+    #Enforce c++14 on non msvc compilers
+    target_compile_options(${PROJECT_NAME}
+        PUBLIC -std=c++14)
+endif()
 
 
 ##########################################
