@@ -9,7 +9,7 @@ class MainSceneWidget : public QOpenGLWidget {
     Q_OBJECT
 
 public:
-    MainSceneWidget(QWidget *parent = 0);
+    MainSceneWidget(QWidget *parent = nullptr);
     ~MainSceneWidget();
 
 };

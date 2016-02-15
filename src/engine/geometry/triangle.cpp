@@ -6,7 +6,7 @@ namespace engine {
 
 // *****************************************************************************
 Triangle::Triangle(Vertex v1, Vertex v2, Vertex v3, Material* mat)
-    : Surface(mat), v1(v1), v2(v2), v3(v3)
+    : Surface(mat), v1(std::move(v1)), v2(std::move(v2)), v3(std::move(v3))
 {}
 
 

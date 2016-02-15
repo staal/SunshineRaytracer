@@ -14,7 +14,7 @@ using namespace glm;
 
 
 // *****************************************************************************
-ObjFile::ObjFile(std::string filename) : mFilename(filename)
+ObjFile::ObjFile(std::string filename) : mFilename(std::move(filename))
 {}
 
 

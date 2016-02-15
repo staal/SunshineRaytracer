@@ -15,8 +15,8 @@ namespace cl {
 using namespace sunshine::engine;
 
 // *****************************************************************************
-RenderApplication::RenderApplication(const CommandlineHandler& handler)
-    : mCommandlineHandler(handler)
+RenderApplication::RenderApplication(CommandlineHandler  handler)
+    : mCommandlineHandler(std::move(handler))
 {}
 
 

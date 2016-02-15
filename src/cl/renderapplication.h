@@ -22,7 +22,7 @@ public:
         \param handler which is responsible for handling the
         commandline itself.
     */
-    RenderApplication(const CommandlineHandler& handler);
+    RenderApplication(CommandlineHandler  handler);
 
 
     /*!
