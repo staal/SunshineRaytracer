@@ -31,35 +31,9 @@ public:
     int run();
 
 
-protected:
-    /*!
-        @param sceneFile the scene to be rendered.
-    */
-    void loadScene(std::string sceneFile);
-
-    /*!
-        Render the loaded scene.
-    */
-    void renderScene();
-
-    /*!
-        Save the scene
-    */
-    void saveImage();
-
-
 private:
     //! Processes command line, including malformed formats
     CommandlineHandler mCommandlineHandler;
-
-    //! The image being rendered.
-    std::shared_ptr<sunshine::engine::Image> mImage;
-
-    //! The current loaded scene. Populate through @loadScene .
-    sunshine::engine::Scene mScene;
-
-    //! The current scenegraph, containing the geometry and materials.
-    sunshine::engine::SceneGraph mSceneGraph;
 };
 
 

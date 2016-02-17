@@ -1,9 +1,7 @@
 #include <chrono>
 #include <iostream>
 
-#include "engine/geometry/objfile.h"
-#include "engine/image/tgafile.h"
-#include "engine/pathtracer.h"
+#include "engine/sunshineengine.h"
 
 #include "commandlinehandler.h"
 #include "renderapplication.h"
@@ -23,6 +21,9 @@ RenderApplication::RenderApplication(CommandlineHandler  handler)
 // *****************************************************************************
 int RenderApplication::run()
 {
+    using sunshine::engine::SunshineEngine;
+    SunshineEngine engine;
+
     int errorCode = 0;
     if (!mCommandlineHandler.validate(errorCode)) {
         return errorCode;
@@ -30,9 +31,12 @@ int RenderApplication::run()
 
     //Print the version number and exit 0.
     if (mCommandlineHandler.printVersion()) {
-        std::cout << "Version: " << PathTracer::getVersion() << std::endl;
+        std::cout << "Version: " << engine.getVersion() << std::endl;
         return 0;
     }
+
+    std::cout << "Using Sunshine Ray Tracer(SRT) engine version " <<
+        engine.getVersion() << std::endl;
 
     //Get commandline arguments
     std::string sceneFilename = mCommandlineHandler.getScene();
@@ -50,13 +54,13 @@ int RenderApplication::run()
 
     //Load Scene
     std::cout << "Loading scene: " << sceneFilename << std::endl;
-    loadScene(sceneFilename);
+    engine.loadScene(sceneFilename);
 
     //Ray tracing part
     std::cout << "Rendering using SunshineRaytracer engine" << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
 
-    renderScene();
+    engine.renderScene();
 
     auto end = std::chrono::high_resolution_clock::now();
 
@@ -73,46 +77,9 @@ int RenderApplication::run()
         elapsedTimeMS.count() << "ms" << std::endl;
 
     //Store image
-    saveImage();
+    engine.saveImage(outFile);
 
     return 0;
-}
-
-
-// *****************************************************************************
-void RenderApplication::loadScene(std::string sceneFile)
-{
-    mScene.loadScene(sceneFile);
-
-    mImage = std::make_shared<Image>(mScene.width, mScene.height, false);
-
-    //Load scene
-    ObjFile objFile(mScene.objFile);
-    objFile.load();
-
-    auto surfaces = objFile.getSurfaces();
-    auto mats = objFile.getMaterials();
-
-    mSceneGraph.setEpsilon(mScene.epsilon);
-    mSceneGraph.addMesh(std::move(surfaces), std::move(mats));
-}
-
-
-// *****************************************************************************
-void RenderApplication::renderScene()
-{
-    PathTracer renderer(mImage, &mSceneGraph, &mScene);
-    std::cout << "Using Sunshine Ray Tracer(SRT) engine version " << 
-        renderer.getVersion() << std::endl;
-    renderer.render();
-}
-
-
-// *****************************************************************************
-void RenderApplication::saveImage()
-{
-    TgaFile tga;
-    tga.save(mScene.outFile.c_str(), *mImage);
 }
 
 

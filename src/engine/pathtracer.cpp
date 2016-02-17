@@ -53,13 +53,6 @@ void PathTracer::render()
 
 
 // *****************************************************************************
-const std::string PathTracer::getVersion()
-{
-    return engineVersion;
-}
-
-
-// *****************************************************************************
 /*
 Computes the flux for a given pixel
 x, y : pixel coordinate on the image plane

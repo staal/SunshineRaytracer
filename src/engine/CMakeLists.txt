@@ -68,6 +68,8 @@ set(PROJECT_SOURCES
         image.cpp
         pathtracer.h
         pathtracer.cpp
+        sunshineengine.h
+        sunshineengine.cpp
         ray.h
         scene.h
         scene.cpp

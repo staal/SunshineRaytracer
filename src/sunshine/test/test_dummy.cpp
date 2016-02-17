@@ -1,6 +1,6 @@
 #include <boost/test/unit_test.hpp>
 
-#include "mainscenewidget.h"
+#include "sunshinemainwindow.h"
 
 BOOST_AUTO_TEST_CASE(DummyTest)
 {

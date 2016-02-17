@@ -16,7 +16,6 @@ public:
         SceneGraph* sceneGraph, Scene* scene);
 
     void render();
-    static const std::string getVersion();
 
 private:
     glm::vec3 pixelColor(float x, float y, int samples);
