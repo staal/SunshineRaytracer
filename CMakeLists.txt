@@ -12,18 +12,20 @@ include(cmake/CreateSourceFolders.cmake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 
+##########################################
+# Custom test target which also builds
+##########################################
+enable_testing()
+set(TEST_BUILD_ALL build_and_test_all)
+add_custom_target(${TEST_BUILD_ALL} ${CMAKE_COMMAND} -E env CTEST_OUTPUT_ON_FAILURE=1
+        ${CMAKE_CTEST_COMMAND} -C $<CONFIG> --verbose
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
 
 ##########################################
 # Projects are located in src
 ##########################################
 add_subdirectory(src)
-
-
-##########################################
-# Add test directory
-##########################################
-enable_testing()
-add_subdirectory(test)
 
 
 ##########################################
