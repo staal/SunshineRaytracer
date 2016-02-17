@@ -97,3 +97,9 @@ endif()
 # Create folders for Visual studio project
 ##########################################
 create_vs_folders("${PROJECT_SOURCES}")
+
+
+##########################################
+# Tests
+##########################################
+add_subdirectory(test)

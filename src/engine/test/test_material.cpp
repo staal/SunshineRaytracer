@@ -1,6 +1,6 @@
 #include <boost/test/unit_test.hpp>
 
-#include "engine/geometry/material.h"
+#include "geometry/material.h"
 
 BOOST_AUTO_TEST_CASE(MaterialDefaults)
 {

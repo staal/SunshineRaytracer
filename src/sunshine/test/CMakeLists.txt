@@ -1,8 +1,8 @@
 ##########################################
 # Tests
 ##########################################
-project (test_ssrt_cl)
-message(STATUS "Creating ${PROJECT_NAME}")
+set(TEST_NAME ${PROJECT_NAME}_test)
+message(STATUS "Creating test ${TEST_NAME}")
 
 
 ##########################################
@@ -19,23 +19,22 @@ find_package(Boost REQUIRED COMPONENTS unit_test_framework )
 ##########################################
 # Source files for current project
 ##########################################  
-set(PROJECT_SOURCES
-        main.cpp
-        test_commandlinehandler.cpp)
+set(TEST_SOURCES
+        test_dummy.cpp)
 
 
 ##########################################
 # Set up test binary and add it as a test
 ##########################################
-add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
-add_test(NAME CommandlineTest COMMAND ${PROJECT_NAME})
-add_dependencies(${TEST_BUILD_ALL} ${PROJECT_NAME})
+add_executable(${TEST_NAME} main.cpp ${TEST_SOURCES})
+add_test(NAME SunshineTest COMMAND ${TEST_NAME})
+add_dependencies(${TEST_BUILD_ALL} ${TEST_NAME})
 
-target_include_directories(${PROJECT_NAME} 
+target_include_directories(${TEST_NAME} 
     PRIVATE ${Boost_INCLUDE_DIRS}
     )
     
-target_link_libraries(${PROJECT_NAME} 
+target_link_libraries(${TEST_NAME} 
     PRIVATE ${Boost_LIBRARIES}
-    PRIVATE ssrt::cl::lib
+    PRIVATE ssrt::sunshine::lib
     )
