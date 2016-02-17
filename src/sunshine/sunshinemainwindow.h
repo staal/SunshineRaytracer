@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "scenewidget.h"
+#include "engine/sunshineengine.h"
 
 namespace sunshine {
 
@@ -41,6 +42,7 @@ private:
     bool saveScene(const QString &filename);
     void setCurrentFile(const QString &filename);
 
+    sunshine::engine::SunshineEngine engine;
     SceneWidget *sceneWidget;
     QString currentFile;
 };

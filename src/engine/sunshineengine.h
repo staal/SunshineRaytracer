@@ -17,6 +17,7 @@ class Image;
 class SunshineEngine {
 public:
     SunshineEngine();
+    ~SunshineEngine();
 
     /*!
         Get the build version of the engine
@@ -24,9 +25,14 @@ public:
     const std::string getVersion() const;
 
     /*!
-        @param sceneFile the scene to be rendered.
+        @param sceneFile the scene to load.
     */
     void loadScene(std::string sceneFile);
+
+    /*!
+        @param sceneFile the scene to save.        
+    */
+    void saveScene(std::string sceneFile);
 
     /*!
         Render the current scene.
@@ -34,7 +40,9 @@ public:
     void renderScene();
 
     /*!
-        Save the scene
+        Save the rendered image
+
+        @param outputFile If passed, will be the output path of the image.
     */
     void saveImage(std::string outputFile = std::string());
 

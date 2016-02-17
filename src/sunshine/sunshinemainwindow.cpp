@@ -81,10 +81,15 @@ bool SunshineMainWindow::saveAs()
 // *****************************************************************************
 void SunshineMainWindow::about()
 {
-    const QString version = QString::fromStdString(sunshine::sunshineVersion);
+    const QString appVersion = QString::fromStdString(sunshine::sunshineVersion);
+    const QString engineVersion
+        = QString::fromStdString(engine.getVersion());
 
     QMessageBox::about(this, tr("About Sunshine Raytracer"),
-        tr("The Sunshine Raytracer, version %1.").arg(version));
+        tr("The Sunshine Raytracer, version %1.\n"
+        "Running the Sunshine Raytracer Engine, version %1")
+        .arg(appVersion)
+        .arg(engineVersion));
 }
 
 

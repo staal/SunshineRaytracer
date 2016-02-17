@@ -22,7 +22,7 @@ RenderApplication::RenderApplication(CommandlineHandler  handler)
 int RenderApplication::run()
 {
     using sunshine::engine::SunshineEngine;
-    SunshineEngine engine;
+    std::unique_ptr<SunshineEngine> engine = std::make_unique<SunshineEngine>();
 
     int errorCode = 0;
     if (!mCommandlineHandler.validate(errorCode)) {
@@ -31,12 +31,12 @@ int RenderApplication::run()
 
     //Print the version number and exit 0.
     if (mCommandlineHandler.printVersion()) {
-        std::cout << "Version: " << engine.getVersion() << std::endl;
+        std::cout << "Version: " << engine->getVersion() << std::endl;
         return 0;
     }
 
     std::cout << "Using Sunshine Ray Tracer(SRT) engine version " <<
-        engine.getVersion() << std::endl;
+        engine->getVersion() << std::endl;
 
     //Get commandline arguments
     std::string sceneFilename = mCommandlineHandler.getScene();
@@ -54,13 +54,13 @@ int RenderApplication::run()
 
     //Load Scene
     std::cout << "Loading scene: " << sceneFilename << std::endl;
-    engine.loadScene(sceneFilename);
+    engine->loadScene(sceneFilename);
 
     //Ray tracing part
     std::cout << "Rendering using SunshineRaytracer engine" << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
 
-    engine.renderScene();
+    engine->renderScene();
 
     auto end = std::chrono::high_resolution_clock::now();
 
@@ -77,7 +77,7 @@ int RenderApplication::run()
         elapsedTimeMS.count() << "ms" << std::endl;
 
     //Store image
-    engine.saveImage(outFile);
+    engine->saveImage(outFile);
 
     return 0;
 }

@@ -10,16 +10,20 @@
 #include "scenegraph.h"
 
 namespace sunshine {
-namespace engine{
+namespace engine {
 
 
 // *****************************************************************************
-SunshineEngine::SunshineEngine() 
-    : mScene(std::make_unique<Scene>()), 
-    mImage(std::make_shared<Image>(800,600,false)),
+SunshineEngine::SunshineEngine()
+    : mScene(std::make_unique<Scene>()),
+    mImage(std::make_shared<Image>(800, 600, false)),
     mSceneGraph(std::make_unique<SceneGraph>())
-{
-}
+{}
+
+
+// *****************************************************************************
+SunshineEngine::~SunshineEngine()
+{}
 
 
 
@@ -47,6 +51,13 @@ void SunshineEngine::loadScene(std::string sceneName)
 
     mSceneGraph->setEpsilon(mScene->epsilon);
     mSceneGraph->addMesh(std::move(surfaces), std::move(mats));
+}
+
+
+// *****************************************************************************
+void SunshineEngine::saveScene(std::string sceneName)
+{
+    //TODO Implement
 }
 
 

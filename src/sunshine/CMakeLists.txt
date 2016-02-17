@@ -64,6 +64,7 @@ target_include_directories(${PROJECT_NAME}_lib
 
 target_link_libraries(${PROJECT_NAME}_lib
     PUBLIC Qt5::Widgets
+    PUBLIC ssrt::engine
     ) 
     
 

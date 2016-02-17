@@ -1,10 +1,6 @@
 #ifndef SUNSHINE_CL_RENDER_APPLICATION_H_
 #define SUNSHINE_CL_RENDER_APPLICATION_H_
 
-#include "engine/image.h"
-#include "engine/scene.h"
-#include "engine/scenegraph.h"
-
 #include "commandlinehandler.h"
 
 namespace sunshine {
