@@ -16,7 +16,7 @@ namespace engine{
 // *****************************************************************************
 SunshineEngine::SunshineEngine() 
     : mScene(std::make_unique<Scene>()), 
-    mImage(std::make_unique<Image>(800,600,false)),
+    mImage(std::make_shared<Image>(800,600,false)),
     mSceneGraph(std::make_unique<SceneGraph>())
 {
 }
@@ -35,7 +35,7 @@ void SunshineEngine::loadScene(std::string sceneName)
 {
     mScene->loadScene(sceneName);
 
-    mImage = std::make_unique<Image>(mScene->width, mScene->height, false);
+    mImage = std::make_shared<Image>(mScene->width, mScene->height, false);
 
     //Load scene
     //Todo load own geometry, not obj format
@@ -53,16 +53,21 @@ void SunshineEngine::loadScene(std::string sceneName)
 // *****************************************************************************
 void SunshineEngine::renderScene()
 {
-    //PathTracer renderer(mImage, &mSceneGraph, &mScene);
-    //renderer.render();
+    PathTracer renderer(mImage, mSceneGraph.get(), mScene.get());
+    renderer.render();
 }
 
 
 // *****************************************************************************
 void SunshineEngine::saveImage(std::string outputFile)
 {
+    //Argument takes precedence over scene file
+    if (outputFile.empty()) {
+        outputFile = mScene->outFile;
+    }
+
     TgaFile tga;
-    tga.save(mScene->outFile.c_str(), *mImage);
+    tga.save(outputFile, *mImage);
 }
 
 } // namespace engine

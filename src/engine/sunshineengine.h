@@ -29,7 +29,7 @@ public:
     void loadScene(std::string sceneFile);
 
     /*!
-        Render the loaded scene.
+        Render the current scene.
     */
     void renderScene();
 
@@ -41,7 +41,7 @@ public:
 
 private:
     //! The image being rendered.
-    std::unique_ptr<Image> mImage;
+    std::shared_ptr<Image> mImage;
 
     //! The current loaded scene. Populate through @loadScene .
     std::unique_ptr<Scene> mScene;
