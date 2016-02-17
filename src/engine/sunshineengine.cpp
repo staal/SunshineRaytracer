@@ -33,8 +33,21 @@ const std::string SunshineEngine::getVersion() const
 
 
 // *****************************************************************************
+void SunshineEngine::newScene()
+{
+    mImage = std::make_shared<Image>(800,600, false);
+    mScene = std::make_unique<Scene>();
+
+    mSceneGraph->clear();
+}
+
+
+// *****************************************************************************
 void SunshineEngine::loadScene(std::string sceneName)
 {
+    mScene = std::make_unique<Scene>();
+    mSceneGraph->clear();
+
     mScene->loadScene(sceneName);
 
     mImage = std::make_shared<Image>(mScene->width, mScene->height, false);

@@ -38,7 +38,7 @@ void SunshineMainWindow::closeEvent(QCloseEvent *event)
 void SunshineMainWindow::newScene()
 {
     if (promtSaveIfModified()) {
-        //TODO Clear scene
+        engine.newScene();
         setCurrentFile(QString());
     }
 }
@@ -226,7 +226,7 @@ void SunshineMainWindow::loadScene(const QString &filename)
     QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
 
-    //TODO Load scene here
+    engine.loadScene(filename.toStdString());
 
 #ifndef QT_NO_CURSOR
     QApplication::restoreOverrideCursor();
@@ -244,7 +244,7 @@ bool SunshineMainWindow::saveScene(const QString &filename)
     QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
 
-    //TODO Save scene here
+    engine.saveScene(filename.toStdString());
 
 #ifndef QT_NO_CURSOR
     QApplication::restoreOverrideCursor();

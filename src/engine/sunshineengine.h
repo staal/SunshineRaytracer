@@ -20,6 +20,11 @@ public:
     ~SunshineEngine();
 
     /*!
+        Load the default scene
+    */
+    void newScene();
+
+    /*!
         Get the build version of the engine
     */
     const std::string getVersion() const;
