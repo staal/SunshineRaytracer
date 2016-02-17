@@ -22,9 +22,7 @@ SunshineEngine::SunshineEngine()
 
 
 // *****************************************************************************
-SunshineEngine::~SunshineEngine()
-{}
-
+SunshineEngine::~SunshineEngine() = default;
 
 
 // *****************************************************************************
