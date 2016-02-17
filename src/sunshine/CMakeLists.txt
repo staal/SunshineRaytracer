@@ -44,8 +44,10 @@ configure_file (
 # Source files for current project
 ##########################################
 set(PROJECT_SOURCES
-        mainscenewidget.h
-        mainscenewidget.cpp
+        sunshinemainwindow.h
+        sunshinemainwindow.cpp
+        scenewidget.h
+        scenewidget.cpp
         )
 
 ##########################################
