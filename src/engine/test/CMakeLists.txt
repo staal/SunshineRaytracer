@@ -31,6 +31,7 @@ add_test(NAME CommandlineTest COMMAND ${TEST_NAME})
 add_dependencies(${TEST_BUILD_ALL} ${TEST_NAME})
 
 target_include_directories(${TEST_NAME} 
+    PRIVATE ${GLM_INCLUDE_DIRS}
     PRIVATE ${Boost_INCLUDE_DIRS}
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/.. #all headers from library to be included
     )

@@ -2,6 +2,7 @@
 
 #include "geometry/material.h"
 
+
 BOOST_AUTO_TEST_CASE(MaterialDefaults)
 {
     using sunshine::engine::Material;

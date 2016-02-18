@@ -32,11 +32,12 @@ configure_file (
   "engineversion.h.in"
   "${PROJECT_BINARY_DIR}/engineversion.h"
   )
-  
+
 
 ##########################################
 # Source files for current project
 ##########################################
+set(INCLUDE_DIR "include/engine")
 set(PROJECT_SOURCES
         image/tgafile.h
         image/tgafile.cpp
@@ -68,7 +69,7 @@ set(PROJECT_SOURCES
         image.cpp
         pathtracer.h
         pathtracer.cpp
-        sunshineengine.h
+        ${INCLUDE_DIR}/sunshineengine.h
         sunshineengine.cpp
         ray.h
         scene.h
@@ -77,7 +78,7 @@ set(PROJECT_SOURCES
         scenegraph.cpp
         rng.h
         rng.cpp)
-           
+        
 
 ##########################################
 # Set up library linking, includes and
@@ -87,13 +88,13 @@ set(PROJECT_SOURCES
 add_library(${PROJECT_NAME} ${PROJECT_SOURCES} "${PROJECT_BINARY_DIR}/engineversion.h")
 add_library(ssrt::engine ALIAS ${PROJECT_NAME})
 
-#Include directory "${CMAKE_CURRENT_SOURCE_DIR}/.." is so headers are located at
+#Include directory "${CMAKE_CURRENT_SOURCE_DIR}/includes" is so headers are located at
 #"engine/foo.h" instead of simply "foo.h"
 target_include_directories(${PROJECT_NAME} 
-    PUBLIC  ${GLM_INCLUDE_DIRS}
+    PRIVATE  ${GLM_INCLUDE_DIRS}
     PRIVATE ${Boost_INCLUDE_DIRS}
     PRIVATE ${PROJECT_BINARY_DIR} #So version header can be located
-    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/..
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
     )    
 
 target_link_libraries(${PROJECT_NAME} 

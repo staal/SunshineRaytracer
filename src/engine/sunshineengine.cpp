@@ -1,5 +1,5 @@
 
-#include "sunshineengine.h"
+#include "engine/sunshineengine.h"
 #include "engineversion.h"
 
 #include "geometry/objfile.h"
