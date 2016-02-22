@@ -4,13 +4,19 @@
 #include <QVBoxLayout>
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <QTabWidget>
 
 namespace sunshine {
 
 RenderDialog::RenderDialog(QWidget *parent)
-    : QDialog(parent)
+    : QDialog(parent, Qt::WindowCloseButtonHint | Qt::WindowTitleHint)
 {
     resize(400, 300);
+
+    //TabWidget
+    auto tabWidget = new QTabWidget;
+    tabWidget->addTab(new QWidget(), tr("General"));
+    tabWidget->addTab(new QWidget(), tr("Renderer"));
 
     //ButtonBox
     auto closeButton = new QPushButton(tr("Close"));
@@ -30,8 +36,7 @@ RenderDialog::RenderDialog(QWidget *parent)
 
     //Main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    //mainLayout->addWidget(tabWidget);
-    mainLayout->addStretch();
+    mainLayout->addWidget(tabWidget);
     mainLayout->addItem(buttonLayout);
 
     setLayout(mainLayout);
