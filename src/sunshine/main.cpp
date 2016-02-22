@@ -6,6 +6,8 @@
 
 int main(int argv, char **args)
 {
+    Q_INIT_RESOURCE(shaders);
+
     const QString version = QString::fromStdString(sunshine::sunshineVersion);
 
     QApplication app(argv, args);

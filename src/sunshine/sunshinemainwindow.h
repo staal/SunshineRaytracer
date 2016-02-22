@@ -27,6 +27,7 @@ private slots:
     bool saveAs();
     void about();
     void sceneModified();
+    void render();
 
 private:
     void createActions();

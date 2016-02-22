@@ -147,6 +147,15 @@ void SunshineMainWindow::createActions()
     exitAct->setStatusTip(tr("Exit the application"));
 
 
+
+    //Render menu
+    QMenu *renderMenu = menuBar()->addMenu(tr("&Render"));
+    QAction *renderAct = renderMenu->addAction(tr("&Render Scene"), this,
+        &SunshineMainWindow::render);
+    renderAct->setShortcut(QKeySequence(Qt::Key_F5));
+    renderAct->setStatusTip(tr("Render the current scene"));
+
+
     //Help menu
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
     QAction *aboutAct 
@@ -266,6 +275,16 @@ void SunshineMainWindow::setCurrentFile(const QString &filename)
     if (currentFile.isEmpty())
         shownName = "untitled.scene";
     setWindowFilePath(shownName);
+}
+
+
+// *****************************************************************************
+void SunshineMainWindow::render()
+{
+    engine.renderScene();
+
+    engine.saveImage();
+
 }
 
 

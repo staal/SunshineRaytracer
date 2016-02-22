@@ -25,6 +25,7 @@ endif(WIN32)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Instruct CMake to run moc automatically when needed.
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 # Find the QtWidgets library
 find_package(Qt5Widgets)
@@ -47,7 +48,14 @@ set(PROJECT_SOURCES
         sunshinemainwindow.h
         sunshinemainwindow.cpp
         scenewidget.h
-        scenewidget.cpp
+        scenewidget.cpp      
+        )
+
+
+set(PROJECT_RESOURCES 
+        shaders/shaders.qrc
+        shaders/fs.glsl
+        shaders/vs.glsl
         )
 
 ##########################################
@@ -55,7 +63,7 @@ set(PROJECT_SOURCES
 # the target itself
 ##########################################
 #Adding sunshineversion.h here to avoid it getting indexed through create_vs_folders
-add_library(${PROJECT_NAME}_lib ${PROJECT_SOURCES} "${PROJECT_BINARY_DIR}/sunshineversion.h")
+add_library(${PROJECT_NAME}_lib ${PROJECT_SOURCES} "${PROJECT_BINARY_DIR}/sunshineversion.h" ${PROJECT_RESOURCES})
 add_library(ssrt::sunshine::lib ALIAS ${PROJECT_NAME}_lib)
 
 target_include_directories(${PROJECT_NAME}_lib
@@ -99,7 +107,7 @@ endif()
 ##########################################
 # Create folders for Visual studio project
 ##########################################
-create_vs_folders("${PROJECT_SOURCES}")
+create_vs_folders("${PROJECT_SOURCES} ${PROJECT_RESOURCES}")
 
 
 ##########################################
