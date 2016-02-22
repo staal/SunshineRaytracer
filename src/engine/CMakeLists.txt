@@ -39,6 +39,8 @@ configure_file (
 ##########################################
 set(INCLUDE_DIR "include/engine")
 set(PROJECT_SOURCES
+        ${INCLUDE_DIR}/image.h
+        image.cpp
         image/tgafile.h
         image/tgafile.cpp
         geometry/obj/mtlgrammar.hpp
@@ -67,8 +69,6 @@ set(PROJECT_SOURCES
         scene/lightsource.cpp
         pathtracer.h
         pathtracer.cpp
-        ${INCLUDE_DIR}/image.h
-        image.cpp
         ${INCLUDE_DIR}/sunshineengine.h
         sunshineengine.cpp
         ray.h

@@ -48,7 +48,9 @@ set(PROJECT_SOURCES
         sunshinemainwindow.h
         sunshinemainwindow.cpp
         scenewidget.h
-        scenewidget.cpp      
+        scenewidget.cpp
+        renderdialog.h
+        renderdialog.cpp        
         )
 
 

@@ -2,14 +2,16 @@
 
 #include "sunshinemainwindow.h"
 #include "sunshineversion.h"
+#include "renderdialog.h"
 
 namespace sunshine {
 
 
 // *****************************************************************************
 SunshineMainWindow::SunshineMainWindow()
-    : sceneWidget(new SceneWidget(this))
+    : sceneWidget(new SceneWidget(this)), renderDialog(new RenderDialog(this))
 {
+
     setCentralWidget(sceneWidget);
 
     createActions();
@@ -150,7 +152,12 @@ void SunshineMainWindow::createActions()
 
     //Render menu
     QMenu *renderMenu = menuBar()->addMenu(tr("&Render"));
-    QAction *renderAct = renderMenu->addAction(tr("&Render Scene"), this,
+    QAction *renderDialogAct = renderMenu->addAction(tr("Render &Settings"), this,
+        &SunshineMainWindow::showRenderSettings);
+    renderDialogAct->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F5));
+    renderDialogAct->setStatusTip(tr("Show the settings for the renderer."));
+
+    QAction *renderAct = renderMenu->addAction(tr("&Render"), this,
         &SunshineMainWindow::render);
     renderAct->setShortcut(QKeySequence(Qt::Key_F5));
     renderAct->setStatusTip(tr("Render the current scene"));
@@ -285,6 +292,15 @@ void SunshineMainWindow::render()
 
     engine.saveImage();
 
+}
+
+
+// *****************************************************************************
+void SunshineMainWindow::showRenderSettings()
+{
+    renderDialog->show();
+    renderDialog->raise();
+    renderDialog->activateWindow();
 }
 
 

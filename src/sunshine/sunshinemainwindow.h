@@ -7,6 +7,7 @@
 
 namespace sunshine {
 
+class RenderDialog;
 
 class SunshineMainWindow : public QMainWindow
 {
@@ -29,6 +30,9 @@ private slots:
     void sceneModified();
     void render();
 
+    /*! Display the render settings dialog. */
+    void showRenderSettings();
+
 private:
     void createActions();
     void createStatusBar();
@@ -46,6 +50,8 @@ private:
     sunshine::engine::SunshineEngine engine;
     SceneWidget *sceneWidget;
     QString currentFile;
+
+    RenderDialog *renderDialog;
 };
 
 
