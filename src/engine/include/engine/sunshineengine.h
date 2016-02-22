@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 
+#include "engine/image.h"
 
 namespace sunshine {
 namespace engine{
@@ -52,6 +53,11 @@ public:
     */
     void saveImage(std::string outputFile = std::string());
 
+
+    /*!
+        Get the current image being rendered / already rendered
+    */
+    std::shared_ptr<Image> getImage();
 
 private:
     //! The image being rendered.

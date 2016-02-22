@@ -2,19 +2,12 @@
 #define SUNSHINE_ENGINE_IMAGE_H_
 
 #include <vector>
-#include <glm/glm.hpp>
 
 namespace sunshine {
 namespace engine {
 
 struct RGBA {
     RGBA() : r(0.0f), g(0.0f), b(0.0f), a(0.0f)
-    {}
-
-    RGBA(const glm::vec4& v) : r(v.r), g(v.g), b(v.b), a(v.a)
-    {}
-
-    RGBA(const glm::vec3& v) : r(v.r), g(v.g), b(v.b), a(0.0f)
     {}
 
     RGBA(float r, float g, float b, float a) : r(r), g(g), b(b), a(a)
@@ -52,6 +45,7 @@ public:
     bool hasAlpha() const;
     bool setPixel(unsigned x, unsigned y, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
     bool setPixel(unsigned x, unsigned y, float r, float g, float b, float a);
+    bool setPixel(unsigned x, unsigned y, float r, float g, float b);
     bool setPixel(unsigned x, unsigned y, const RGBA &rgba);
     bool setPixel(unsigned i, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
     bool setPixel(unsigned i, unsigned char r, unsigned char g, unsigned char b);

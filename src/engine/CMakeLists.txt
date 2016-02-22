@@ -65,10 +65,10 @@ set(PROJECT_SOURCES
         scene/camera.cpp
         scene/lightsource.h
         scene/lightsource.cpp
-        image.h
-        image.cpp
         pathtracer.h
         pathtracer.cpp
+        ${INCLUDE_DIR}/image.h
+        image.cpp
         ${INCLUDE_DIR}/sunshineengine.h
         sunshineengine.cpp
         ray.h
@@ -94,7 +94,7 @@ target_include_directories(${PROJECT_NAME}
     PRIVATE  ${GLM_INCLUDE_DIRS}
     PRIVATE ${Boost_INCLUDE_DIRS}
     PRIVATE ${PROJECT_BINARY_DIR} #So version header can be located
-    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include/
     )    
 
 target_link_libraries(${PROJECT_NAME} 

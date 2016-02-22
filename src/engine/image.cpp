@@ -1,4 +1,4 @@
-#include "image.h"
+#include "engine/image.h"
 
 namespace sunshine {
 namespace engine{
@@ -40,6 +40,18 @@ bool Image::setPixel(unsigned x, unsigned y,
 
 
 // *****************************************************************************
+bool Image::setPixel(unsigned x, unsigned y,
+    float r, float g, float b)
+{
+    if (x >= mWidth || y >= mHeight)
+        return false;
+
+    data[y * mWidth + x] = RGBA(r, g, b, 1.0f);
+    return true;
+}
+
+
+// *****************************************************************************
 bool Image::setPixel(unsigned x, unsigned y, const RGBA & rgba)
 {
     if (x >= mWidth || y >= mHeight)
@@ -76,7 +88,7 @@ bool Image::setPixel(unsigned i, unsigned char r, unsigned char g, unsigned char
         static_cast<float>(r) / 255.0f,
         static_cast<float>(g) / 255.0f,
         static_cast<float>(b) / 255.0f,
-        0.0f);
+        1.0f);
     return true;
 }
 

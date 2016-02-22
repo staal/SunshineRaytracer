@@ -1,7 +1,8 @@
 #ifndef SUNSHINE_ENGINE_PATH_TRACER_H_
 #define SUNSHINE_ENGINE_PATH_TRACER_H_
 
-#include "image.h"
+#include "engine/image.h"
+
 #include "scene/camera.h"
 #include "scene.h"
 #include "scenegraph.h"

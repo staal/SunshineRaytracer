@@ -4,7 +4,6 @@
 
 #include "geometry/objfile.h"
 #include "image/tgafile.h"
-#include "image.h"
 #include "pathtracer.h"
 #include "scene.h"
 #include "scenegraph.h"
@@ -90,6 +89,13 @@ void SunshineEngine::saveImage(std::string outputFile)
 
     TgaFile tga;
     tga.save(outputFile, *mImage);
+}
+
+
+// *****************************************************************************
+std::shared_ptr<Image> SunshineEngine::getImage()
+{
+    return mImage;
 }
 
 } // namespace engine

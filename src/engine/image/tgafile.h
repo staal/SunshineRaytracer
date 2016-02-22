@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <string>
-#include "../image.h"
+#include "engine/image.h"
 
 namespace sunshine {
 namespace engine{

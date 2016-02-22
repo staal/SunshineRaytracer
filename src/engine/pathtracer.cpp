@@ -46,7 +46,7 @@ void PathTracer::render()
 
             //Clamp the color
             color = glm::clamp(color, 0.0f, 1.0f);
-            mImage->setPixel(x, y, color);
+            mImage->setPixel(x, y, color.r, color.g, color.b);
         }
     }
 }
