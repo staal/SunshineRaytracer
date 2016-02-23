@@ -40,7 +40,7 @@ RenderDialog::RenderDialog(QWidget *parent)
     buttonLayout->addWidget(applyButton);
 
     //Main layout
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(tabWidget);
     mainLayout->addItem(buttonLayout);
 
