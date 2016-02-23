@@ -1,24 +1,56 @@
 #ifndef SUNSHINE_ENGINE_PATH_TRACER_H_
 #define SUNSHINE_ENGINE_PATH_TRACER_H_
 
+#include <memory>
+
+#include <thread>
+#include <queue>
+#include <mutex>
+
+#include "engine/renderer.h"
 #include "engine/image.h"
 
-#include "scene/camera.h"
-#include "scene.h"
-#include "scenegraph.h"
-#include "rng.h"
+#include "../scene/camera.h"
+#include "../scene.h"
+#include "../scenegraph.h"
+#include "../rng.h"
 
 namespace sunshine {
 namespace engine{
 
-class PathTracer {
+struct Job {
+    int start_x = 0;
+    int start_y = 0;
+    int end_x = 0;
+    int end_y = 0;
+};
+using Jobs = std::queue<Job>;
+
+class PathTracer : public Renderer
+{
 public:
-    PathTracer(std::shared_ptr<Image> image, 
+    PathTracer(std::shared_ptr<Image> image,
         SceneGraph* sceneGraph, Scene* scene);
+    ~PathTracer();
+
+
+private:
+    float renderProgress() const override;
+    bool rendering() const override;
+    void renderStart() override;
+    void renderStop() override;
 
     void render();
 
-private:
+    std::vector<std::thread> threads;
+    void createJobs(int w, int h);
+    size_t numJobs;
+    Jobs jobs;
+    Jobs completedJobs;
+    mutable std::mutex jobMutex;
+    mutable bool mIsRendering;
+
+
     glm::vec3 pixelColor(float x, float y, int samples);
     glm::vec3 rad(const Ray &r, const float t0, const float t1);
     glm::vec3 computeRadiance(HitRecord &recX, glm::vec3 theta, int bounces);

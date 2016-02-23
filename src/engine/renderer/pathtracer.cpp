@@ -2,7 +2,6 @@
 #include <iostream>
 
 #include "pathtracer.h"
-#include "engineversion.h"
 
 namespace sunshine {
 namespace engine{
@@ -17,11 +16,83 @@ using namespace glm;
 // *****************************************************************************
 PathTracer::PathTracer(std::shared_ptr<Image> image, SceneGraph* sceneGraph,
     Scene* scene) :
-    mImage(std::move(image)), mScene(scene), mSceneGraph(sceneGraph), mRng(0),
+    mImage(image), mScene(scene), mSceneGraph(sceneGraph), mRng(0),
     mCamera(Camera(scene->cameraPosition, scene->cameraViewDirection,
-    scene->cameraUp, scene->cameraFov, scene->width, scene->height))
+    scene->cameraUp, scene->cameraFov, scene->width, scene->height)),
+    mIsRendering(false)
 {
     mRng.seed(scene->seed);
+}
+
+PathTracer::~PathTracer()
+{
+    for (auto &t : threads) {
+        t.join();
+    }
+}
+
+
+// *****************************************************************************
+float PathTracer::renderProgress() const
+{
+    std::lock_guard<std::mutex> guard(jobMutex);
+
+    float progress = static_cast<float>(completedJobs.size()) /
+        static_cast<float>(numJobs) * 100.0f;
+    return progress;
+}
+
+
+// *****************************************************************************
+bool PathTracer::rendering() const
+{
+    return mIsRendering;
+}
+
+
+// *****************************************************************************
+void PathTracer::renderStart()
+{
+    const int numThreads = 1;
+    createJobs(mImage->getWidth(), mImage->getHeight());
+    mIsRendering = true;
+    for (int i = 0; i < numThreads; i++) {
+        threads.push_back(std::thread(&PathTracer::render, this));
+    }
+}
+
+
+// *****************************************************************************
+void PathTracer::renderStop()
+{
+}
+
+
+// *****************************************************************************
+void PathTracer::createJobs(int w, int h)
+{
+    completedJobs = Jobs();
+    jobs = Jobs();
+    const int size = 10;
+    for (int x = 0; x < w; x += size) {
+        for (int y = 0; y < h; y += size) {
+            Job j;
+            j.start_x = x;
+            j.start_y = y;
+            if (x + size >= w) {
+                j.end_x = w;
+            } else {
+                j.end_x = j.start_x + size;
+            }
+            if (y + size >= h) {
+                j.end_y = w;
+            } else {
+                j.end_y = j.start_y + size;
+            }
+            jobs.push(j);
+        }
+    }
+    numJobs = jobs.size();
 }
 
 
@@ -32,21 +103,36 @@ samples : Number of samples per pixel
 */
 void PathTracer::render()
 {
-    int p = mScene->width / 10;
-    int progress = 0;
-    for (int y = 0; y < mScene->height; y++) {
-        if (y % p == 0) {
-            std::cout << "\t" << progress * 10 << "% done" << std::endl;
-            progress++;
+    while(true) //quit out?
+    {
+        //Fetch next job
+        jobMutex.lock();
+        if (jobs.empty()) {
+            jobMutex.unlock();
+            return; //Exit rendering
         }
+        Job job = jobs.front();
+        jobs.pop();
+        jobMutex.unlock();
 
-        for (int x = 0; x < mScene->width; x++) {
-            //For each pixel
-            vec3 color = pixelColor((float)x, (float)y, mScene->samplesPerPixel);
 
-            //Clamp the color
-            color = glm::clamp(color, 0.0f, 1.0f);
-            mImage->setPixel(x, y, color.r, color.g, color.b);
+        for (int y = job.start_y; y < job.end_y; y++) {
+            for (int x = job.start_x; x < job.end_x; x++) {
+                //For each pixel
+                vec3 color = pixelColor((float)x, (float)y, mScene->samplesPerPixel);
+
+                //Clamp the color
+                color = glm::clamp(color, 0.0f, 1.0f);
+                mImage->setPixel(x, y, color.r, color.g, color.b);
+            }
+        }
+        //Push back completed job
+        {
+            std::lock_guard<std::mutex> guard(jobMutex);
+            completedJobs.push(job);
+            if (completedJobs.size() == numJobs) {
+                mIsRendering = false;
+            }
         }
     }
 }

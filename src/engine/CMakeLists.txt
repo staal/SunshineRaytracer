@@ -67,8 +67,10 @@ set(PROJECT_SOURCES
         scene/camera.cpp
         scene/lightsource.h
         scene/lightsource.cpp
-        pathtracer.h
-        pathtracer.cpp
+        ${INCLUDE_DIR}/renderer.h
+        renderer/renderer.cpp
+        renderer/pathtracer.h
+        renderer/pathtracer.cpp
         ${INCLUDE_DIR}/sunshineengine.h
         sunshineengine.cpp
         ray.h

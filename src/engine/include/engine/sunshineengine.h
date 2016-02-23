@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "engine/image.h"
+#include "engine/renderer.h"
 
 namespace sunshine {
 namespace engine{
@@ -42,9 +43,23 @@ public:
     void saveScene(std::string sceneFile);
 
     /*!
-        Render the current scene.
+        Start rendering the current scene.
     */
     void renderScene();
+
+    /*!
+        Current progress on the rendering.
+
+        \return A value between and inclusive of 0.0f and 100.0f
+    */
+    float renderProgress();
+
+    /*!
+        Returns the status of rendering.
+
+        \return True if rendering, false for all other situations.
+    */
+    bool isRendering();
 
     /*!
         Save the rendered image
@@ -68,6 +83,8 @@ private:
 
     //! The current scenegraph, containing the geometry and materials.
     std::unique_ptr<SceneGraph> mSceneGraph;
+
+    std::unique_ptr<Renderer> mRenderer;
 };
 
 

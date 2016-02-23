@@ -1,8 +1,8 @@
 #include <chrono>
 #include <iostream>
+#include <thread>
 
 #include "engine/sunshineengine.h"
-
 
 #include "commandlinehandler.h"
 #include "renderapplication.h"
@@ -62,6 +62,16 @@ int RenderApplication::run()
     auto start = std::chrono::high_resolution_clock::now();
 
     engine->renderScene();
+    int nextReport = 0.0f;
+    float progress = 0.0f;
+    while (engine->isRendering()) {
+        progress = engine->renderProgress();
+        if (progress > nextReport) {
+            nextReport += 10.0f;
+            std::cout << "Render progress: " << engine->renderProgress() << std::endl;
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    }
 
     auto end = std::chrono::high_resolution_clock::now();
 
