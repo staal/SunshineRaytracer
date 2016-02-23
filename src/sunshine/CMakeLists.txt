@@ -50,7 +50,8 @@ set(PROJECT_SOURCES
         scenewidget.h
         scenewidget.cpp
         renderdialog.h
-        renderdialog.cpp        
+        renderdialog.cpp     
+        resources/images.qrc   
         )
 
 

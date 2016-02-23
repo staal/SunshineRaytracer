@@ -7,6 +7,7 @@
 int main(int argv, char **args)
 {
     Q_INIT_RESOURCE(shaders);
+    Q_INIT_RESOURCE(images);
 
     const QString version = QString::fromStdString(sunshine::sunshineVersion);
 
@@ -18,6 +19,7 @@ int main(int argv, char **args)
 
     //The primary window to be shown
     sunshine::SunshineMainWindow window;
+    window.setWindowIcon(QIcon(":/images/sun_icon.png"));
 
     //Let Qt handle the show from here!
     window.show();
