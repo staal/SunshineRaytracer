@@ -58,21 +58,25 @@ int RenderApplication::run()
     engine->loadScene(sceneFilename);
 
     //Ray tracing part
-    std::cout << "Rendering using SunshineRaytracer engine" << std::endl;
+    std::cout << "Rendering using SunshineRaytracer engine" << std::endl; 
+    std::cout << "Render progress:" << std::endl; 
     auto start = std::chrono::high_resolution_clock::now();
 
     engine->renderScene();
-    int nextReport = 0.0f;
+    int stars = 80;
+    float interval = 100.0f/stars; //Print stars - 1
     float progress = 0.0f;
+    float printed = 0.0f;
     while (engine->isRendering()) {
         progress = engine->renderProgress();
-        if (progress > nextReport) {
-            nextReport += 10.0f;
-            std::cout << "Render progress: " << engine->renderProgress() << std::endl;
+        while (progress - printed > interval) {
+            printed += interval;
+             std::cout << "*";
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
-
+    std::cout << "*" << std::endl; //Finish star! ^^ 
+    
     auto end = std::chrono::high_resolution_clock::now();
 
     auto elapsedTime = 

@@ -47,7 +47,7 @@ private:
     size_t numJobs;
     Jobs jobs;
     Jobs completedJobs;
-    mutable std::mutex jobMutex;
+    mutable std::mutex jobMutex, doneMutex;
     mutable bool mIsRendering;
 
 

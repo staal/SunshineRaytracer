@@ -35,7 +35,7 @@ PathTracer::~PathTracer()
 // *****************************************************************************
 float PathTracer::renderProgress() const
 {
-    std::lock_guard<std::mutex> guard(jobMutex);
+    std::lock_guard<std::mutex> guard(doneMutex);
 
     float progress = static_cast<float>(completedJobs.size()) /
         static_cast<float>(numJobs) * 100.0f;
@@ -53,7 +53,7 @@ bool PathTracer::rendering() const
 // *****************************************************************************
 void PathTracer::renderStart()
 {
-    const int numThreads = 1;
+    const int numThreads = 4;
     createJobs(mImage->getWidth(), mImage->getHeight());
     mIsRendering = true;
     for (int i = 0; i < numThreads; i++) {
@@ -115,7 +115,6 @@ void PathTracer::render()
         jobs.pop();
         jobMutex.unlock();
 
-
         for (int y = job.start_y; y < job.end_y; y++) {
             for (int x = job.start_x; x < job.end_x; x++) {
                 //For each pixel
@@ -128,7 +127,7 @@ void PathTracer::render()
         }
         //Push back completed job
         {
-            std::lock_guard<std::mutex> guard(jobMutex);
+            std::lock_guard<std::mutex> guard(doneMutex);
             completedJobs.push(job);
             if (completedJobs.size() == numJobs) {
                 mIsRendering = false;
