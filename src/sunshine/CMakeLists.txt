@@ -70,7 +70,7 @@ set(PROJECT_RESOURCES
 # the target itself
 ##########################################
 #Adding sunshineversion.h here to avoid it getting indexed through create_vs_folders
-add_library(${PROJECT_NAME}_lib ${PROJECT_SOURCES} "${PROJECT_BINARY_DIR}/sunshineversion.h" ${PROJECT_RESOURCES})
+add_library(${PROJECT_NAME}_lib STATIC ${PROJECT_SOURCES} "${PROJECT_BINARY_DIR}/sunshineversion.h" ${PROJECT_RESOURCES})
 add_library(ssrt::sunshine::lib ALIAS ${PROJECT_NAME}_lib)
 
 target_include_directories(${PROJECT_NAME}_lib

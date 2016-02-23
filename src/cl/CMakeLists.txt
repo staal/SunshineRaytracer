@@ -31,7 +31,7 @@ set(PROJECT_SOURCES
 # Set up library linking, includes and
 # the target itself
 ##########################################
-add_library(${PROJECT_NAME}_lib ${PROJECT_SOURCES})
+add_library(${PROJECT_NAME}_lib STATIC ${PROJECT_SOURCES})
 add_library(ssrt::cl::lib ALIAS ${PROJECT_NAME}_lib)
 
 target_include_directories(${PROJECT_NAME}_lib 
