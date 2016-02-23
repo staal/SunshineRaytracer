@@ -64,32 +64,35 @@ int RenderApplication::run()
 
     engine->renderScene();
     int stars = 80;
-    float interval = 100.0f/stars; //Print stars - 1
+    float percentInterval = 100.0f/stars; //Print stars - 1
     float progress = 0.0f;
-    float printed = 0.0f;
+    float reportedPercent = 0.0f;
     while (engine->isRendering()) {
         progress = engine->renderProgress();
-        while (progress - printed > interval) {
-            printed += interval;
+
+        //Print stars
+        while (progress - reportedPercent >= percentInterval) {
+            reportedPercent += percentInterval;
              std::cout << "*";
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
-    }
-    std::cout << "*" << std::endl; //Finish star! ^^ 
-    
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    }    
     auto end = std::chrono::high_resolution_clock::now();
 
-    auto elapsedTime = 
-        std::chrono::duration_cast<std::chrono::seconds>(end - start);
+    //Print remaining stars
+    while (100.0f - reportedPercent >= percentInterval) {
+        reportedPercent += percentInterval;
+        std::cout << "*";
+    }
+    std::cout << std::endl; //Finish star! ^^ 
 
     auto elapsedTimeMS = 
         std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 
-    std::cout << "Render complete, time spent: " << 
-        elapsedTime.count() << "s" << std::endl;
-
-    std::cout << "Render complete, time spent: " << 
-        elapsedTimeMS.count() << "ms" << std::endl;
+    auto timeMS = elapsedTimeMS.count();
+    auto timeSec = timeMS / 1000.0f;
+    std::cout << "Render complete, time spent: " << timeSec << "s, "
+        << timeMS << "ms." << std::endl;
 
     //Store image
     engine->saveImage(outFile);
