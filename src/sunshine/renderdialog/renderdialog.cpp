@@ -6,8 +6,13 @@
 #include <QPushButton>
 #include <QTabWidget>
 
+#include "generaltab.h"
+#include "rendertab.h"
+
 namespace sunshine {
 
+
+// *****************************************************************************
 RenderDialog::RenderDialog(QWidget *parent)
     : QDialog(parent, Qt::WindowCloseButtonHint | Qt::WindowTitleHint)
 {
@@ -15,8 +20,8 @@ RenderDialog::RenderDialog(QWidget *parent)
 
     //TabWidget
     auto tabWidget = new QTabWidget;
-    tabWidget->addTab(new QWidget(), tr("General"));
-    tabWidget->addTab(new QWidget(), tr("Renderer"));
+    tabWidget->addTab(new GeneralTab(), tr("General"));
+    tabWidget->addTab(new RenderTab(), tr("Renderer"));
 
     //ButtonBox
     auto closeButton = new QPushButton(tr("Close"));

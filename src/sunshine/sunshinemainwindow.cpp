@@ -2,7 +2,7 @@
 
 #include "sunshinemainwindow.h"
 #include "sunshineversion.h"
-#include "renderdialog.h"
+#include "renderdialog/renderdialog.h"
 
 namespace sunshine {
 
