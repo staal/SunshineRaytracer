@@ -8,16 +8,16 @@ namespace engine{
 
 
 // *****************************************************************************
-void Renderer::start()
+void Renderer::renderStart()
 {
-    renderStart();
+    doRenderStart();
 }
 
 
 // *****************************************************************************
-void Renderer::stop()
+void Renderer::renderStop()
 {
-    renderStop();
+    doRenderStop();
 }
 
 
@@ -29,9 +29,9 @@ bool Renderer::isRendering() const
 
 
 // *****************************************************************************
-float Renderer::progress() const
+float Renderer::renderProgress() const
 {
-    return renderProgress();
+    return progress();
 }
 
 } // namespace engine

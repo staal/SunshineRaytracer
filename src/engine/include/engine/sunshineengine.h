@@ -45,21 +45,7 @@ public:
     /*!
         Start rendering the current scene.
     */
-    void renderScene();
-
-    /*!
-        Current progress on the rendering.
-
-        \return A value between and inclusive of 0.0f and 100.0f
-    */
-    float renderProgress();
-
-    /*!
-        Returns the status of rendering.
-
-        \return True if rendering, false for all other situations.
-    */
-    bool isRendering();
+    Renderer* getRenderer();
 
     /*!
         Save the rendered image

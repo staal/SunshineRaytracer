@@ -62,13 +62,14 @@ int RenderApplication::run()
     std::cout << "Render progress:" << std::endl; 
     auto start = std::chrono::high_resolution_clock::now();
 
-    engine->renderScene();
+    auto renderer = engine->getRenderer();
+    renderer->renderStart();
     int stars = 80;
     float percentInterval = 100.0f/stars; //Print stars - 1
     float progress = 0.0f;
     float reportedPercent = 0.0f;
-    while (engine->isRendering()) {
-        progress = engine->renderProgress();
+    while (renderer->isRendering()) {
+        progress = renderer->renderProgress();
 
         //Print stars
         while (progress - reportedPercent >= percentInterval) {

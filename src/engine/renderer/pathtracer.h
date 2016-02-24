@@ -35,10 +35,10 @@ public:
 
 
 private:
-    float renderProgress() const override;
+    float progress() const override;
     bool rendering() const override;
-    void renderStart() override;
-    void renderStop() override;
+    void doRenderStart() override;
+    void doRenderStop() override;
 
     void render();
 

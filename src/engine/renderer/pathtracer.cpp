@@ -33,7 +33,7 @@ PathTracer::~PathTracer()
 
 
 // *****************************************************************************
-float PathTracer::renderProgress() const
+float PathTracer::progress() const
 {
     std::lock_guard<std::mutex> guard(doneMutex);
 
@@ -51,7 +51,7 @@ bool PathTracer::rendering() const
 
 
 // *****************************************************************************
-void PathTracer::renderStart()
+void PathTracer::doRenderStart()
 {
     const int numThreads = 4;
     createJobs(mImage->getWidth(), mImage->getHeight());
@@ -63,7 +63,7 @@ void PathTracer::renderStart()
 
 
 // *****************************************************************************
-void PathTracer::renderStop()
+void PathTracer::doRenderStop()
 {
 }
 

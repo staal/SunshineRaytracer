@@ -12,10 +12,10 @@ public:
     virtual ~Renderer() = default;
 
     /*! Nonblocking start of rendering */
-    void start();
+    void renderStart();
 
     /*! Stop rendering if currently rendering */
-    void stop();
+    void renderStop();
 
     /*! Query if the renderer is currently rendering */
     bool isRendering() const;
@@ -24,14 +24,14 @@ public:
         Get the progress of the current rendering.
         Values are between 0.0f and 100.0f
     */
-    float progress() const;
+    float renderProgress() const;
 
 
 private:
-    virtual float renderProgress() const = 0;
+    virtual float progress() const = 0;
     virtual bool rendering() const = 0;
-    virtual void renderStart() = 0;
-    virtual void renderStop() = 0;
+    virtual void doRenderStart() = 0;
+    virtual void doRenderStop() = 0;
 };
 
 

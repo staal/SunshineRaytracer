@@ -74,24 +74,10 @@ void SunshineEngine::saveScene(std::string sceneName)
 
 
 // *****************************************************************************
-void SunshineEngine::renderScene()
+Renderer * SunshineEngine::getRenderer()
 {
     mRenderer = std::make_unique<PathTracer>(mImage, mSceneGraph.get(), mScene.get());
-    mRenderer->start();
-}
-
-
-// *****************************************************************************
-float SunshineEngine::renderProgress()
-{
-    return mRenderer->progress();
-}
-
-
-// *****************************************************************************
-bool SunshineEngine::isRendering()
-{
-    return mRenderer->isRendering();
+    return mRenderer.get();
 }
 
 
