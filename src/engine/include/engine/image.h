@@ -13,19 +13,19 @@ struct RGBA {
     RGBA(float r, float g, float b, float a) : r(r), g(g), b(b), a(a)
     {}
 
-    void clamp(float min, float max)
+    inline void clamp(float min, float max)
     {
         //r
-        if (r < min) a = min;
-        if (r > max) a = max;
+        if (r < min) r = min;
+        if (r > max) r = max;
 
         //g
-        if (g < min) a = min;
-        if (g > max) a = max;
+        if (g < min) g = min;
+        if (g > max) g = max;
 
         //b
-        if (b < min) a = min;
-        if (b > max) a = max;
+        if (b < min) b = min;
+        if (b > max) b = max;
 
         //a
         if (a < min) a = min;

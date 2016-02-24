@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 
 namespace sunshine {
-namespace engine{
+namespace engine {
 
 
 class Ray {
@@ -20,6 +20,7 @@ public:
         sign[1] = (invDirection.y < 0);
         sign[2] = (invDirection.z < 0);
     }
+
     void setRay(const glm::vec3 &o, const glm::vec3 &d)
     {
         origin = o;
@@ -29,6 +30,7 @@ public:
         sign[1] = (invDirection.y < 0);
         sign[2] = (invDirection.z < 0);
     }
+
     glm::vec3 invDirection;
     glm::vec3 origin;
     glm::vec3 direction;

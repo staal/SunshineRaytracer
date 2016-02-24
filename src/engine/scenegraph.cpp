@@ -23,7 +23,7 @@ void SceneGraph::setEpsilon(float epsilon)
 
 
 // *****************************************************************************
-LightSource* SceneGraph::getLight()
+const LightSource* SceneGraph::getLight() const
 {
     return mLight.get();
 }

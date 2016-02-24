@@ -30,7 +30,7 @@ class PathTracer : public Renderer
 {
 public:
     PathTracer(std::shared_ptr<Image> image,
-        SceneGraph* sceneGraph, Scene* scene);
+        const SceneGraph* sceneGraph, const Scene* scene);
     ~PathTracer();
 
 
@@ -62,8 +62,8 @@ private:
     RNG mRng;
     Camera mCamera;
     std::shared_ptr<Image> mImage;
-    SceneGraph *mSceneGraph;
-    Scene *mScene;
+    const SceneGraph *mSceneGraph;
+    const Scene *mScene;
 };
 
 

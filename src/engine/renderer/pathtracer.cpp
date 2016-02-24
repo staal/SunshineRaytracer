@@ -14,8 +14,9 @@ using namespace glm;
 
 
 // *****************************************************************************
-PathTracer::PathTracer(std::shared_ptr<Image> image, SceneGraph* sceneGraph,
-    Scene* scene) :
+PathTracer::PathTracer(std::shared_ptr<Image> image, 
+    const SceneGraph* sceneGraph,
+    const Scene* scene) :
     mImage(image), mScene(scene), mSceneGraph(sceneGraph), mRng(0),
     mCamera(Camera(scene->cameraPosition, scene->cameraViewDirection,
     scene->cameraUp, scene->cameraFov, scene->width, scene->height)),
