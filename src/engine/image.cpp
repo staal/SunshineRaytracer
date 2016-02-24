@@ -6,7 +6,7 @@ namespace engine{
 
 // *****************************************************************************
 Image::Image(unsigned width, unsigned height, bool alpha) :
-    data(std::vector<RGBA>(width*height)), mWidth(width), mHeight(height),
+    data(std::vector<Pixel>(width*height)), mWidth(width), mHeight(height),
     mAlpha(alpha)
 {}
 
@@ -18,7 +18,7 @@ bool Image::setPixel(unsigned x, unsigned y,
     if (x > mWidth || y > mHeight)
         return false;
 
-    data[y * mWidth + x] = RGBA(
+    data[y * mWidth + x] = Pixel(
         static_cast<float>(r) / 255.0f,
         static_cast<float>(g) / 255.0f,
         static_cast<float>(b) / 255.0f,
@@ -28,36 +28,34 @@ bool Image::setPixel(unsigned x, unsigned y,
 
 
 // *****************************************************************************
-bool Image::setPixel(unsigned x, unsigned y, 
-    float r, float g, float b, float a)
+bool Image::setPixel(unsigned x, unsigned y, float r, float g, float b, float a)
 {
     if (x >= mWidth || y >= mHeight)
         return false;
 
-    data[y * mWidth + x] = RGBA(r, g, b, a);
+    data[y * mWidth + x] = Pixel(r, g, b, a);
     return true;
 }
 
 
 // *****************************************************************************
-bool Image::setPixel(unsigned x, unsigned y,
-    float r, float g, float b)
+bool Image::setPixel(unsigned x, unsigned y, float r, float g, float b)
 {
     if (x >= mWidth || y >= mHeight)
         return false;
 
-    data[y * mWidth + x] = RGBA(r, g, b, 1.0f);
+    data[y * mWidth + x] = Pixel(r, g, b, 1.0f);
     return true;
 }
 
 
 // *****************************************************************************
-bool Image::setPixel(unsigned x, unsigned y, const RGBA & rgba)
+bool Image::setPixel(unsigned x, unsigned y, const Pixel &pixel)
 {
     if (x >= mWidth || y >= mHeight)
         return false;
 
-    data[y * mWidth + x] = rgba;
+    data[y * mWidth + x] = pixel;
     return true;
 }
 
@@ -69,7 +67,7 @@ bool Image::setPixel(unsigned i,
     if (i >= mWidth * mHeight)
         return false;
 
-    data[i] = RGBA(
+    data[i] = Pixel(
         static_cast<float>(r) / 255.0f,
         static_cast<float>(g) / 255.0f,
         static_cast<float>(b) / 255.0f,
@@ -84,7 +82,7 @@ bool Image::setPixel(unsigned i, unsigned char r, unsigned char g, unsigned char
     if (i >= mWidth * mHeight)
         return false;
 
-    data[i] = RGBA(
+    data[i] = Pixel(
         static_cast<float>(r) / 255.0f,
         static_cast<float>(g) / 255.0f,
         static_cast<float>(b) / 255.0f,
@@ -94,11 +92,11 @@ bool Image::setPixel(unsigned i, unsigned char r, unsigned char g, unsigned char
 
 
 // *****************************************************************************
-RGBA Image::getPixel(unsigned x, unsigned y) const
+Pixel Image::getPixel(unsigned x, unsigned y) const
 {
     if (x < mWidth && y < mHeight)
         return data[y * mWidth + x];
-    return RGBA();
+    return Pixel();
 }
 
 

@@ -6,11 +6,14 @@
 namespace sunshine {
 namespace engine {
 
-struct RGBA {
-    RGBA() : r(0.0f), g(0.0f), b(0.0f), a(0.0f)
+/*!
+    \brief A single pixel
+*/
+struct Pixel {
+    Pixel() : r(0.0f), g(0.0f), b(0.0f), a(0.0f)
     {}
 
-    RGBA(float r, float g, float b, float a) : r(r), g(g), b(b), a(a)
+    Pixel(float r, float g, float b, float a) : r(r), g(g), b(b), a(a)
     {}
 
     inline void clamp(float min, float max)
@@ -46,20 +49,20 @@ public:
     bool setPixel(unsigned x, unsigned y, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
     bool setPixel(unsigned x, unsigned y, float r, float g, float b, float a);
     bool setPixel(unsigned x, unsigned y, float r, float g, float b);
-    bool setPixel(unsigned x, unsigned y, const RGBA &rgba);
+    bool setPixel(unsigned x, unsigned y, const Pixel &pixel);
     bool setPixel(unsigned i, unsigned char r, unsigned char g, unsigned char b, unsigned char a);
     bool setPixel(unsigned i, unsigned char r, unsigned char g, unsigned char b);
 
-    RGBA getPixel(unsigned x, unsigned y) const;
+    Pixel getPixel(unsigned x, unsigned y) const;
 
-    std::vector<RGBA>::const_iterator begin() const { return data.begin(); }
-    std::vector<RGBA>::const_iterator end() const { return data.end(); }
+    std::vector<Pixel>::const_iterator begin() const { return data.begin(); }
+    std::vector<Pixel>::const_iterator end() const { return data.end(); }
 
 private:
     unsigned mWidth;
     unsigned mHeight;
     bool mAlpha;
-    std::vector<RGBA> data;
+    std::vector<Pixel> data;
 };
 
 
