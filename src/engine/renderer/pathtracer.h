@@ -18,47 +18,25 @@
 namespace sunshine {
 namespace engine{
 
-struct Job {
-    int start_x = 0;
-    int start_y = 0;
-    int end_x = 0;
-    int end_y = 0;
-};
-using Jobs = std::queue<Job>;
-
-class PathTracer : public Renderer
+/*!
+    \brief Handles rendering of a single pixel
+*/
+class PathTracer
 {
 public:
-    PathTracer(std::shared_ptr<Image> image,
-        const SceneGraph* sceneGraph, const Scene* scene);
-    ~PathTracer();
+    PathTracer(const SceneGraph* sceneGraph, const Scene* scene);
 
+    glm::vec3 pixelColor(float x, float y, RNG &rng);
 
 private:
-    float progress() const override;
-    bool rendering() const override;
-    void doRenderStart() override;
-    void doRenderStop() override;
-
-    void render();
-
-    std::vector<std::thread> threads;
-    void createJobs(int w, int h);
-    size_t numJobs;
-    Jobs jobs;
-    Jobs completedJobs;
-    mutable std::mutex jobMutex, doneMutex;
-    mutable bool mIsRendering;
-
-
-    glm::vec3 pixelColor(float x, float y, int samples);
-    glm::vec3 rad(const Ray &r, const float t0, const float t1);
+    glm::vec3 rad(const Ray &r, const float t0, const float t1, RNG &rng) const;
 
     glm::vec3 computeRadiance(
         const HitRecord &recX,
         const glm::vec3 &theta,
-        int bounces
-        );
+        int bounces,
+        RNG &rng
+        ) const;
 
     glm::vec3 Phong_BRDF(
         const glm::vec3 &x,
@@ -70,20 +48,20 @@ private:
 
     glm::vec3 directIllumination(
         const HitRecord &recX,
-        const glm::vec3 &theta
-        );
+        const glm::vec3 &theta,
+        RNG &rng
+        ) const;
 
     glm::vec3 indirectIllumination(
         const HitRecord &recX,
         const glm::vec3 &theta,
-        int bounces
-        );
+        int bounces,
+        RNG &rng
+        ) const;
 
     float radianceTransfer(const HitRecord &recX, const HitRecord &recY) const;
 
-    RNG mRng;
-    Camera mCamera;
-    std::shared_ptr<Image> mImage;
+    const Camera mCamera;
     const SceneGraph *mSceneGraph;
     const Scene *mScene;
 };

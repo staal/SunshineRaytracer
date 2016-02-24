@@ -4,7 +4,7 @@
 #include "pathtracer.h"
 
 namespace sunshine {
-namespace engine{
+namespace engine {
 
 #define DEBUG 1
 #define NUM_SHADOW_RAYS 1
@@ -12,130 +12,14 @@ namespace engine{
 
 using namespace glm;
 
-
 // *****************************************************************************
-PathTracer::PathTracer(std::shared_ptr<Image> image, 
+PathTracer::PathTracer(
     const SceneGraph* sceneGraph,
-    const Scene* scene) :
-    mImage(image), mScene(scene), mSceneGraph(sceneGraph), mRng(0),
+    const Scene* scene)
+    : mScene(scene), mSceneGraph(sceneGraph),
     mCamera(Camera(scene->cameraPosition, scene->cameraViewDirection,
-    scene->cameraUp, scene->cameraFov, scene->width, scene->height)),
-    mIsRendering(false)
-{
-    mRng.seed(scene->seed);
-}
-
-PathTracer::~PathTracer()
-{
-    for (auto &t : threads) {
-        t.join();
-    }
-}
-
-
-// *****************************************************************************
-float PathTracer::progress() const
-{
-    std::lock_guard<std::mutex> guard(doneMutex);
-
-    float progress = static_cast<float>(completedJobs.size()) /
-        static_cast<float>(numJobs) * 100.0f;
-    return progress;
-}
-
-
-// *****************************************************************************
-bool PathTracer::rendering() const
-{
-    return mIsRendering;
-}
-
-
-// *****************************************************************************
-void PathTracer::doRenderStart()
-{
-    const int numThreads = 4;
-    createJobs(mImage->getWidth(), mImage->getHeight());
-    mIsRendering = true;
-    for (int i = 0; i < numThreads; i++) {
-        threads.push_back(std::thread(&PathTracer::render, this));
-    }
-}
-
-
-// *****************************************************************************
-void PathTracer::doRenderStop()
-{
-}
-
-
-// *****************************************************************************
-void PathTracer::createJobs(int w, int h)
-{
-    completedJobs = Jobs();
-    jobs = Jobs();
-    const int size = 10;
-    for (int x = 0; x < w; x += size) {
-        for (int y = 0; y < h; y += size) {
-            Job j;
-            j.start_x = x;
-            j.start_y = y;
-            if (x + size >= w) {
-                j.end_x = w;
-            } else {
-                j.end_x = j.start_x + size;
-            }
-            if (y + size >= h) {
-                j.end_y = w;
-            } else {
-                j.end_y = j.start_y + size;
-            }
-            jobs.push(j);
-        }
-    }
-    numJobs = jobs.size();
-}
-
-
-// *****************************************************************************
-/*
-Compute the entire image,
-samples : Number of samples per pixel
-*/
-void PathTracer::render()
-{
-    while(true) //quit out?
-    {
-        //Fetch next job
-        jobMutex.lock();
-        if (jobs.empty()) {
-            jobMutex.unlock();
-            return; //Exit rendering
-        }
-        Job job = jobs.front();
-        jobs.pop();
-        jobMutex.unlock();
-
-        for (int y = job.start_y; y < job.end_y; y++) {
-            for (int x = job.start_x; x < job.end_x; x++) {
-                //For each pixel
-                vec3 color = pixelColor((float)x, (float)y, mScene->samplesPerPixel);
-
-                //Clamp the color
-                color = glm::clamp(color, 0.0f, 1.0f);
-                mImage->setPixel(x, y, color.r, color.g, color.b);
-            }
-        }
-        //Push back completed job
-        {
-            std::lock_guard<std::mutex> guard(doneMutex);
-            completedJobs.push(job);
-            if (completedJobs.size() == numJobs) {
-                mIsRendering = false;
-            }
-        }
-    }
-}
+    scene->cameraUp, scene->cameraFov, scene->width, scene->height))
+{}
 
 
 // *****************************************************************************
@@ -143,18 +27,21 @@ void PathTracer::render()
 Computes the flux for a given pixel
 x, y : pixel coordinate on the image plane
 */
-vec3 PathTracer::pixelColor(float x, float y, int samples)
+vec3 PathTracer::pixelColor(float x, float y, RNG &rng)
 {
+    const int samples = mScene->samplesPerPixel;
+
     vec3 radiance(0.0f, 0.0f, 0.0f);
 
     //H = integral for now, just box filtering
     for (int i = 0; i < samples; i++) {
-        float sample_x = x + mRng.GetRandom01() - 0.5f;
-        float sample_y = y + mRng.GetRandom01() - 0.5f;
+        float sample_x = x + rng.GetRandom01() - 0.5f;
+        float sample_y = y + rng.GetRandom01() - 0.5f;
 
         //Generate primary ray
         Ray r = mCamera.getRay(sample_x, sample_y);
-        radiance = radiance + rad(r, 0.0f, std::numeric_limits<float>::infinity());
+        radiance = radiance
+            + rad(r, 0.0f, std::numeric_limits<float>::infinity(), rng);
     }
 
     radiance /= samples;
@@ -164,7 +51,7 @@ vec3 PathTracer::pixelColor(float x, float y, int samples)
 
 
 // *****************************************************************************
-vec3 PathTracer::rad(const Ray &r, float t0, float t1)
+vec3 PathTracer::rad(const Ray &r, float t0, float t1, RNG &rng) const
 {
     HitRecord rec;
 
@@ -172,7 +59,7 @@ vec3 PathTracer::rad(const Ray &r, float t0, float t1)
     if (mSceneGraph->hit(r, t0, t1, rec)) {
         //Compute radiance
         vec3 theta = normalize(r.origin - rec.point);
-        return rec.surface->material->Ke + computeRadiance(rec, theta, 0);
+        return rec.surface->material->Ke + computeRadiance(rec, theta, 0, rng);
     }
 
     //Ambient
@@ -187,10 +74,11 @@ Compute radiance in direction @theta at point @recX
 vec3 PathTracer::computeRadiance(
     const HitRecord &recX,
     const vec3 &theta,
-    int bounces)
+    int bounces,
+    RNG &rng) const
 {
-    vec3 dir = directIllumination(recX, theta);
-    vec3 ind = indirectIllumination(recX, theta, bounces);
+    vec3 dir = directIllumination(recX, theta, rng);
+    vec3 ind = indirectIllumination(recX, theta, bounces, rng);
 
     //return estimated radiance
     return dir + ind;
@@ -200,14 +88,15 @@ vec3 PathTracer::computeRadiance(
 // *****************************************************************************
 vec3 PathTracer::directIllumination(
     const HitRecord &recX,
-    const vec3 &theta)
+    const vec3 &theta,
+    RNG &rng) const
 {
     vec3 estimatedRadiance(0.0f);
 
     for (int i = 0; i < NUM_SHADOW_RAYS; i++) {
         float light_pdf;
         HitRecord recY;
-        mSceneGraph->getLight()->generatePoint(recY, &light_pdf, &mRng);
+        mSceneGraph->getLight()->generatePoint(recY, &light_pdf, rng);
 
         vec3 brdf = Phong_BRDF(recX.point,
             recX.normal,
@@ -233,20 +122,20 @@ vec3 PathTracer::directIllumination(
 
 
 // *****************************************************************************
-vec3 generateHemisphereDirection(const vec3 &normal, float* pdf, RNG* rng)
+vec3 generateHemisphereDirection(const vec3 &normal, float* pdf, RNG &rng)
 {
     //sample hemisphere
     //Based on http://people.cs.kuleuven.be/~philip.dutre/GI/TotalCompendium.pdf
 
     const float pi = 3.14159265f;
 
-    float azimuth = 2 * pi * rng->GetRandom01();
+    float azimuth = 2 * pi * rng.GetRandom01();
 
-    float r2 = rng->GetRandom01();
+    float r2 = rng.GetRandom01();
 
     //We dont like 0.000 samples, the PDF is 0 for this value!
     while (r2 == 0.00000f) {
-        r2 = rng->GetRandom01();
+        r2 = rng.GetRandom01();
     }
 
     float x = cos(azimuth)*sqrtf(1.0f - r2);
@@ -278,7 +167,8 @@ vec3 generateHemisphereDirection(const vec3 &normal, float* pdf, RNG* rng)
 vec3 PathTracer::indirectIllumination(
     const HitRecord &recX,
     const vec3 &theta,
-    int bounces)
+    int bounces,
+    RNG &rng) const
 {
     vec3 estimatedRadiance(0.0f);
 
@@ -288,13 +178,13 @@ vec3 PathTracer::indirectIllumination(
     if (absorbtion < 0.0)
         absorbtion = 0.0;
 
-    float r = mRng.GetRandom01();
+    float r = rng.GetRandom01();
     if (r >= absorbtion) //Terminate by russian roulette
     {
         for (int i = 0; i < NUM_INDIRE_RAYS; i++) {
             //sample hemisphere
             float pdf_psi;
-            vec3 psi = generateHemisphereDirection(recX.normal, &pdf_psi, &mRng);
+            vec3 psi = generateHemisphereDirection(recX.normal, &pdf_psi, rng);
 
             //Compute outbound ray
             Ray r = Ray(recX.point, psi);
@@ -308,8 +198,9 @@ vec3 PathTracer::indirectIllumination(
 
             //Compute the radiance comming from -psi. Ambient if scene is missed.
             vec3 radiance;
-            if (mSceneGraph->hit(r, mScene->epsilon, std::numeric_limits<float>::infinity(), recY)) {
-                radiance = computeRadiance(recY, -psi, ++bounces);
+            if (mSceneGraph->hit(r, mScene->epsilon,
+                std::numeric_limits<float>::infinity(), recY)) {
+                radiance = computeRadiance(recY, -psi, ++bounces, rng);
             } else {
                 radiance = recX.surface->material->Ka;
             }

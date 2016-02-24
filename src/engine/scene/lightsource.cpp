@@ -21,12 +21,12 @@ LightSource::LightSource(Triangle* t1, Triangle* t2)
 
 
 // *****************************************************************************
-void LightSource::generatePoint(HitRecord& rec, float* pdf, RNG* rng) const
+void LightSource::generatePoint(HitRecord& rec, float* pdf, RNG &rng) const
 {
-    float r = rng->GetRandom01();
+    float r = rng.GetRandom01();
 
-    float u = rng->GetRandom01(); 
-    float v = rng->GetRandom01();
+    float u = rng.GetRandom01(); 
+    float v = rng.GetRandom01();
 
     if (u + v >= 1.0f) {
         u = 1.0f - u;

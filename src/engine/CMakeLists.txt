@@ -71,6 +71,8 @@ set(PROJECT_SOURCES
         renderer/renderer.cpp
         renderer/pathtracer.h
         renderer/pathtracer.cpp
+        renderer/pathtracerrenderer.h
+        renderer/pathtracerrenderer.cpp
         ${INCLUDE_DIR}/sunshineengine.h
         sunshineengine.cpp
         ray.h

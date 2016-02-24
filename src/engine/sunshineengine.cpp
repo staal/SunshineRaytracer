@@ -4,7 +4,7 @@
 
 #include "geometry/objfile.h"
 #include "image/tgafile.h"
-#include "renderer/pathtracer.h"
+#include "renderer/pathtracerrenderer.h"
 #include "scene.h"
 #include "scenegraph.h"
 
@@ -18,8 +18,7 @@ SunshineEngine::SunshineEngine()
     mImage(std::make_shared<Image>(800, 600, false)),
     mSceneGraph(std::make_unique<SceneGraph>()),
     mRenderer(nullptr)
-{
-}
+{}
 
 
 // *****************************************************************************
@@ -36,7 +35,7 @@ const std::string SunshineEngine::getVersion() const
 // *****************************************************************************
 void SunshineEngine::newScene()
 {
-    mImage = std::make_shared<Image>(800,600, false);
+    mImage = std::make_shared<Image>(800, 600, false);
     mScene = std::make_unique<Scene>();
 
     mSceneGraph->clear();
@@ -76,7 +75,7 @@ void SunshineEngine::saveScene(std::string sceneName)
 // *****************************************************************************
 Renderer * SunshineEngine::getRenderer()
 {
-    mRenderer = std::make_unique<PathTracer>(mImage, mSceneGraph.get(), mScene.get());
+    mRenderer = std::make_unique<PathTracerRenderer>(mImage, mSceneGraph.get(), mScene.get());
     return mRenderer.get();
 }
 
