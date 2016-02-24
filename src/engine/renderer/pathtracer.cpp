@@ -184,7 +184,10 @@ vec3 PathTracer::rad(const Ray &r, float t0, float t1)
 /*
 Compute radiance in direction @theta at point @recX
 */
-vec3 PathTracer::computeRadiance(HitRecord &recX, vec3 theta, int bounces)
+vec3 PathTracer::computeRadiance(
+    const HitRecord &recX,
+    const vec3 &theta,
+    int bounces)
 {
     vec3 dir = directIllumination(recX, theta);
     vec3 ind = indirectIllumination(recX, theta, bounces);
@@ -195,7 +198,9 @@ vec3 PathTracer::computeRadiance(HitRecord &recX, vec3 theta, int bounces)
 
 
 // *****************************************************************************
-vec3 PathTracer::directIllumination(HitRecord &recX, vec3 theta)
+vec3 PathTracer::directIllumination(
+    const HitRecord &recX,
+    const vec3 &theta)
 {
     vec3 estimatedRadiance(0.0f);
 
@@ -228,7 +233,7 @@ vec3 PathTracer::directIllumination(HitRecord &recX, vec3 theta)
 
 
 // *****************************************************************************
-vec3 generateHemisphereDirection(vec3 &normal, float* pdf, RNG* rng)
+vec3 generateHemisphereDirection(const vec3 &normal, float* pdf, RNG* rng)
 {
     //sample hemisphere
     //Based on http://people.cs.kuleuven.be/~philip.dutre/GI/TotalCompendium.pdf
@@ -270,7 +275,10 @@ vec3 generateHemisphereDirection(vec3 &normal, float* pdf, RNG* rng)
 
 
 // *****************************************************************************
-vec3 PathTracer::indirectIllumination(HitRecord &recX, vec3 theta, int bounces)
+vec3 PathTracer::indirectIllumination(
+    const HitRecord &recX,
+    const vec3 &theta,
+    int bounces)
 {
     vec3 estimatedRadiance(0.0f);
 
@@ -321,7 +329,9 @@ vec3 PathTracer::indirectIllumination(HitRecord &recX, vec3 theta, int bounces)
 /*
 Compute the radiance transfer G(x,y)V(x,y)
 */
-float PathTracer::radianceTransfer(HitRecord &recX, HitRecord &recY)
+float PathTracer::radianceTransfer(
+    const HitRecord &recX,
+    const HitRecord &recY) const
 {
     if (mSceneGraph->visible(recX, recY)) //V(x,y)
     {
@@ -339,7 +349,12 @@ float PathTracer::radianceTransfer(HitRecord &recX, HitRecord &recY)
 
 
 // *****************************************************************************
-vec3 PathTracer::Phong_BRDF(vec3 x, vec3 Nx, vec3 outDir, vec3 inDir, Material* surfaceMat)
+vec3 PathTracer::Phong_BRDF(
+    const vec3 &x,
+    const vec3 &Nx,
+    const vec3 &outDir,
+    const vec3 &inDir,
+    const Material* surfaceMat) const
 {
     //Modified blinn phong (p 39 AGI)
     vec3 half_vec = normalize(inDir + outDir);

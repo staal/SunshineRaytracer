@@ -16,6 +16,7 @@ struct Pixel {
     Pixel(float r, float g, float b, float a) : r(r), g(g), b(b), a(a)
     {}
 
+    /*! Clamps all fields between min and max. */
     inline void clamp(float min, float max)
     {
         //r

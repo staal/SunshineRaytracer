@@ -64,12 +64,13 @@ private:
     //! The image being rendered.
     std::shared_ptr<Image> mImage;
 
-    //! The current loaded scene. Populate through @loadScene .
+    //! The current loaded scene. Populate through loadScene
     std::unique_ptr<Scene> mScene;
 
     //! The current scenegraph, containing the geometry and materials.
     std::unique_ptr<SceneGraph> mSceneGraph;
 
+    //! The current configured renderer
     std::unique_ptr<Renderer> mRenderer;
 };
 
