@@ -26,13 +26,16 @@ struct HitRecord {
     glm::vec3 point;
 
     /*! Non owning pointer to the surface hit. */
-    Surface* surface;
+    const Surface* surface;
 
     /*! Normal at the point hit */
     glm::vec3 normal;
 
 };
 
+/*!
+    \brief The base surface class for geometry
+*/
 class Surface {
 public:
     /*!
@@ -54,12 +57,13 @@ public:
         const float t0, 
         const float t1, 
         HitRecord& rec
-        ) = 0;
+        ) const = 0;
 
     /*!
         The bounding box of the surface.
     */
-    virtual BoundingBox boundingBox() = 0;
+    virtual BoundingBox boundingBox() const = 0;
+
 
     /*!
         The material associated with this surface. Non owning pointer.

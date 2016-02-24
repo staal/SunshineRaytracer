@@ -21,7 +21,7 @@ LightSource::LightSource(Triangle* t1, Triangle* t2)
 
 
 // *****************************************************************************
-void LightSource::generatePoint(HitRecord& rec, float* pdf, RNG* rng)
+void LightSource::generatePoint(HitRecord& rec, float* pdf, RNG* rng) const
 {
     float r = rng->GetRandom01();
 

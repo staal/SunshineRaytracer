@@ -26,7 +26,7 @@ Camera::Camera(vec3 position, vec3 viewDirection, vec3 up, float fov,
 
 
 // *****************************************************************************
-void Camera::getOrtographicRay(int x, int y, Ray* ray)
+void Camera::getOrtographicRay(int x, int y, Ray* ray) const
 {
     float r = 10.0f;
     float t = 10.0f;
@@ -44,14 +44,14 @@ void Camera::getOrtographicRay(int x, int y, Ray* ray)
 
 
 // *****************************************************************************
-vec3 Camera::getPosition()
+vec3 Camera::getPosition() const
 {
     return vec3(mOrigin);
 }
 
 
 // *****************************************************************************
-Ray Camera::getRay(float x, float y)
+Ray Camera::getRay(float x, float y) const
 {
     float r = 1.0f;
     float t = mAspect;

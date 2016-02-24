@@ -6,7 +6,7 @@ namespace engine {
 
 
 // *****************************************************************************
-BoundingBox Bvh::boundingBox()
+BoundingBox Bvh::boundingBox() const
 {
     return mBoundingBox;
 }
@@ -30,10 +30,10 @@ BoundingBox Bvh::combine(const BoundingBox& b1, const BoundingBox& b2)
 // *****************************************************************************
 class CenterSortFunctor {
 private:
-    Axis axis;
+    Bvh::Axis axis;
     float center;
 public:
-    CenterSortFunctor(Axis axis, float center)
+    CenterSortFunctor(Bvh::Axis axis, float center)
     {
         this->axis = axis; this->center = center;
     }
@@ -42,17 +42,17 @@ public:
     {
         float triCenter = 0.0f;
         switch (axis) {
-            case Axis::X:
+            case Bvh::Axis::X:
                 triCenter = (
                     surface->boundingBox().bounds[0].x +
                     surface->boundingBox().bounds[1].x) / 2;
                 break;
-            case Axis::Y:
+            case Bvh::Axis::Y:
                 triCenter = (
                     surface->boundingBox().bounds[0].y +
                     surface->boundingBox().bounds[1].y) / 2;
                 break;
-            case Axis::Z:
+            case Bvh::Axis::Z:
             default:
                 triCenter = (
                     surface->boundingBox().bounds[0].z +
@@ -121,7 +121,7 @@ Bvh::Bvh(Surfaces::iterator start, Surfaces::iterator end, Axis axis)
 
 
 // *****************************************************************************
-bool Bvh::hit(const Ray& r, float t0, float t1, HitRecord& rec)
+bool Bvh::hit(const Ray& r, float t0, float t1, HitRecord& rec) const
 {
     if (mBoundingBox.hit(r, t0, t1)) {
 

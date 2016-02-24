@@ -14,7 +14,7 @@ BoundingBox::BoundingBox(glm::vec3 min, glm::vec3 max)
 
 
 // *****************************************************************************
-bool BoundingBox::hit(const Ray& r, float t0, float t1)
+bool BoundingBox::hit(const Ray& r, float t0, float t1) const
 {
     float tmin = (bounds[r.sign[0]].x - r.origin.x) * r.invDirection.x;
     float tmax = (bounds[1 - r.sign[0]].x - r.origin.x) * r.invDirection.x;

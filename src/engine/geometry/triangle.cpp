@@ -12,6 +12,7 @@ Triangle::Triangle(Vertex v1, Vertex v2, Vertex v3, Material* mat)
 
 // *****************************************************************************
 bool Triangle::hit(const Ray &r, const float t0, const float t1, HitRecord& rec)
+const
 {
     float a = v1.v.x - v2.v.x;
     float b = v1.v.y - v2.v.y;
@@ -85,7 +86,7 @@ static float max(float a, float b, float c)
 
 
 // *****************************************************************************
-BoundingBox Triangle::boundingBox()
+BoundingBox Triangle::boundingBox() const
 {
     float minx = min(v1.v.x, v2.v.x, v3.v.x);
     float maxx = max(v1.v.x, v2.v.x, v3.v.x);

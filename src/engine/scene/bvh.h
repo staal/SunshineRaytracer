@@ -7,12 +7,17 @@
 namespace sunshine {
 namespace engine{
 
-enum class Axis {
-    X, Y, Z
-};
-
+/*!
+    \brief Bounding volume hierarchy implementation 
+*/
 class Bvh : public Surface {
 public:
+    /*! Pivot axis for building the Bvh */
+    enum class Axis {
+        X, Y, Z
+    };
+
+
     Bvh(Surfaces::iterator start, Surfaces::iterator end, Axis axis = Axis::X);
 
     bool hit(
@@ -20,9 +25,9 @@ public:
         const float t0, 
         const float t1, 
         HitRecord& rec
-        ) override;
+        ) const override;
 
-    BoundingBox boundingBox() override;
+    BoundingBox boundingBox() const override;
 
 private:
     BoundingBox mBoundingBox;

@@ -10,9 +10,10 @@ class Camera {
 public:
     Camera(glm::vec3 position, glm::vec3 viewDirection, glm::vec3 up, float fov, 
         unsigned int width, unsigned int height);
-    glm::vec3 getPosition();
-    Ray getRay(float x, float y);
-    void getOrtographicRay(const int x, const int y, Ray* ray);
+
+    glm::vec3 getPosition() const;
+    Ray getRay(float x, float y) const;
+    void getOrtographicRay(const int x, const int y, Ray* ray) const;
 
 private:
     float mWidth, mHeight;

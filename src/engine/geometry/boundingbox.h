@@ -32,7 +32,7 @@ public:
         \param t0 min length of ray
         \param t1 max length of ray
     */
-    bool hit(const Ray& r, const float t0, const float t1);
+    bool hit(const Ray& r, const float t0, const float t1) const;
 
     /*!
         The bounds of the bounding box. Index 0 is the lower point. Index 1

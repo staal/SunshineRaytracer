@@ -32,13 +32,13 @@ public:
         const float t0, 
         const float t1, 
         HitRecord& rec
-        )  override;
+        ) const override;
 
     /*!
         Override of boundingBox function. 
         See \sa sunshine::engine::Surface::boundingBox        
     */
-    BoundingBox boundingBox() override;
+    BoundingBox boundingBox() const override;
 
     /*!
         Compute the area of the triangle
