@@ -49,12 +49,14 @@ set(PROJECT_SOURCES
         sunshinemainwindow.cpp
         scenewidget.h
         scenewidget.cpp
-        renderdialog/renderdialog.h
-        renderdialog/renderdialog.cpp
-        renderdialog/generaltab.h
-        renderdialog/generaltab.cpp
-        renderdialog/rendertab.h
-        renderdialog/rendertab.cpp
+        renderdialog.h
+        renderdialog.cpp
+        rendersettingsdialog/rendersettingsdialog.h
+        rendersettingsdialog/rendersettingsdialog.cpp
+        rendersettingsdialog/generaltab.h
+        rendersettingsdialog/generaltab.cpp
+        rendersettingsdialog/rendertab.h
+        rendersettingsdialog/rendertab.cpp
         resources/images.qrc   
         )
 

@@ -8,6 +8,7 @@
 namespace sunshine {
 
 class RenderDialog;
+class RenderSettingsDialog;
 
 class SunshineMainWindow : public QMainWindow
 {
@@ -52,6 +53,7 @@ private:
     QString currentFile;
 
     RenderDialog *renderDialog;
+    RenderSettingsDialog *renderSettingsDialog;
 };
 
 

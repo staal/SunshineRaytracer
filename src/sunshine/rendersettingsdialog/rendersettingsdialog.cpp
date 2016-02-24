@@ -1,4 +1,4 @@
-#include "renderdialog.h"
+#include "rendersettingsdialog.h"
 
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -13,7 +13,7 @@ namespace sunshine {
 
 
 // *****************************************************************************
-RenderDialog::RenderDialog(QWidget *parent)
+RenderSettingsDialog::RenderSettingsDialog(QWidget *parent)
     : QDialog(parent, Qt::WindowCloseButtonHint | Qt::WindowTitleHint)
 {
     resize(400, 300);

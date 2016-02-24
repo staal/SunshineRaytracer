@@ -2,14 +2,17 @@
 
 #include "sunshinemainwindow.h"
 #include "sunshineversion.h"
-#include "renderdialog/renderdialog.h"
+#include "renderdialog.h"
+#include "rendersettingsdialog/rendersettingsdialog.h"
 
 namespace sunshine {
 
 
 // *****************************************************************************
 SunshineMainWindow::SunshineMainWindow()
-    : sceneWidget(new SceneWidget(this)), renderDialog(new RenderDialog(this))
+    : sceneWidget(new SceneWidget(this)), 
+    renderSettingsDialog(new RenderSettingsDialog(this)),
+    renderDialog(new RenderDialog(this))
 {
 
     setCentralWidget(sceneWidget);
@@ -288,19 +291,20 @@ void SunshineMainWindow::setCurrentFile(const QString &filename)
 // *****************************************************************************
 void SunshineMainWindow::render()
 {
-    engine.renderScene();
+    //engine.renderScene();
 
-    engine.saveImage();
+    //engine.saveImage();
 
+    renderDialog->exec();
 }
 
 
 // *****************************************************************************
 void SunshineMainWindow::showRenderSettings()
 {
-    renderDialog->show();
-    renderDialog->raise();
-    renderDialog->activateWindow();
+    renderSettingsDialog->show();
+    renderSettingsDialog->raise();
+    renderSettingsDialog->activateWindow();
 }
 
 
