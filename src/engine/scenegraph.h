@@ -14,8 +14,8 @@ public:
 
     LightSource* getLight(); //Only single light for now
     void setEpsilon(float epsilon);
-    bool hit(const Ray& r, const float t0, const float t1, HitRecord& rec);
-    bool visible(HitRecord &recX, HitRecord &recY);
+    bool hit(const Ray& r, const float t0, const float t1, HitRecord& rec) const;
+    bool visible(const HitRecord &recA, const HitRecord &recB) const;
 
     void addMesh(Surfaces surfaces, Materials mats);
     void clear();

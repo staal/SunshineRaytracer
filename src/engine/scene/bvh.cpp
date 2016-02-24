@@ -162,5 +162,27 @@ bool Bvh::hit(const Ray& r, float t0, float t1, HitRecord& rec) const
     return false;
 }
 
+
+// *****************************************************************************
+bool Bvh::intersects(const Ray& r, float t0, float t1) const
+{
+    if (mBoundingBox.hit(r, t0, t1)) {
+        //Left is never null by construction
+        bool leftIntersect = mLeft->intersects(r, t0, t1);
+
+        if (leftIntersect) {
+            return true;
+        }
+
+        bool rightIntersect = (mRight != nullptr) 
+            && mRight->intersects(r, t0, t1);
+
+         if (rightIntersect) {
+            return true;
+        }
+    }
+    return false;
+}
+
 } // namespace engine
 } // namespace sunshine

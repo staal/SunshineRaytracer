@@ -4,7 +4,7 @@
 #include <iterator>
 
 namespace sunshine {
-namespace engine{
+namespace engine {
 
 using namespace glm;
 
@@ -30,19 +30,24 @@ LightSource* SceneGraph::getLight()
 
 
 // *****************************************************************************
-bool SceneGraph::visible(HitRecord &recX, HitRecord &recY)
+bool SceneGraph::visible(const HitRecord &recA, const HitRecord &recB) const
 {
     HitRecord rec;
-    vec3 dir = recY.point - recX.point;
+    vec3 dir = recB.point - recA.point;
     vec3 normalizedDir = normalize(dir);
-    Ray ray(recX.point, normalizedDir);
+    Ray ray(recA.point, normalizedDir);
 
-    return !hit(ray, this->mEpsilon, length(dir) - this->mEpsilon, rec);
+    if (mRoot) {
+        return !mRoot->intersects(
+            ray, this->mEpsilon, length(dir) - this->mEpsilon);
+    }
+    return true;
 }
 
 
 // *****************************************************************************
 bool SceneGraph::hit(const Ray& r, const float t0, const float t1, HitRecord &rec)
+const
 {
     if (mRoot)
         return mRoot->hit(r, t0, t1, rec);

@@ -10,7 +10,7 @@ namespace engine{
 
 class Ray {
 public:
-    Ray(glm::vec3 &o, glm::vec3 &d)
+    Ray(const glm::vec3 &o, const glm::vec3 &d)
         : sign{}
     {
         origin = o;
@@ -20,7 +20,7 @@ public:
         sign[1] = (invDirection.y < 0);
         sign[2] = (invDirection.z < 0);
     }
-    void setRay(glm::vec3 &o, glm::vec3 &d)
+    void setRay(const glm::vec3 &o, const glm::vec3 &d)
     {
         origin = o;
         direction = d;

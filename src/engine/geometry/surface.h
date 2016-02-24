@@ -49,14 +49,27 @@ public:
     virtual ~Surface();
     
     /*!
-        Tests if ray r intersects with this Surface object. Populates 
-        HitRecord with details of hit point.
+        Finds the closest surface going out from Ray r. Populates 
+        HitRecord with details of hit point if hit.
+
+        \returns True if it hit anything, false otherwise.
     */
     virtual bool hit(
         const Ray& r, 
-        const float t0, 
-        const float t1, 
+        const float start, 
+        const float end, 
         HitRecord& rec
+        ) const = 0;
+
+    /*!
+        Tests if ANYTHING is between point A and point B, early return possible
+        compared to hit which returns the closest hit. Returns true if intersect
+        otherwise false.
+    */
+    virtual bool intersects(
+        const Ray& r,
+        const float start,
+        const float end
         ) const = 0;
 
     /*!

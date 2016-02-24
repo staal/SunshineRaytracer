@@ -60,6 +60,51 @@ const
     return true;
 }
 
+// *****************************************************************************
+bool Triangle::intersects(const Ray &r, const float t0, const float t1) const
+{
+    float a = v1.v.x - v2.v.x;
+    float b = v1.v.y - v2.v.y;
+    float c = v1.v.z - v2.v.z;
+
+    float d = v1.v.x - v3.v.x;
+    float e = v1.v.y - v3.v.y;
+    float f = v1.v.z - v3.v.z;
+
+    float g = r.direction.x;
+    float h = r.direction.y;
+    float i = r.direction.z;
+
+    float j = v1.v.x - r.origin.x;
+    float k = v1.v.y - r.origin.y;
+    float l = v1.v.z - r.origin.z;
+
+    float eihf = e*i - h*f;
+    float gfdi = g*f - d*i;
+    float dheg = d* h - e *g;
+    float akjb = a*k - j*b;
+    float blkc = b * l - k*c;
+
+    float M = a * eihf + b * gfdi + c * dheg;
+
+    float t = -(f * akjb + e * (j*c - a*l) + d * blkc) / M;
+
+    if (t < t0 || t > t1)
+        return false;
+
+    float gam = (i * akjb + h * (j*c - a*l) + g * blkc) / M;
+
+    if (gam < 0 || gam > 1)
+        return false;
+
+    float bet = (j * eihf + k * gfdi + l * dheg) / M;
+
+    if (bet < 0 || bet >(1 - gam))
+        return false;
+
+    return true;
+}
+
 
 // *****************************************************************************
 static float min(float a, float b, float c)

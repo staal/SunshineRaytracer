@@ -20,11 +20,23 @@ public:
 
     Bvh(Surfaces::iterator start, Surfaces::iterator end, Axis axis = Axis::X);
 
+    /*!
+    Override of visible function. See \sa sunshine::engine::Surface::hit
+    */
     bool hit(
         const Ray& r, 
         const float t0, 
         const float t1, 
         HitRecord& rec
+        ) const override;
+
+    /*!
+    Override of visible function. See \sa sunshine::engine::Surface::visible
+    */
+    bool intersects(
+        const Ray& r,
+        const float start,
+        const float end
         ) const override;
 
     BoundingBox boundingBox() const override;

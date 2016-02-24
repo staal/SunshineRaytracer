@@ -34,6 +34,16 @@ public:
         HitRecord& rec
         ) const override;
 
+
+    /*!
+    Override of visible function. See \sa sunshine::engine::Surface::visible
+    */
+    bool intersects(
+        const Ray& r,
+        const float start,
+        const float end
+        ) const override;
+
     /*!
         Override of boundingBox function. 
         See \sa sunshine::engine::Surface::boundingBox        
